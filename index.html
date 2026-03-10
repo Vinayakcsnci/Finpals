@@ -970,7 +970,10 @@ function renderRiskXaiTab(app) {
         <div class="progress-bar" style="margin-top:10px"><div class="progress-fill" style="width:${app.affordability*100}%;background:${app.affordability>=0.6?'var(--teal)':'var(--red)'}"></div></div>
       </div>
       <div class="card"><div class="card-title">Risk-Based Pricing (EBA LOM)</div>
-        ${[['APR',app.apr+'%'],['Risk Grade',app.riskGrade],['Pricing Framework','EBA LOM aligned'],['Collateral',app.loanType==='Asset Finance'?'Asset-backed':'Unsecured']].map(([l,v])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value">${v}</span></div>`).join('')}
+        <div class="metric-row"><span class="metric-label">APR</span><span class="metric-value">${app.apr}%</span></div>
+        <div class="metric-row"><span class="metric-label">Risk Grade</span><span class="metric-value">${app.riskGrade}</span></div>
+        <div class="metric-row"><span class="metric-label">Pricing Framework</span><span class="metric-value">EBA LOM aligned</span></div>
+        <div class="metric-row"><span class="metric-label">Collateral</span><span class="metric-value">${app.loanType==='Asset Finance'?'Asset-backed':'Unsecured'}</span></div>
       </div>
     </div>
     <div class="section-header"><div class="section-title">SHAP Explainability \u2014 Top Decision Factors</div><span class="tag tag-complete">EU AI Act Art.13</span></div>
@@ -1129,14 +1132,12 @@ function renderEvidenceTab(app) {
     </div>
     <div class="section-header"><div class="section-title">Pricing Transparency (EBA LOM)</div></div>
     <div class="card" style="margin-bottom:14px">
-      ${[
-        ['Risk-Based APR',app.apr?app.apr+'%':'\u2014'],
-        ['Risk Grade',app.riskGrade||'\u2014'],
-        ['PD Component',(app.pd*100).toFixed(2)+'% \u2192 spread +'+((app.pd*100)*0.8).toFixed(1)+'bps'],
-        ['LGD Component',(app.lgd*100).toFixed(0)+'% \u2192 capital charge applied'],
-        ['Pricing Framework','EBA LOM aligned \u2014 risk-based pricing policy'],
-        ['Collateral Valuation',app.loanType==='Asset Finance'?'Independent valuation required':'N/A (unsecured)'],
-      ].map(([l,v])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value">${v}</span></div>`).join('')}
+      <div class="metric-row"><span class="metric-label">Risk-Based APR</span><span class="metric-value">${app.apr?app.apr+'%':'\u2014'}</span></div>
+      <div class="metric-row"><span class="metric-label">Risk Grade</span><span class="metric-value">${app.riskGrade||'\u2014'}</span></div>
+      <div class="metric-row"><span class="metric-label">PD Component</span><span class="metric-value">${(app.pd*100).toFixed(2)}% - spread +${((app.pd*100)*0.8).toFixed(1)}bps</span></div>
+      <div class="metric-row"><span class="metric-label">LGD Component</span><span class="metric-value">${(app.lgd*100).toFixed(0)}% - capital charge applied</span></div>
+      <div class="metric-row"><span class="metric-label">Pricing Framework</span><span class="metric-value">EBA LOM aligned - risk-based pricing policy</span></div>
+      <div class="metric-row"><span class="metric-label">Collateral Valuation</span><span class="metric-value">${app.loanType==='Asset Finance'?'Independent valuation required':'Not applicable (unsecured)'}</span></div>
     </div>
     <div class="decision-gate">
       <div class="decision-gate-title">\u2696 Underwriter Decision Gate</div>
