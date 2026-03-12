@@ -1,0 +1,163 @@
+"""Part 3: JavaScript data + core functions"""
+
+JS_DATA = r"""
+const APPS = [
+  {
+    id:'FP-2025-0041', company:"O'Brien Construction Ltd", sector:'Construction',
+    amount:'\u20AC420,000', loanType:'Working Capital', crn:'CRN 654821', requested:'18 Feb 2025',
+    status:'complete', dscr:1.42, revenue:'\u20AC2.84M', revenueActual:'\u20AC2.61M', cashflow:'\u20AC187K',
+    discrepancy:true,
+    discrepancyDetail:'Declared revenue \u20AC2.84M vs actual lodgements \u20AC2.61M \u2014 variance of \u20AC230K (8.1%). Likely timing of year-end receivables. Flagged for underwriter review.',
+    pd:0.034, lgd:0.42, ead:420000, affordability:0.82, riskGrade:'B1', apr:8.5,
+    eclStage:1, ecl12m:6020, eclLifetime:18400,
+    shapValues:[
+      {feature:'DSCR',value:0.34,direction:'positive'},
+      {feature:'Revenue Trend',value:0.28,direction:'positive'},
+      {feature:'Sector Risk (Construction)',value:0.15,direction:'negative'},
+      {feature:'Trading History (12yr)',value:0.22,direction:'positive'},
+      {feature:'Existing Debt Load',value:0.11,direction:'negative'},
+    ],
+    fairnessMetrics:{disparateImpact:0.92,equalOpportunity:0.03},
+    consentLog:[
+      {type:'Open Banking (PSD2)',timestamp:'14:21:45',status:'granted'},
+      {type:'Credit Bureau Pull',timestamp:'14:21:46',status:'granted'},
+      {type:'Automated Processing (GDPR Art.22)',timestamp:'14:21:47',status:'granted'},
+      {type:'Data Retention (5yr)',timestamp:'14:21:48',status:'granted'},
+    ],
+    narrative:`<strong>O'Brien Construction Ltd</strong> is a 12-year-old construction and civil engineering firm based in Dublin 12. The company employs 34 FTE and has maintained continuous trading throughout the assessment period. <br><br>Open banking analysis of the AIB business current account (24 months, ending Feb 2025) confirms <strong>average monthly revenue lodgements of \u20AC217K</strong>, giving an annualised actual turnover of \u20AC2.61M. The company's management accounts declare \u20AC2.84M \u2014 a variance of <strong>\u20AC230K (8.1%)</strong> which should be explored at credit interview. Variance is within tolerable range and may reflect timing of large contract receivables. <br><br>PD model (v3.2) calculates <strong>probability of default at 3.4%</strong> with LGD of 42% and EAD of \u20AC420K, resulting in a <strong>risk grade of B1</strong>. Risk-based pricing set at <strong>8.5% APR</strong> per EBA LOM pricing framework. DSCR calculated at <strong>1.42\u00D7</strong> on actual cash flows, comfortably above the lender's 1.20\u00D7 policy threshold.<br><br>IFRS 9 staging: <strong>Stage 1</strong> \u2014 12-month ECL of \u20AC6,020. SHAP analysis identifies DSCR and revenue trend as primary positive drivers. AML screening returned <strong>clear on directors</strong>. CRO filings are current. Tax clearance confirmed via ROS.`,
+    checks:[
+      {name:'GDPR Art.13/14 Notice',detail:'Data processing notice presented and acknowledged. Consent for automated processing obtained per GDPR Article 22.',status:'pass',time:'14:21:47'},
+      {name:'AML / PEP Screening',detail:'Se\u00E1n O\'Brien (Director) \u2014 Clear. Marie O\'Brien (Director) \u2014 Clear. No PEP, sanction, or adverse media hits.',status:'pass',time:'14:22:07'},
+      {name:'CRO Company History',detail:'Incorporated 12 Feb 2013. Status: Normal. 2 directors. Latest accounts filed 30 Nov 2024. No winding-up orders.',status:'pass',time:'14:22:09'},
+      {name:'Tax Clearance (ROS)',detail:'Clearance certificate valid. Expiry: 31 Dec 2025. VAT, PAYE, CT all current.',status:'pass',time:'14:22:11'},
+      {name:'Fraud & Synthetic ID Check',detail:'Device fingerprint normal. No duplicate applications detected. Behavioral risk score: Low.',status:'pass',time:'14:22:12'},
+      {name:'Existing Debt Schedule',detail:'SBCI Working Capital: \u20AC60K remaining, 12 months. SBCI Equipment: \u20AC90K remaining, 18 months. Total monthly obligation: \u20AC12,800.',status:'warn',time:'14:22:13'},
+      {name:'Revenue Reconciliation',detail:'Declared \u20AC2.84M vs actual lodgements \u20AC2.61M. Variance \u20AC230K (8.1%). Within tolerable range \u2014 flagged for review.',status:'warn',time:'14:22:15'},
+      {name:'EBA LOM Credit Policy',detail:'DSCR 1.42\u00D7 \u2265 1.20\u00D7 threshold \u2713. LTV N/A (working capital). Sector: Construction \u2014 standard risk weighting. All policy gates passed.',status:'pass',time:'14:22:17'},
+      {name:'EU AI Act Compliance (Art.9-15)',detail:'High-risk AI system classification confirmed. Risk management, logging, transparency, human oversight controls active. SHAP explanations generated.',status:'pass',time:'14:22:18'},
+      {name:'Fairness & Bias Check',detail:'Disparate impact ratio: 0.92 (threshold >0.80 \u2713). Equal opportunity delta: 0.03 (threshold <0.10 \u2713). No adverse bias detected.',status:'pass',time:'14:22:19'},
+    ],
+    transactions:[
+      {date:'Jan 25',desc:'LODGE - MCMAHON CIVIL ENG',category:'Revenue',amount:'+\u20AC84,200'},
+      {date:'Jan 25',desc:'LODGE - DUBLIN CITY COUNCIL',category:'Revenue',amount:'+\u20AC112,450'},
+      {date:'Jan 25',desc:'DWT PAYROLL',category:'Payroll',amount:'-\u20AC62,400'},
+      {date:'Jan 25',desc:'AIB LOAN REPAYMENT',category:'Debt Service',amount:'-\u20AC12,800'},
+      {date:'Jan 25',desc:'VAT ROS PAYMENT',category:'Tax',amount:'-\u20AC28,650'},
+      {date:'Dec 24',desc:'LODGE - COYLE CONTRACTS',category:'Revenue',amount:'+\u20AC96,300'},
+      {date:'Dec 24',desc:'DWT PAYROLL',category:'Payroll',amount:'-\u20AC62,400'},
+      {date:'Nov 24',desc:'LODGE - NTA FRAMEWORK',category:'Revenue',amount:'+\u20AC145,000'},
+      {date:'Nov 24',desc:'LODGE - MCMAHON CIVIL ENG',category:'Revenue',amount:'+\u20AC67,800'},
+      {date:'Nov 24',desc:'DWT PAYROLL',category:'Payroll',amount:'-\u20AC62,400'},
+    ],
+    bars:[70,82,88,65,92,78,84,71,96,80,87,73],
+  },
+  {
+    id:'FP-2025-0042', company:'Clancy Logistics DAC', sector:'Transport & Logistics',
+    amount:'\u20AC185,000', loanType:'Asset Finance', crn:'CRN 412076', requested:'19 Feb 2025',
+    status:'processing', dscr:null, revenue:null, discrepancy:false, narrative:null,
+    pd:null, lgd:null, ead:null, affordability:null, riskGrade:null, apr:null,
+    eclStage:null, ecl12m:null, eclLifetime:null, shapValues:[], fairnessMetrics:null, consentLog:[],
+    checks:[], transactions:[], bars:[],
+  },
+  {
+    id:'FP-2025-0040', company:'Ferris Hospitality Group', sector:'Hospitality',
+    amount:'\u20AC310,000', loanType:'Working Capital', crn:'CRN 589340', requested:'15 Feb 2025',
+    status:'flagged', dscr:1.08, revenue:'\u20AC1.92M', revenueActual:'\u20AC1.55M', cashflow:'\u20AC44K',
+    discrepancy:true,
+    discrepancyDetail:'Declared revenue \u20AC1.92M vs actual lodgements \u20AC1.55M \u2014 variance of \u20AC370K (19.3%). Materially above tolerance. Combined with DSCR of 1.08\u00D7 (below 1.20\u00D7 policy minimum), this application does not currently meet credit policy. Recommend decline unless additional collateral offered.',
+    pd:0.128, lgd:0.55, ead:310000, affordability:0.41, riskGrade:'C2', apr:14.8,
+    eclStage:2, ecl12m:21824, eclLifetime:58100,
+    shapValues:[
+      {feature:'DSCR',value:0.42,direction:'negative'},
+      {feature:'Revenue Variance (19.3%)',value:0.38,direction:'negative'},
+      {feature:'Cash Flow Volatility',value:0.25,direction:'negative'},
+      {feature:'Trading History (14yr)',value:0.18,direction:'positive'},
+      {feature:'Sector (Hospitality)',value:0.12,direction:'negative'},
+    ],
+    fairnessMetrics:{disparateImpact:0.89,equalOpportunity:0.05},
+    consentLog:[
+      {type:'Open Banking (PSD2)',timestamp:'09:14:10',status:'granted'},
+      {type:'Credit Bureau Pull',timestamp:'09:14:11',status:'granted'},
+      {type:'Automated Processing (GDPR Art.22)',timestamp:'09:14:12',status:'granted'},
+    ],
+    narrative:`<strong>Ferris Hospitality Group</strong> operates two licensed premises in Cork city. Open banking analysis reveals <strong>significant revenue discrepancy</strong> \u2014 declared management accounts show \u20AC1.92M turnover, however lodgements total only \u20AC1.55M, a variance of <strong>\u20AC370K (19.3%)</strong> which materially exceeds the lender's 10% tolerance threshold.<br><br>PD model (v3.2) calculates <strong>probability of default at 12.8%</strong> with LGD of 55% and EAD of \u20AC310K, resulting in a <strong>risk grade of C2</strong>. Risk-based pricing: <strong>14.8% APR</strong>. DSCR calculated at <strong>1.08\u00D7</strong> on actual cash flows, which is <strong>below the lender's 1.20\u00D7 minimum policy requirement</strong>.<br><br>IFRS 9 staging: <strong>Stage 2</strong> (significant increase in credit risk) \u2014 lifetime ECL of \u20AC58,100. SHAP analysis highlights DSCR and revenue variance as primary negative drivers. AML screening clear on all directors. Revenue discrepancy and sub-policy DSCR are the critical concerns.`,
+    checks:[
+      {name:'GDPR Art.13/14 Notice',detail:'Data processing notice presented and acknowledged.',status:'pass',time:'09:14:12'},
+      {name:'AML / PEP Screening',detail:'Eoin Ferris (Director) \u2014 Clear. Patricia Ferris (Director) \u2014 Clear.',status:'pass',time:'09:14:22'},
+      {name:'CRO Company History',detail:'Incorporated 3 Sep 2011. Status: Normal. Latest accounts filed 28 Sep 2024.',status:'pass',time:'09:14:24'},
+      {name:'Tax Clearance (ROS)',detail:'Clearance certificate valid. Expiry: 31 Dec 2025.',status:'pass',time:'09:14:26'},
+      {name:'Fraud & Synthetic ID Check',detail:'Device fingerprint normal. No duplicates. Behavioral risk: Low.',status:'pass',time:'09:14:27'},
+      {name:'Revenue Reconciliation',detail:'Declared \u20AC1.92M vs actual lodgements \u20AC1.55M. Variance \u20AC370K (19.3%). EXCEEDS 10% tolerance threshold.',status:'fail',time:'09:14:28'},
+      {name:'EBA LOM Credit Policy \u2014 DSCR',detail:'DSCR 1.08\u00D7 BELOW 1.20\u00D7 policy minimum. Application does not currently meet credit policy.',status:'fail',time:'09:14:30'},
+      {name:'EU AI Act Compliance (Art.9-15)',detail:'High-risk AI system controls active. SHAP explanations generated. Human oversight required for this decision.',status:'pass',time:'09:14:31'},
+      {name:'Fairness & Bias Check',detail:'Disparate impact ratio: 0.89 (>0.80 \u2713). Equal opportunity delta: 0.05 (<0.10 \u2713).',status:'pass',time:'09:14:32'},
+      {name:'Over-Indebtedness Warning',detail:'Borrower debt-to-income ratio elevated. Responsible lending guardrails triggered per CGAP guidelines.',status:'warn',time:'09:14:33'},
+    ],
+    transactions:[
+      {date:'Jan 25',desc:'LODGE - ZETTLE CARD SALES',category:'Revenue',amount:'+\u20AC28,400'},
+      {date:'Jan 25',desc:'LODGE - CASH TAKINGS',category:'Revenue',amount:'+\u20AC14,200'},
+      {date:'Jan 25',desc:'DWT PAYROLL',category:'Payroll',amount:'-\u20AC22,100'},
+      {date:'Jan 25',desc:'AIB TERM LOAN',category:'Debt Service',amount:'-\u20AC18,200'},
+      {date:'Dec 24',desc:'LODGE - ZETTLE CARD SALES',category:'Revenue',amount:'+\u20AC31,800'},
+      {date:'Dec 24',desc:'LODGE - CASH TAKINGS',category:'Revenue',amount:'+\u20AC17,600'},
+      {date:'Dec 24',desc:'DWT PAYROLL',category:'Payroll',amount:'-\u20AC22,100'},
+    ],
+    bars:[45,52,48,55,42,60,38,44,50,47,55,43],
+  },
+  {
+    id:'FP-2025-0039', company:'GreenwayTech Solutions', sector:'Technology',
+    amount:'\u20AC90,000', loanType:'Working Capital', crn:'CRN 701234', requested:'12 Feb 2025',
+    status:'decided', decision:'approved', dscr:2.18, revenue:'\u20AC1.1M', revenueActual:'\u20AC1.08M',
+    cashflow:'\u20AC212K', discrepancy:false, narrative:null,
+    pd:0.012, lgd:0.35, ead:90000, affordability:0.94, riskGrade:'A1', apr:6.2,
+    eclStage:1, ecl12m:378, eclLifetime:1260,
+    shapValues:[
+      {feature:'DSCR (2.18\u00D7)',value:0.45,direction:'positive'},
+      {feature:'Revenue Stability',value:0.32,direction:'positive'},
+      {feature:'Low Leverage',value:0.28,direction:'positive'},
+      {feature:'Sector (Technology)',value:0.15,direction:'positive'},
+      {feature:'Company Age (3yr)',value:0.08,direction:'negative'},
+    ],
+    fairnessMetrics:{disparateImpact:0.95,equalOpportunity:0.02},
+    consentLog:[
+      {type:'Open Banking (PSD2)',timestamp:'11:30:10',status:'granted'},
+      {type:'Automated Processing (GDPR Art.22)',timestamp:'11:30:12',status:'granted'},
+    ],
+    checks:[], transactions:[],
+    bars:[60,65,70,72,68,80,75,82,88,84,90,86],
+  },
+];
+
+let currentAppId = null;
+let currentView = 'apps';
+let processingTimer = null;
+let processingStep = 0;
+const processingSteps = [
+  '\u{1F4CB} [STEP 1] Borrower application received via intake portal\u2026',
+  '\u{1F512} GDPR Art.13/14 notice served \u2014 consent captured\u2026',
+  '\u{1F4CE} [STEP 2] Ingesting uploaded documents into IDP pipeline\u2026',
+  '\u{1F916} [STEP 3 \u2014 IDP] Running OCR on management accounts\u2026',
+  '\u{1F916} [STEP 3 \u2014 IDP] Extracting structured financial figures\u2026',
+  '\u{1F916} [STEP 3 \u2014 IDP] Parsing director ID and company documents\u2026',
+  '\u{1F916} [STEP 3 \u2014 IDP] Document authenticity signals evaluated\u2026',
+  '\u2705 [STEP 4] Connecting to open banking (PSD2/AISP)\u2026',
+  '\u2705 [STEP 4] Pulling 24 months transaction history\u2026',
+  '\u2705 [STEP 4] Categorising transactions\u2026',
+  '\u2705 [STEP 4] Reconciling declared vs actual revenue\u2026',
+  '\u2705 [STEP 4] Running AML / PEP screening on directors\u2026',
+  '\u2705 [STEP 4] Checking CRO company registry\u2026',
+  '\u2705 [STEP 4] Verifying tax clearance (ROS)\u2026',
+  '\u{1F4CA} [STEP 5] Computing PD / LGD / EAD models\u2026',
+  '\u{1F4CA} [STEP 5] Running affordability & capacity-to-repay\u2026',
+  '\u{1F4CA} [STEP 5] Calculating risk-based pricing (EBA LOM)\u2026',
+  '\u{1F4CA} [STEP 5] Generating SHAP explanations (EU AI Act Art.13)\u2026',
+  '\u{1F4CA} [STEP 5] Evaluating fairness metrics\u2026',
+  '\u{1F4CA} [STEP 5] Computing IFRS 9 ECL staging\u2026',
+  '\u{1F4CA} [STEP 5] Applying EU AI Act compliance controls\u2026',
+  '\u{1F4CA} [STEP 5] Generating evidence pack \u2014 awaiting underwriter\u2026',
+];
+"""
+
+with open(__file__.replace("_js1.py",  "_js1.txt"), "w", encoding="utf-8") as f:
+    f.write(JS_DATA)
+print("Part 3 (JS data) ready")

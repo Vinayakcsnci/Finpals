@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FinPal v2.0 — Credit Intelligence Platform</title>
+<title>FinPal v2.0 — AI-Powered Loan Intake &amp; Assessment Platform</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
@@ -227,11 +227,14 @@ svg.sparkline { display:block; }
       <div class="logo-mark">F</div>
       <div>
         <div class="logo-text">FinPal</div>
-        <div class="logo-tag">CREDIT INTELLIGENCE v2.0</div>
+        <div class="logo-tag">LOAN INTAKE &amp; ASSESSMENT</div>
       </div>
     </div>
     <div class="nav-section">
       <div class="nav-label">Platform</div>
+      <div class="nav-item" data-view="intake" onclick="switchView('intake')">
+        <span class="icon">&#x2B06;</span> Intake Pipeline
+      </div>
       <div class="nav-item active" data-view="apps" onclick="switchView('apps')">
         <span class="icon">&#x2B1B;</span> Applications <span class="nav-badge">4</span>
       </div>
@@ -259,6 +262,9 @@ svg.sparkline { display:block; }
       <div class="nav-item" data-view="bureau" onclick="switchView('bureau')">
         <span class="icon">&#x2709;</span> Bureau Reporting
       </div>
+      <div class="nav-item" data-view="architecture" onclick="switchView('architecture')">
+        <span class="icon">&#x1F512;</span> Architecture &amp; Security
+      </div>
     </div>
     <div class="nav-section" style="flex:1;overflow:hidden;display:flex;flex-direction:column;">
       <div class="nav-label">Queue</div>
@@ -275,8 +281,11 @@ svg.sparkline { display:block; }
         <div style="display:flex;justify-content:space-between;margin-bottom:4px">
           <span>Data residency</span><span style="color:var(--green)">&#x2713; Azure West EU</span>
         </div>
-        <div style="display:flex;justify-content:space-between">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px">
           <span>GDPR</span><span style="color:var(--green)">&#x2713; Art.22 Compliant</span>
+        </div>
+        <div style="display:flex;justify-content:space-between">
+          <span>Tenant Isolation</span><span style="color:var(--teal)">&#x2713; Dedicated</span>
         </div>
       </div>
     </div>
@@ -286,7 +295,7 @@ svg.sparkline { display:block; }
     <div id="topbar">
       <div>
         <div class="topbar-title" id="topbar-title">Applications</div>
-        <div class="topbar-subtitle" id="topbar-sub">FinPal Credit Intelligence v2.0 &middot; EU AI Act High-Risk Compliant &middot; EBA LOM Aligned</div>
+        <div class="topbar-subtitle" id="topbar-sub">FinPal AI-Powered Loan Intake &amp; Document Processing &middot; EU AI Act High-Risk Compliant &middot; Tenant-Isolated SaaS</div>
       </div>
       <div class="topbar-actions" id="topbar-actions">
         <button class="btn btn-outline" onclick="showNewAppModal()">&#xFF0B; New Application</button>
@@ -300,12 +309,14 @@ svg.sparkline { display:block; }
         </div>
       </div>
       <!-- Side panel views -->
+      <div id="view-intake" class="side-panel"></div>
       <div id="view-models" class="side-panel"></div>
       <div id="view-portfolio" class="side-panel"></div>
       <div id="view-compliance" class="side-panel"></div>
       <div id="view-collections" class="side-panel"></div>
       <div id="view-bureau" class="side-panel"></div>
       <div id="view-audit" class="side-panel"></div>
+      <div id="view-architecture" class="side-panel"></div>
     </div>
   </div>
 </div>
@@ -331,11 +342,14 @@ svg.sparkline { display:block; }
 
 <!-- New App modal -->
 <div class="modal-overlay" id="new-app-modal">
-  <div class="modal">
-    <div class="modal-title">New SME Application</div>
-    <div class="modal-body">Submit a new SME credit application for automated assessment. GDPR Article 13/14 notice and consent capture will be initiated automatically.</div>
+  <div class="modal" style="max-width:540px">
+    <div class="modal-title">&#x2B06; Borrower Intake Portal</div>
+    <div class="modal-body" style="margin-bottom:14px">
+      <strong>Step 1 of 5 &mdash; Application Submission.</strong> The borrower submits basic details here. Documents will be uploaded next. GDPR Article 13/14 notice and consent for automated processing (Art.22) are captured automatically before assessment begins.
+    </div>
+    <div style="font-size:10px;color:var(--teal);font-family:var(--font-mono);letter-spacing:.5px;margin-bottom:10px;text-transform:uppercase">Borrower Details</div>
     <div style="display:flex;flex-direction:column;gap:10px">
-      <input type="text" id="new-company" placeholder="Company name" style="background:var(--panel);border:1px solid var(--border);border-radius:var(--r);color:var(--white);font-family:var(--font-body);font-size:13px;padding:9px 12px;width:100%">
+      <input type="text" id="new-company" placeholder="Company / business name" style="background:var(--panel);border:1px solid var(--border);border-radius:var(--r);color:var(--white);font-family:var(--font-body);font-size:13px;padding:9px 12px;width:100%">
       <input type="text" id="new-amount" placeholder="Loan amount requested (EUR)" style="background:var(--panel);border:1px solid var(--border);border-radius:var(--r);color:var(--white);font-family:var(--font-body);font-size:13px;padding:9px 12px;width:100%">
       <select id="new-type" style="background:var(--panel);border:1px solid var(--border);border-radius:var(--r);color:var(--white);font-family:var(--font-body);font-size:13px;padding:9px 12px;width:100%">
         <option value="">Loan type...</option>
@@ -345,9 +359,24 @@ svg.sparkline { display:block; }
         <option>Invoice Finance</option>
       </select>
     </div>
+    <div style="font-size:10px;color:var(--teal);font-family:var(--font-mono);letter-spacing:.5px;margin-top:14px;margin-bottom:10px;text-transform:uppercase">Document Upload (IDP)</div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="background:var(--panel);border:1px dashed var(--border);border-radius:var(--r);padding:10px 14px;font-size:12px;color:var(--muted)">
+        <span style="color:var(--teal)">&#x1F4CB;</span> Passport / Director ID &mdash; <span style="font-family:var(--font-mono);font-size:11px">JPEG / PDF</span>
+      </div>
+      <div style="background:var(--panel);border:1px dashed var(--border);border-radius:var(--r);padding:10px 14px;font-size:12px;color:var(--muted)">
+        <span style="color:var(--teal)">&#x1F4CB;</span> Financial Statements / Management Accounts &mdash; <span style="font-family:var(--font-mono);font-size:11px">PDF</span>
+      </div>
+      <div style="background:var(--panel);border:1px dashed var(--border);border-radius:var(--r);padding:10px 14px;font-size:12px;color:var(--muted)">
+        <span style="color:var(--teal)">&#x1F4CB;</span> Company Registration / CRO Documents &mdash; <span style="font-family:var(--font-mono);font-size:11px">PDF</span>
+      </div>
+    </div>
+    <div style="margin-top:12px;font-size:11px;color:var(--muted);font-family:var(--font-mono)">
+      &#x1F512; All data remains within your dedicated tenant environment. IDP processing is performed in an isolated model instance. No data is shared with external AI providers.
+    </div>
     <div class="modal-actions" style="margin-top:18px">
       <button class="btn btn-outline" onclick="document.getElementById('new-app-modal').classList.remove('open')">Cancel</button>
-      <button class="btn btn-primary" onclick="submitNewApp()">Begin Assessment</button>
+      <button class="btn btn-primary" onclick="submitNewApp()">&#x25B6; Begin IDP Assessment</button>
     </div>
   </div>
 </div>
@@ -486,26 +515,28 @@ let currentView = 'apps';
 let processingTimer = null;
 let processingStep = 0;
 const processingSteps = [
-  'Ingesting uploaded documents\u2026',
-  'Running OCR on management accounts\u2026',
-  'Extracting financial figures\u2026',
-  'Connecting to open banking (PSD2/AISP)\u2026',
-  'Pulling 24 months transaction history\u2026',
-  'Categorising transactions\u2026',
-  'Computing PD / LGD / EAD models\u2026',
-  'Running affordability & capacity-to-repay\u2026',
-  'Calculating risk-based pricing\u2026',
-  'Generating SHAP explanations\u2026',
-  'Evaluating fairness metrics\u2026',
-  'Reconciling declared vs actual figures\u2026',
-  'Running AML / PEP screening\u2026',
-  'Checking CRO company registry\u2026',
-  'Verifying tax clearance (ROS)\u2026',
-  'Computing IFRS 9 ECL staging\u2026',
-  'Applying EBA LOM credit policy\u2026',
-  'Validating EU AI Act compliance\u2026',
-  'Generating evidence pack\u2026',
-  'Building audit trail\u2026',
+  '\u{1F4CB} [STEP 1] Borrower application received via intake portal\u2026',
+  '\u{1F512} GDPR Art.13/14 notice served \u2014 consent captured\u2026',
+  '\u{1F4CE} [STEP 2] Ingesting uploaded documents into IDP pipeline\u2026',
+  '\u{1F916} [STEP 3 \u2014 IDP] Running OCR on management accounts\u2026',
+  '\u{1F916} [STEP 3 \u2014 IDP] Extracting structured financial figures\u2026',
+  '\u{1F916} [STEP 3 \u2014 IDP] Parsing director ID and company documents\u2026',
+  '\u{1F916} [STEP 3 \u2014 IDP] Document authenticity signals evaluated\u2026',
+  '\u2705 [STEP 4] Connecting to open banking (PSD2/AISP)\u2026',
+  '\u2705 [STEP 4] Pulling 24 months transaction history\u2026',
+  '\u2705 [STEP 4] Categorising transactions\u2026',
+  '\u2705 [STEP 4] Reconciling declared vs actual revenue\u2026',
+  '\u2705 [STEP 4] Running AML / PEP screening on directors\u2026',
+  '\u2705 [STEP 4] Checking CRO company registry\u2026',
+  '\u2705 [STEP 4] Verifying tax clearance (ROS)\u2026',
+  '\u{1F4CA} [STEP 5] Computing PD / LGD / EAD models\u2026',
+  '\u{1F4CA} [STEP 5] Running affordability & capacity-to-repay\u2026',
+  '\u{1F4CA} [STEP 5] Calculating risk-based pricing (EBA LOM)\u2026',
+  '\u{1F4CA} [STEP 5] Generating SHAP explanations (EU AI Act Art.13)\u2026',
+  '\u{1F4CA} [STEP 5] Evaluating fairness metrics\u2026',
+  '\u{1F4CA} [STEP 5] Computing IFRS 9 ECL staging\u2026',
+  '\u{1F4CA} [STEP 5] Applying EU AI Act compliance controls\u2026',
+  '\u{1F4CA} [STEP 5] Generating evidence pack \u2014 awaiting underwriter\u2026',
 ];
 
 
@@ -530,12 +561,150 @@ function switchView(view) {
 function renderSideView(view) {
   const el = document.getElementById('view-' + view);
   if (!el) return;
-  if (view === 'models') el.innerHTML = renderModelGovernance();
+  if (view === 'intake') el.innerHTML = renderIntakePipeline();
+  else if (view === 'models') el.innerHTML = renderModelGovernance();
   else if (view === 'portfolio') el.innerHTML = renderPortfolioRisk();
   else if (view === 'compliance') el.innerHTML = renderComplianceDashboard();
   else if (view === 'collections') el.innerHTML = renderCollections();
   else if (view === 'bureau') el.innerHTML = renderBureauReporting();
   else if (view === 'audit') el.innerHTML = renderGlobalAudit();
+  else if (view === 'architecture') el.innerHTML = renderArchitecture();
+}
+
+// ── Intake Pipeline ──────────────────────────────────────────
+function renderIntakePipeline() {
+  const steps = [
+    {
+      num:'1', label:'Borrower Application Submission', icon:'\u{1F4DD}', color:'var(--teal)',
+      desc:'Borrower accesses the self-service intake portal and submits company details, loan amount, and loan purpose. GDPR Art.13/14 notice is presented automatically. Consent for automated processing (Art.22) is captured and timestamped before any data is processed.',
+      items:['Company name, CRN, director details','Loan amount and purpose','GDPR consent capture (Art.13/14, Art.22)','Identity verification consent'],
+    },
+    {
+      num:'2', label:'Document Upload', icon:'\u{1F4CE}', color:'var(--teal)',
+      desc:'Borrower uploads supporting documents through the secure intake portal. All documents are encrypted in transit and at rest within the lender\'s dedicated tenant environment. No documents are accessible to FinPal or any external party.',
+      items:['Passport / Director photo ID (JPEG/PDF)','Management accounts / financial statements (PDF)','Company registration documents (CRO)','Tax clearance certificate (ROS)','Bank statements (6-24 months)'],
+    },
+    {
+      num:'3', label:'IDP \u2014 Intelligent Document Processing', icon:'\u{1F916}', color:'var(--teal)',
+      desc:'FinPal\'s AI runs OCR and structured data extraction on all uploaded documents within the lender\'s isolated model instance. No raw document data leaves the lender\'s tenant environment. The AI model is dedicated per lender \u2014 it does not share compute or data with other lenders or external AI providers (OpenAI, AWS, etc.).',
+      items:['OCR extraction of financial figures from PDFs','Named entity recognition (director names, company details)','Structured data output: revenue, P&L, balance sheet','Document authenticity signals (layout, font, metadata)','All processing inside dedicated tenant \u2014 no external AI calls'],
+    },
+    {
+      num:'4', label:'Data Validation & External Checks', icon:'\u2705', color:'var(--gold)',
+      desc:'Extracted data is cross-validated against authoritative external sources. This step confirms the accuracy of borrower-supplied information before the application enters the credit assessment pipeline.',
+      items:['CRO company registry \u2014 directors, incorporation, filing history','Revenue reconciliation: declared vs actual open banking lodgements','AML/PEP screening on all directors','Tax clearance verification (ROS)','Identity verification against submitted documents','Fraud & synthetic identity detection'],
+    },
+    {
+      num:'5', label:'Credit Assessment & CRM Entry', icon:'\u{1F4CA}', color:'var(--green)',
+      desc:'Only after successful document processing and validation does the application enter the credit assessment pipeline. The CRM is the last step \u2014 it is the record of a clean, verified application. This is where FinPal runs PD/LGD/EAD models, SHAP explainability, IFRS 9 ECL, and risk-based pricing before presenting the evidence pack to the underwriter.',
+      items:['PD / LGD / EAD credit scoring models','SHAP explainability \u2014 per-decision transparency (EU AI Act Art.13)','IFRS 9 ECL calculation and staging','Risk-based pricing (EBA LOM)','Fairness & bias checks','Evidence pack generation \u2014 human decision gate'],
+    },
+  ];
+  return `
+    <div class="section-header"><div class="section-title">AI-Powered Loan Application Intake Pipeline</div>
+      <span class="tag tag-complete">IDP \u00B7 Document Processing \u00B7 Assessment</span></div>
+    <div class="flag-box blue" style="margin-top:0;margin-bottom:20px">
+      <div class="flag-title">\u{1F4A1} What FinPal Actually Does</div>
+      <div class="flag-body">FinPal is not a CRM. The core product is an <strong>AI-powered loan application intake, document processing and credit assessment pipeline</strong>. The CRM is downstream infrastructure \u2014 it only receives clean, validated, assessed applications. The real value is in Steps 1\u20134: automating the slow, manual, error-prone intake process that costs lenders hours per application.</div>
+    </div>
+    ${steps.map(s => `
+    <div class="card" style="margin-bottom:14px;border-left:3px solid ${s.color}">
+      <div style="display:flex;align-items:flex-start;gap:16px">
+        <div style="min-width:40px;height:40px;background:var(--navy-mid);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">${s.icon}</div>
+        <div style="flex:1">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+            <span style="background:var(--navy-mid);color:${s.color};font-family:var(--font-mono);font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px">STEP ${s.num}</span>
+            <span style="font-family:var(--font-head);font-size:14px;font-weight:600;color:var(--white)">${s.label}</span>
+          </div>
+          <p style="font-size:12.5px;color:var(--muted);line-height:1.6;margin-bottom:10px">${s.desc}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            ${s.items.map(i => `<span style="background:var(--navy-mid);border:1px solid var(--border);color:var(--muted);font-size:11px;font-family:var(--font-mono);padding:3px 10px;border-radius:var(--r)">${i}</span>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>`).join('')}
+    <div class="flag-box green" style="margin-top:4px">
+      <div class="flag-title">\u2713 Key Differentiator: The Pain Point FinPal Solves</div>
+      <div class="flag-body">The real pain point is <strong>loan application processing inefficiency</strong>: paper documents, email back-and-forth, missing documents, slow verification, and manual data extraction. FinPal eliminates this bottleneck with IDP + automated validation, reducing application processing time from days to minutes while maintaining full regulatory compliance.</div>
+    </div>`;
+}
+
+// ── Architecture & Security ──────────────────────────────────
+function renderArchitecture() {
+  return `
+    <div class="section-header"><div class="section-title">Architecture &amp; Data Security</div>
+      <span class="tag tag-complete">Tenant-Isolated SaaS</span></div>
+    <div class="flag-box blue" style="margin-top:0;margin-bottom:16px">
+      <div class="flag-title">\u{1F512} How FinPal Addresses the SaaS Data Governance Challenge</div>
+      <div class="flag-body">Investor concern: if FinPal is SaaS, how can lenders guarantee data control? Answer: <strong>tenant-isolated architecture</strong>. Each lender gets a completely separate infrastructure stack. FinPal's vendor team cannot access any lender's data. AI models run in isolated compute environments. No customer data is used to train shared models.</div>
+    </div>
+    <div class="section-header"><div class="section-title">Tenant Isolation Model</div></div>
+    <div class="grid-3" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-title">Separate Database</div>
+        <div style="font-size:22px;margin-bottom:8px">\u{1F5C4}</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.5">Each lender has a dedicated database instance. Lender A cannot access Lender B data. FinPal admin accounts have no read access to lender data stores.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Separate AI Model Instance</div>
+        <div style="font-size:22px;margin-bottom:8px">\u{1F916}</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.5">Credit models are instantiated per tenant. No shared model state. Lender data is never used to train or fine-tune models for another lender or for FinPal's shared infrastructure.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Separate Infrastructure</div>
+        <div style="font-size:22px;margin-bottom:8px">\u2601</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.5">Dedicated compute, networking, and storage per lender on Azure West EU. Logical and physical isolation prevents cross-tenant data leakage.</div>
+      </div>
+    </div>
+    <div class="section-header"><div class="section-title">Private AI &amp; Data Sovereignty</div></div>
+    <div class="card" style="margin-bottom:16px">
+      ${[
+        ['\u{1F512} No External AI Providers','Lender data is NEVER sent to OpenAI, AWS Bedrock, or any public AI API. All AI inference runs within the lender\'s isolated tenant environment.','green'],
+        ['\u{1F512} No Training on Lender Data','Models are trained on anonymised, aggregated datasets only. No individual lender\'s application data is used for shared model training.','green'],
+        ['\u{1F512} Data Anonymisation Pipeline','PII is stripped and anonymised before any model processing. The PII Vault stores raw data separately with strict access controls.','green'],
+        ['\u2601 Private Cloud Option','Dedicated cloud instance per lender. All processing within lender\'s geographic boundary (Azure West EU for Irish/EU lenders).','teal'],
+        ['\u{1F3E0} On-Premise Deployment Option','For lenders requiring maximum control, FinPal can be deployed inside the lender\'s own infrastructure. AI runs entirely within lender\'s network perimeter.','teal'],
+        ['\u{1F50D} Vendor Cannot Access Data','FinPal vendor accounts have no access to lender application data, customer PII, or credit decisions. Access requires formal lender authorisation and is fully logged.','green'],
+      ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label" style="font-size:12px;color:var(--white)">${l}</span><span style="font-size:11px;color:var(--${c});max-width:55%;text-align:right">${v}</span></div>`).join('')}
+    </div>
+    <div class="section-header"><div class="section-title">Security Controls</div></div>
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-title">Data Protection</div>
+        ${[
+          ['Encryption at rest','AES-256 &middot; per-tenant keys'],
+          ['Encryption in transit','TLS 1.3 &middot; mutual auth'],
+          ['PII Vault','Separate encrypted store'],
+          ['Key Management','Azure Key Vault &middot; tenant-scoped'],
+          ['Data Residency','Azure West EU &middot; GDPR compliant'],
+        ].map(([l,v])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="font-size:12px">${v}</span></div>`).join('')}
+      </div>
+      <div class="card">
+        <div class="card-title">Access &amp; Monitoring</div>
+        ${[
+          ['Access Controls','RBAC &middot; least-privilege'],
+          ['Audit Logging','All data access logged &middot; immutable'],
+          ['Intrusion Detection','Real-time threat monitoring'],
+          ['Vulnerability Mgmt','Continuous scanning &middot; patching SLA'],
+          ['Incident Response','Documented IR plan &middot; 72h GDPR notify'],
+        ].map(([l,v])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="font-size:12px">${v}</span></div>`).join('')}
+      </div>
+    </div>
+    <div class="section-header"><div class="section-title">EU AI Act &amp; CBI Compliance</div></div>
+    <div class="card">
+      ${[
+        ['High-Risk AI Classification','Credit scoring is high-risk under EU AI Act 2024/1689 &middot; Central Bank of Ireland notified','green'],
+        ['Risk Management (Art.9)','Documented risk management system &middot; risk-specific controls per use case','green'],
+        ['Data Governance (Art.10)','Feature store with lineage &middot; PII anonymisation &middot; data quality controls','green'],
+        ['Human Oversight (Art.14)','Mandatory underwriter decision gate &middot; no fully automated credit decisions','green'],
+        ['Transparency (Art.13)','SHAP explanations per decision &middot; borrower right to explanation','green'],
+        ['Record-Keeping (Art.12)','Cryptographically immutable audit trail &middot; CBI inspection-ready','green'],
+      ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c});font-size:11px;max-width:55%;text-align:right">${v}</span></div>`).join('')}
+    </div>
+    <div class="flag-box" style="margin-top:16px">
+      <div class="flag-title">\u26A0 Security Reality: No System is Completely Secure</div>
+      <div class="flag-body">Even dedicated cloud infrastructure is subject to attack. AWS servers have been attacked within minutes of exposure. FinPal's approach is not to claim invulnerability but to implement defence-in-depth: tenant isolation, encryption, access controls, continuous monitoring, and a tested incident response plan \u2014 all aligned to DORA (Digital Operational Resilience Act) requirements.</div>
+    </div>`;
 }
 
 // ── Model Governance (MRM) ──────────────────────────────────
@@ -544,8 +713,8 @@ function renderModelGovernance() {
     <div class="section-header"><div class="section-title">Model Registry &amp; Governance</div>
       <span class="tag tag-complete">SR 11-7 Aligned</span></div>
     <div class="flag-box blue" style="margin-bottom:16px;margin-top:0">
-      <div class="flag-title">Model Risk Management Framework</div>
-      <div class="flag-body">All models are governed under a documented MRM framework covering model inventory, conceptual soundness, validation, monitoring, and change control &mdash; aligned to SR 11-7 (Federal Reserve) and EU AI Act Article 9 requirements.</div>
+      <div class="flag-title">Model Risk Management Framework &mdash; Tenant-Isolated Private AI</div>
+      <div class="flag-body">All models are governed under a documented MRM framework covering model inventory, conceptual soundness, validation, monitoring, and change control &mdash; aligned to SR 11-7 (Federal Reserve) and EU AI Act Article 9 requirements. <strong>Each lender runs a dedicated model instance</strong> in an isolated environment. Models are never shared across tenants. No lender data is sent to external AI providers (OpenAI, AWS, etc.) for inference or training. On-premise deployment is available for lenders requiring full infrastructure control.</div>
     </div>
     <div class="grid-2" style="margin-bottom:16px">
       ${[
@@ -606,6 +775,18 @@ function renderComplianceDashboard() {
   return `
     <div class="section-header"><div class="section-title">Regulatory Compliance Dashboard</div>
       <span class="tag tag-complete">All Systems Compliant</span></div>
+    <div class="card" style="margin-bottom:16px;border-left:3px solid var(--teal)">
+      <div class="card-title">Data Sovereignty &amp; Tenant Isolation <span class="tag tag-complete">SaaS Architecture</span></div>
+      ${[
+        ['Tenant Database Isolation','\u2713 Separate DB per lender &middot; no cross-tenant access','green'],
+        ['AI Model Isolation','\u2713 Dedicated model instance per lender &middot; no shared state','green'],
+        ['Infrastructure Isolation','\u2713 Separate compute &amp; networking per tenant &middot; Azure West EU','green'],
+        ['Vendor Data Access','\u2713 FinPal vendor has zero access to lender application data','green'],
+        ['No External AI Training','\u2713 Lender data never used to train shared or external models','green'],
+        ['PII Anonymisation','\u2713 PII stripped before model processing &middot; PII Vault isolated','green'],
+        ['CBI Regulatory Position','\u2713 Tenant isolation reduces high-risk AI classification burden','teal'],
+      ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c})">${v}</span></div>`).join('')}
+    </div>
     <div class="grid-2" style="margin-bottom:16px">
       <div class="card">
         <div class="card-title">EU AI Act (High-Risk) <span class="tag tag-danger">HIGH-RISK</span></div>
