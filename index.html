@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FinPal v2.0 — AI-Powered Loan Intake &amp; Assessment Platform</title>
+<title>FinPal v2.1 — AI-Powered Loan Intake &amp; Assessment Platform</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
@@ -701,8 +701,55 @@ function renderArchitecture() {
         ['Record-Keeping (Art.12)','Cryptographically immutable audit trail &middot; CBI inspection-ready','green'],
       ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c});font-size:11px;max-width:55%;text-align:right">${v}</span></div>`).join('')}
     </div>
+    <div class="section-header"><div class="section-title">Geographic Coverage</div></div>
+    <div class="grid-3" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-title">&#x1F1EE;&#x1F1EA; Ireland</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:6px;color:var(--teal)">Primary Market</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.6">CBI-supervised lenders &middot; CRO integration &middot; ROS tax clearance &middot; AIB/BOI/PTSB open banking &middot; ICB credit bureau &middot; IAF/SEAR compliance &middot; Azure West EU data residency</div>
+      </div>
+      <div class="card">
+        <div class="card-title">&#x1F1EC;&#x1F1E7; United Kingdom</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:6px;color:var(--teal)">Active</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.6">FCA-regulated lenders &middot; Consumer Duty aligned &middot; Open Banking (FCA/CMA9) &middot; Experian/Equifax/TransUnion &middot; CAIS bureau format &middot; UK data residency option</div>
+      </div>
+      <div class="card">
+        <div class="card-title">&#x1F1EA;&#x1F1FA; EU / Europe</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:6px;color:var(--teal)">Available</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.6">EU AI Act 2024/1689 native &middot; GDPR-native architecture &middot; EBA LOM aligned &middot; PSD2 open banking &middot; DORA compliant &middot; EEA data residency &middot; Local bureau connectors on request</div>
+      </div>
+    </div>
+    <div class="section-header"><div class="section-title">Integrations &amp; API Layer</div></div>
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-title">Core Integrations</div>
+        ${[
+          ['LOS API (Loan Origination System)','REST &middot; bidirectional sync &middot; status webhooks'],
+          ['Irish Open Banking — AIB','PSD2/AISP &middot; 24-month transaction history'],
+          ['Irish Open Banking — Bank of Ireland','PSD2/AISP &middot; BOI Open Finance certified'],
+          ['Irish Open Banking — PTSB','PSD2/AISP &middot; Permanent TSB Open Banking'],
+          ['CRO (Companies Registration Office)','Company search &middot; director registry &middot; filings'],
+          ['ROS (Revenue Online Service)','Tax clearance verify &middot; VAT/PAYE/CT status'],
+          ['Credit Bureau — ICB (Ireland)','Pull &amp; furnish &middot; ICB local schema'],
+          ['Credit Bureau — Experian/Equifax/TransUnion','UK CAIS format &middot; configurable'],
+        ].map(([l,v])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="font-size:11px">${v}</span></div>`).join('')}
+      </div>
+      <div class="card">
+        <div class="card-title">API &amp; Data Export</div>
+        ${[
+          ['REST API','Full CRUD &middot; OpenAPI 3.1 spec &middot; sandbox available'],
+          ['Webhooks','Event-driven &middot; decision, status, document events'],
+          ['Data Warehouse Export','Nightly delta exports &middot; Parquet/CSV &middot; S3/Azure Blob'],
+          ['BI Connector','Power BI &amp; Tableau certified connectors'],
+          ['Evidence Pack Export','Structured PDF &middot; machine-readable JSON alongside'],
+          ['SFTP / Batch','Scheduled bulk file drops for legacy LOS integrations'],
+          ['Private Deployment','On-premise or dedicated cloud &middot; full API parity'],
+          ['API Authentication','OAuth 2.0 / mTLS &middot; per-tenant credentials'],
+        ].map(([l,v])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="font-size:11px">${v}</span></div>`).join('')}
+      </div>
+    </div>
     <div class="flag-box" style="margin-top:16px">
-      <div class="flag-title">\u26A0 Security Reality: No System is Completely Secure</div>
+      <div class="flag-title">&#x26A0; Security Reality: No System is Completely Secure</div>
       <div class="flag-body">Even dedicated cloud infrastructure is subject to attack. AWS servers have been attacked within minutes of exposure. FinPal's approach is not to claim invulnerability but to implement defence-in-depth: tenant isolation, encryption, access controls, continuous monitoring, and a tested incident response plan \u2014 all aligned to DORA (Digital Operational Resilience Act) requirements.</div>
     </div>`;
 }
@@ -831,9 +878,37 @@ function renderComplianceDashboard() {
           ['MRM / SR 11-7','&#x2713; Framework active','green'],
           ['IFRS 9 Provisioning','&#x2713; ECL engine live','green'],
           ['Basel Credit Risk Principles','&#x2713; Policy/limits/controls','green'],
-          ['CBI IAF (Ireland)','&#x2713; Audit trails active','green'],
+          ['CBI IAF / SEAR (Ireland)','&#x2713; Named PCF holder logged &middot; decision audit trails active','green'],
+          ['FCA (UK) — CGAP / Consumer Duty','&#x2713; Responsible lending guardrails &middot; Consumer Duty aligned','green'],
         ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c})">${v}</span></div>`).join('')}
       </div>
+    </div>
+    <div class="section-header"><div class="section-title">EU AI Act Technical Documentation (Art.11)</div></div>
+    <div class="card" style="margin-bottom:16px">
+      ${[
+        ['System Description &amp; Purpose','High-risk AI system — credit scoring &amp; automated underwriting &middot; Annex IV compliant','green'],
+        ['Training Data &amp; Validation','Feature store lineage &middot; PII anonymisation &middot; data quality controls documented','green'],
+        ['Model Architecture &amp; Logic','SHAP-explained PD/LGD/EAD models &middot; challenger framework documented','green'],
+        ['Performance Monitoring Plan','PSI/CSI drift metrics &middot; monthly calibration reports &middot; scheduled revalidation','green'],
+        ['Human Oversight Procedures','Mandatory underwriter gate &middot; escalation paths &middot; override logging documented','green'],
+        ['Post-Market Monitoring','Automated alerts on model drift &middot; adverse outcome reporting pipeline','green'],
+      ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c});font-size:11px;max-width:55%;text-align:right">${v}</span></div>`).join('')}
+    </div>
+    <div class="section-header"><div class="section-title">Pre-Assembled Vendor Due Diligence Pack</div></div>
+    <div class="flag-box blue" style="margin-top:0;margin-bottom:16px">
+      <div class="flag-title">&#x1F4CB; Ready for Lender &amp; Regulator Review</div>
+      <div class="flag-body">FinPal maintains a continuously updated vendor due diligence pack covering all regulatory and procurement requirements. Lenders can download or request the pack at any time for internal sign-off, CBI/FCA notification filings, or third-party supplier assessments.</div>
+    </div>
+    <div class="card">
+      ${[
+        ['Information Security Policy','ISO 27001-aligned &middot; last updated Mar 2025','green'],
+        ['GDPR Data Processing Agreement (DPA)','Standard contractual clauses &middot; Art.28 processor terms &middot; DPIA summary','green'],
+        ['EU AI Act Technical File (Annex IV)','High-risk AI system documentation &middot; CE marking readiness','green'],
+        ['Business Continuity &amp; DR Plan','RPO: 4h &middot; RTO: 8h &middot; annual test completed','green'],
+        ['Penetration Test Report (latest)','External pen test Q4 2024 &middot; all critical findings remediated','green'],
+        ['Sub-processor Register','Azure West EU (primary) &middot; no data transferred outside EEA','green'],
+        ['SOC 2 Type II (in progress)','Target certification Q3 2025 &middot; bridging controls in place','teal'],
+      ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c});font-size:11px;max-width:55%;text-align:right">${v}</span></div>`).join('')}
     </div>`;
 }
 
@@ -1188,9 +1263,18 @@ function renderRiskXaiTab(app) {
 function renderBankingTab(app) {
   return `<div class="panel" id="tab-banking">
     <div class="grid-3" style="margin-bottom:16px">
-      <div class="card"><div class="card-title">Bank Account</div><div style="font-size:15px;font-weight:600">AIB Business Current</div><div class="card-sub" style="font-family:var(--font-mono)">****4821 \u00B7 PSD2/AISP</div></div>
-      <div class="card"><div class="card-title">Analysis Period</div><div style="font-size:15px;font-weight:600">24 Months</div><div class="card-sub">Feb 2023 \u2014 Feb 2025</div></div>
+      <div class="card"><div class="card-title">Primary Bank Account</div><div style="font-size:15px;font-weight:600">AIB Business Current</div><div class="card-sub" style="font-family:var(--font-mono)">****4821 &middot; PSD2/AISP</div></div>
+      <div class="card"><div class="card-title">Analysis Period</div><div style="font-size:15px;font-weight:600">24 Months</div><div class="card-sub">Feb 2023 &mdash; Feb 2025</div></div>
       <div class="card"><div class="card-title">Avg Monthly Revenue</div><div class="card-value teal" style="font-size:22px">${app.revenueActual ? '\u20AC' + (parseFloat(app.revenueActual.replace(/[\u20ACM]/g,''))*1000/12).toFixed(0)+'K' : '\u2014'}</div><div class="card-sub">From actual lodgements</div></div>
+    </div>
+    <div class="flag-box blue" style="margin-top:0;margin-bottom:16px">
+      <div class="flag-title">&#x1F3E6; Irish Open Banking Coverage &mdash; AIB &middot; Bank of Ireland &middot; PTSB</div>
+      <div class="flag-body">FinPal connects to all three major Irish retail banks via PSD2/AISP authorisation. Transaction history is pulled directly from the borrower&apos;s bank with explicit consent. Multi-bank aggregation is supported where the borrower holds accounts across multiple Irish institutions.</div>
+    </div>
+    <div class="grid-3" style="margin-bottom:16px">
+      <div class="card"><div class="card-title">AIB (Allied Irish Banks)</div><div style="font-size:13px;font-weight:600;margin-bottom:4px;color:var(--teal)">&#x2713; PSD2/AISP Connected</div><div style="font-size:11px;color:var(--muted)">Business Current &middot; Savings &middot; Overdraft &middot; Instant pull &middot; 24-month history</div></div>
+      <div class="card"><div class="card-title">Bank of Ireland (BOI)</div><div style="font-size:13px;font-weight:600;margin-bottom:4px;color:var(--teal)">&#x2713; BOI Open Finance Certified</div><div style="font-size:11px;color:var(--muted)">Current &middot; Deposit &middot; Loan accounts &middot; 24-month history &middot; Instant pull</div></div>
+      <div class="card"><div class="card-title">Permanent TSB (PTSB)</div><div style="font-size:13px;font-weight:600;margin-bottom:4px;color:var(--teal)">&#x2713; PSD2/AISP Connected</div><div style="font-size:11px;color:var(--muted)">Current &middot; Business accounts &middot; 24-month history &middot; On-demand refresh</div></div>
     </div>
     <div class="section-header"><div class="section-title">Recent Transactions</div></div>
     <div class="card" style="padding:0;overflow:hidden">
