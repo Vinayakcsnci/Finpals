@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FinPal v2.1 — AI-Powered Loan Intake &amp; Assessment Platform</title>
+<title>FinPal v5.0 — Trustworthy AI Loan Intake &amp; Assessment Platform</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
@@ -35,7 +35,7 @@ html, body { height:100%; background:var(--bg); color:var(--white); font-family:
 .nav-item.active { background:var(--teal-glow); color:var(--teal); }
 .nav-item .icon { font-size:14px; width:18px; text-align:center; }
 .nav-badge { margin-left:auto; background:var(--teal); color:var(--navy-dark); font-size:10px; font-weight:700; padding:1px 6px; border-radius:99px; font-family:var(--font-mono); }
-.app-list { flex:1; overflow-y:auto; padding:10px; }
+.app-list { padding:0; }
 .app-card { padding:10px 10px 8px; border-radius:var(--r); border:1px solid transparent; margin-bottom:6px; cursor:pointer; transition:all .15s; position:relative; overflow:hidden; }
 .app-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:transparent; border-radius:99px 0 0 99px; transition:background .15s; }
 .app-card:hover { background:var(--teal-glow); border-color:var(--border); }
@@ -51,10 +51,15 @@ html, body { height:100%; background:var(--bg); color:var(--white); font-family:
 .dot-grey { background:var(--muted); }
 @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(0,168,150,.4);} 50%{box-shadow:0 0 0 4px rgba(0,168,150,0);} }
 #main { flex:1; display:flex; flex-direction:column; overflow:hidden; }
-#topbar { height:56px; min-height:56px; background:var(--navy-dark); border-bottom:1px solid var(--border); display:flex; align-items:center; padding:0 24px; gap:16px; }
-.topbar-title { font-family:var(--font-head); font-size:16px; font-weight:700; color:var(--white); flex:1; }
-.topbar-subtitle { font-size:12px; color:var(--muted); font-family:var(--font-mono); }
-.topbar-actions { display:flex; gap:8px; }
+#topbar { height:64px; min-height:64px; background:var(--navy-dark); border-bottom:1px solid var(--border); display:flex; align-items:center; padding:0 24px; gap:14px; }
+.topbar-title { font-family:var(--font-head); font-size:17px; font-weight:700; color:var(--white); letter-spacing:-0.2px; }
+.topbar-subtitle { font-size:11px; color:var(--muted); font-family:var(--font-mono); margin-top:2px; }
+.topbar-divider { width:1px; height:32px; background:var(--border); flex-shrink:0; }
+.topbar-kpi { display:flex; align-items:center; gap:5px; padding:3px 10px; border:1px solid var(--border); border-radius:99px; font-size:10px; font-family:var(--font-mono); color:var(--muted); background:rgba(255,255,255,.02); white-space:nowrap; }
+.user-chip { display:flex; align-items:center; gap:10px; padding:7px 12px; background:var(--navy-mid); border:1px solid var(--border); border-radius:var(--r-lg); }
+.user-avatar { width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,var(--teal),var(--teal-dark)); color:var(--navy-dark); font-family:var(--font-head); font-weight:800; font-size:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.user-name { font-size:13px; font-weight:600; color:var(--white); line-height:1.3; }
+.user-role { font-size:10px; color:var(--muted); font-family:var(--font-mono); letter-spacing:0.2px; }
 .btn { padding:7px 16px; border-radius:var(--r); border:none; font-family:var(--font-body); font-size:13px; font-weight:500; cursor:pointer; transition:all .15s; display:flex; align-items:center; gap:6px; }
 .btn-outline { background:transparent; border:1px solid var(--border); color:var(--muted); }
 .btn-outline:hover { border-color:var(--teal); color:var(--teal); }
@@ -194,6 +199,55 @@ svg.sparkline { display:block; }
 .decision-submitted-icon { font-size:24px; }
 .decision-submitted-text { font-size:13px; color:var(--green); font-weight:500; }
 .decision-submitted-sub { font-size:11px; color:var(--muted); font-family:var(--font-mono); margin-top:2px; }
+
+/* ── Login Screen ─────────────────────────── */
+#login-screen {
+  position:fixed; inset:0;
+  background:linear-gradient(135deg,#0f2d6b 0%,#1a52c7 55%,#2563eb 100%);
+  display:flex; align-items:center; justify-content:center;
+  z-index:9999; font-family:var(--font-body);
+}
+.login-card {
+  background:#ffffff; border-radius:16px; padding:40px 40px 36px;
+  width:100%; max-width:400px;
+  box-shadow:0 24px 60px rgba(0,0,0,.35);
+}
+.login-logo-wrap { display:flex; align-items:center; gap:12px; margin-bottom:8px; }
+.login-logo-mark {
+  width:42px; height:42px; border-radius:8px; background:#2563eb;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-head); font-weight:800; font-size:20px; color:#fff; flex-shrink:0;
+}
+.login-logo-text { font-family:var(--font-head); font-weight:700; font-size:22px; color:#0f2d6b; }
+.login-logo-tag { font-size:10px; color:#2563eb; font-family:var(--font-mono); letter-spacing:.5px; margin-top:1px; }
+.login-title { font-family:var(--font-head); font-size:18px; font-weight:700; color:#0f2d6b; margin:20px 0 4px; }
+.login-sub { font-size:11px; color:#64748b; font-family:var(--font-mono); margin-bottom:24px; }
+.login-field { margin-bottom:14px; }
+.login-label { display:block; font-size:11px; font-weight:600; color:#334155; margin-bottom:6px; font-family:var(--font-mono); letter-spacing:.3px; }
+.login-input {
+  width:100%; padding:10px 14px; border-radius:8px;
+  border:1.5px solid #cbd5e1; background:#f8fafc;
+  font-family:var(--font-body); font-size:14px; color:#0f172a;
+  transition:border-color .15s; outline:none; box-sizing:border-box;
+}
+.login-input:focus { border-color:#2563eb; background:#fff; }
+.login-btn {
+  width:100%; padding:12px; border-radius:8px; border:none;
+  background:#2563eb; color:#fff; font-family:var(--font-head);
+  font-size:15px; font-weight:700; cursor:pointer; margin-top:6px;
+  transition:background .15s;
+}
+.login-btn:hover { background:#1d4ed8; }
+.login-error {
+  display:none; margin-top:12px; padding:10px 14px;
+  background:#fef2f2; border:1px solid #fca5a5; border-radius:8px;
+  font-size:12px; color:#dc2626; font-family:var(--font-mono);
+}
+.login-footer {
+  margin-top:24px; padding-top:16px; border-top:1px solid #e2e8f0;
+  font-size:10px; color:#94a3b8; font-family:var(--font-mono);
+  text-align:center; line-height:1.7;
+}
 /* V2: SHAP bars */
 .shap-bar-row { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,.04); }
 .shap-bar-row:last-child { border-bottom:none; }
@@ -217,17 +271,89 @@ svg.sparkline { display:block; }
 .side-panel { display:none; flex:1; overflow-y:auto; padding:24px; }
 .side-panel.active { display:block; }
 
+/* V5: AI Trustworthiness Framework */
+.pillar-row { background:var(--panel); border:1px solid var(--border); border-radius:var(--r); padding:14px 16px; margin-bottom:8px; }
+.pillar-num-badge { width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:11px; font-weight:700; flex-shrink:0; }
+.pillar-num-badge.p1 { background:rgba(0,168,150,.2); color:var(--teal); }
+.pillar-num-badge.p2 { background:rgba(46,204,113,.2); color:var(--green); }
+.pillar-num-badge.p3 { background:rgba(245,166,35,.2); color:var(--gold); }
+.pillar-num-badge.p4 { background:rgba(0,168,150,.18); color:var(--teal); }
+.pillar-num-badge.p5 { background:rgba(46,204,113,.15); color:var(--green); }
+.pillar-num-badge.p6 { background:rgba(0,168,150,.12); color:var(--teal); }
+.pillar-num-badge.p7 { background:rgba(245,166,35,.15); color:var(--gold); }
+.cf-box { background:rgba(0,168,150,0.05); border:1px solid rgba(0,168,150,0.2); border-radius:var(--r); padding:12px 14px; margin-bottom:8px; }
+.cf-row { display:flex; align-items:flex-start; gap:10px; padding:7px 0; border-bottom:1px solid rgba(255,255,255,.04); font-size:12px; }
+.cf-row:last-child { border-bottom:none; }
+.cf-if { color:var(--muted); flex:1; }
+.cf-then { font-family:var(--font-mono); min-width:200px; text-align:right; }
+.ac-chain { padding:0 4px; }
+.ac-row { display:flex; align-items:flex-start; gap:12px; padding:11px 0; border-bottom:1px solid rgba(255,255,255,.04); }
+.ac-row:last-child { border-bottom:none; }
+.ac-role-label { font-family:var(--font-mono); font-size:10px; color:var(--muted); width:130px; flex-shrink:0; text-transform:uppercase; letter-spacing:.4px; }
+.ac-person { font-size:13px; color:var(--white); font-weight:500; }
+.ac-cred { font-size:11px; color:var(--teal); font-family:var(--font-mono); margin-top:2px; }
+.ac-ts { margin-left:auto; font-family:var(--font-mono); font-size:10px; color:var(--muted); white-space:nowrap; }
+.privacy-field-row { display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid rgba(255,255,255,.04); }
+.privacy-field-row:last-child { border-bottom:none; }
+.pf-name { font-size:12px; color:var(--white); flex:1; }
+.pf-purpose { font-size:11px; color:var(--muted); font-family:var(--font-mono); width:150px; }
+.pf-retention { font-size:11px; color:var(--muted); font-family:var(--font-mono); width:60px; text-align:center; }
+.pf-badge { font-size:10px; font-family:var(--font-mono); padding:2px 7px; border-radius:99px; }
+.pf-min { background:rgba(46,204,113,.1); color:var(--green); border:1px solid rgba(46,204,113,.25); }
+.group-fairness-row { display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid rgba(255,255,255,.04); }
+.group-fairness-row:last-child { border-bottom:none; }
+.gf-group { font-size:12px; color:var(--muted); width:170px; flex-shrink:0; }
+.gf-bar { flex:1; height:8px; background:var(--navy-mid); border-radius:99px; overflow:hidden; }
+.gf-fill { height:100%; border-radius:99px; background:var(--teal); }
+.gf-val { font-family:var(--font-mono); font-size:11px; color:var(--white); width:38px; text-align:right; }
+.gf-status { font-size:11px; font-family:var(--font-mono); }
+.stress-test-row { display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid rgba(255,255,255,.04); }
+.stress-test-row:last-child { border-bottom:none; }
+.st-metric { font-size:12px; color:var(--muted); flex:1; }
+.st-base { font-family:var(--font-mono); font-size:12px; color:var(--white); width:70px; text-align:right; }
+.st-arrow { font-size:10px; color:var(--muted); padding:0 4px; }
+.st-stressed { font-family:var(--font-mono); font-size:12px; width:90px; text-align:right; }
+
 </style>
 </head>
 <body>
 
-<div id="app">
+<!-- ── Login Screen ─────────────────────────── -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo-wrap">
+      <div class="login-logo-mark">F</div>
+      <div>
+        <div class="login-logo-text">FinPal</div>
+        <div class="login-logo-tag">v5.0 &middot; TRUSTWORTHY AI</div>
+      </div>
+    </div>
+    <div class="login-title">Sign in to your workspace</div>
+    <div class="login-sub">EU AI Act &middot; EBA LOM &middot; GDPR Art.22 Compliant</div>
+    <div class="login-field">
+      <label class="login-label" for="login-user">Username</label>
+      <input class="login-input" id="login-user" type="text" placeholder="e.g. credit.officer" autocomplete="username">
+    </div>
+    <div class="login-field">
+      <label class="login-label" for="login-pass">Password</label>
+      <input class="login-input" id="login-pass" type="password" placeholder="Enter password" autocomplete="current-password">
+    </div>
+    <button class="login-btn" id="login-btn" onclick="doLogin()">Sign In &rarr;</button>
+    <div class="login-error" id="login-error">&#x2715; Invalid username or password. Please try again.</div>
+    <div class="login-footer">
+      &#x1F512; All sessions are logged per EU AI Act Art.12 &amp; GDPR Art.22<br>
+      Azure West EU &middot; TLS 1.3 &middot; AES-256 at rest
+    </div>
+  </div>
+</div>
+
+<div id="app" style="display:none">
   <nav id="sidebar">
     <div class="logo">
       <div class="logo-mark">F</div>
       <div>
         <div class="logo-text">FinPal</div>
-        <div class="logo-tag">LOAN INTAKE &amp; ASSESSMENT</div>
+        <div class="logo-tag">v5.0 &middot; TRUSTWORTHY AI</div>
       </div>
     </div>
     <div class="nav-section">
@@ -265,8 +391,11 @@ svg.sparkline { display:block; }
       <div class="nav-item" data-view="architecture" onclick="switchView('architecture')">
         <span class="icon">&#x1F512;</span> Architecture &amp; Security
       </div>
+      <div class="nav-item" data-view="trustworthy" onclick="switchView('trustworthy')">
+        <span class="icon">&#x2714;</span> AI Trustworthiness
+      </div>
     </div>
-    <div class="nav-section" style="flex:1;overflow:hidden;display:flex;flex-direction:column;">
+    <div class="nav-section">
       <div class="nav-label">Queue</div>
       <div class="app-list" id="app-list"></div>
     </div>
@@ -276,7 +405,7 @@ svg.sparkline { display:block; }
           <span>Jurisdiction</span><span style="color:var(--teal)" id="jurisdiction-label">EU / Ireland</span>
         </div>
         <div style="display:flex;justify-content:space-between;margin-bottom:4px">
-          <span>Regulation</span><span style="color:var(--gold)">EU AI Act &middot; EBA LOM</span>
+          <span>Regulation</span><span style="color:var(--gold)">EU AI Act &middot; EBA LOM &middot; GDPR</span>
         </div>
         <div style="display:flex;justify-content:space-between;margin-bottom:4px">
           <span>Data residency</span><span style="color:var(--green)">&#x2713; Azure West EU</span>
@@ -287,18 +416,28 @@ svg.sparkline { display:block; }
         <div style="display:flex;justify-content:space-between">
           <span>Tenant Isolation</span><span style="color:var(--teal)">&#x2713; Dedicated</span>
         </div>
+        <div style="display:flex;justify-content:space-between">
+          <span>Trustworthy AI</span><span style="color:var(--green)">&#x2713; 7 Pillars</span>
+        </div>
       </div>
     </div>
   </nav>
 
   <div id="main">
     <div id="topbar">
-      <div>
-        <div class="topbar-title" id="topbar-title">Applications</div>
-        <div class="topbar-subtitle" id="topbar-sub">FinPal AI-Powered Loan Intake &amp; Document Processing &middot; EU AI Act High-Risk Compliant &middot; Tenant-Isolated SaaS</div>
-      </div>
-      <div class="topbar-actions" id="topbar-actions">
-        <button class="btn btn-outline" onclick="showNewAppModal()">&#xFF0B; New Application</button>
+      <div class="topbar-title">Loan Intake &amp; Assessment</div>
+      <div style="flex:1"></div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="btn btn-primary" onclick="showNewAppModal()">&#xFF0B; New Application</button>
+        <div class="topbar-divider"></div>
+        <button class="btn btn-outline" id="logout-btn" onclick="doLogout()" style="display:none;font-size:12px">&#x2192; Log Out</button>
+        <div class="user-chip">
+          <div>
+            <div class="user-name" id="user-display-name">—</div>
+            <div class="user-role" id="user-role-label">—</div>
+          </div>
+          <div class="user-avatar" id="user-avatar">—</div>
+        </div>
       </div>
     </div>
     <div id="content">
@@ -317,6 +456,7 @@ svg.sparkline { display:block; }
       <div id="view-bureau" class="side-panel"></div>
       <div id="view-audit" class="side-panel"></div>
       <div id="view-architecture" class="side-panel"></div>
+      <div id="view-trustworthy" class="side-panel"></div>
     </div>
   </div>
 </div>
@@ -383,6 +523,85 @@ svg.sparkline { display:block; }
 
 <script>
 
+// ── RBAC: Users & Roles ─────────────────────────────────────
+const USERS = {
+  'credit.officer': {
+    password:'FinPal@CO1', displayName:'C. Officer',
+    role:'Credit Officer \u00B7 IAF PCF-11', avatarInitials:'CO',
+    allowedViews:['apps','intake','audit'], defaultView:'apps'
+  },
+  'risk.manager': {
+    password:'FinPal@RM2', displayName:'R. Manager',
+    role:'Risk Manager \u00B7 MRM', avatarInitials:'RM',
+    allowedViews:['models','portfolio','audit'], defaultView:'models'
+  },
+  'compliance.officer': {
+    password:'FinPal@CMP3', displayName:'C. Compliance',
+    role:'Compliance Officer \u00B7 EU AI Act', avatarInitials:'CPO',
+    allowedViews:['compliance','audit','bureau','trustworthy'], defaultView:'compliance'
+  },
+  'ops.manager': {
+    password:'FinPal@OPS4', displayName:'O. Manager',
+    role:'Operations Manager \u00B7 IAF', avatarInitials:'OM',
+    allowedViews:['intake','apps','collections','bureau','compliance','audit','architecture'], defaultView:'intake'
+  },
+  'it.admin': {
+    password:'FinPal@ITA5', displayName:'IT Admin',
+    role:'IT Administrator \u00B7 DORA', avatarInitials:'ITA',
+    allowedViews:['architecture','audit','models'], defaultView:'architecture'
+  },
+  'mrm.analyst': {
+    password:'FinPal@MRM6', displayName:'MRM Analyst',
+    role:'MRM Analyst \u00B7 Model Governance', avatarInitials:'MRM',
+    allowedViews:['models','portfolio'], defaultView:'models'
+  },
+  'collections.officer': {
+    password:'FinPal@COL7', displayName:'Col. Officer',
+    role:'Collections Officer \u00B7 SEPA', avatarInitials:'COL',
+    allowedViews:['collections','bureau'], defaultView:'collections'
+  },
+  'borrower.sme': {
+    password:'FinPal@SME8', displayName:'SME Borrower',
+    role:'Borrower (SME) \u00B7 GDPR Art.22', avatarInitials:'SME',
+    allowedViews:['intake'], defaultView:'intake'
+  }
+};
+
+let currentUser = null;
+
+function doLogin() {
+  var username = document.getElementById('login-user').value.trim().toLowerCase();
+  var password = document.getElementById('login-pass').value;
+  var user = USERS[username];
+  var errEl = document.getElementById('login-error');
+  if (!user || user.password !== password) {
+    errEl.style.display = 'block';
+    document.getElementById('login-pass').value = '';
+    return;
+  }
+  errEl.style.display = 'none';
+  currentUser = Object.assign({}, user, { username: username });
+  applyRBAC();
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+  switchView(currentUser.defaultView);
+}
+
+function applyRBAC() {
+  document.getElementById('user-display-name').textContent = currentUser.displayName;
+  document.getElementById('user-role-label').textContent = currentUser.role;
+  document.getElementById('user-avatar').textContent = currentUser.avatarInitials;
+  document.querySelectorAll('.nav-item[data-view]').forEach(function(item) {
+    var view = item.getAttribute('data-view');
+    item.style.display = currentUser.allowedViews.indexOf(view) !== -1 ? '' : 'none';
+  });
+  document.getElementById('logout-btn').style.display = '';
+}
+
+function doLogout() {
+  window.location.reload();
+}
+
 const APPS = [
   {
     id:'FP-2025-0041', company:"O'Brien Construction Ltd", sector:'Construction',
@@ -418,6 +637,7 @@ const APPS = [
       {name:'EBA LOM Credit Policy',detail:'DSCR 1.42\u00D7 \u2265 1.20\u00D7 threshold \u2713. LTV N/A (working capital). Sector: Construction \u2014 standard risk weighting. All policy gates passed.',status:'pass',time:'14:22:17'},
       {name:'EU AI Act Compliance (Art.9-15)',detail:'High-risk AI system classification confirmed. Risk management, logging, transparency, human oversight controls active. SHAP explanations generated.',status:'pass',time:'14:22:18'},
       {name:'Fairness & Bias Check',detail:'Disparate impact ratio: 0.92 (threshold >0.80 \u2713). Equal opportunity delta: 0.03 (threshold <0.10 \u2713). No adverse bias detected.',status:'pass',time:'14:22:19'},
+      {name:'AI Trustworthiness Assessment (7 Pillars)',detail:'Valid & Reliable \u2713 (AUC 0.84, CI 2.8%\u20134.1%) \u00B7 Safe \u2713 (stress DSCR 1.28\u00D7) \u00B7 Secure \u2713 \u00B7 Accountable \u2713 \u00B7 Explainable \u2713 \u00B7 Privacy \u2713 \u00B7 Fair \u2713. All pillars compliant.',status:'pass',time:'14:22:20'},
     ],
     transactions:[
       {date:'Jan 25',desc:'LODGE - MCMAHON CIVIL ENG',category:'Revenue',amount:'+\u20AC84,200'},
@@ -432,6 +652,33 @@ const APPS = [
       {date:'Nov 24',desc:'DWT PAYROLL',category:'Payroll',amount:'-\u20AC62,400'},
     ],
     bars:[70,82,88,65,92,78,84,71,96,80,87,73],
+    confidenceInterval:{pdLow:0.028,pdHigh:0.041},
+    dataQuality:{score:94,completeness:98,consistency:92,accuracy:93},
+    stressTest:{rateshockDscr:1.28,rateshockAff:0.71,recessionPD:0.058},
+    vulnerabilityFlag:false,
+    accountabilityChain:[
+      {role:'AI System Owner',name:'Chief Risk Officer',credential:'PCF-2 \u00B7 CBI Registered',ts:'System'},
+      {role:'Model Validator',name:'Model Risk Management',credential:'PD v3.2 \u00B7 AUC 0.84',ts:'15 Jan 2025'},
+      {role:'Data Steward',name:'Data Governance Team',credential:'GDPR Art.25 \u00B7 DPA signatory',ts:'System'},
+      {role:'Underwriter',name:'M. Walsh',credential:'PCF-11 \u00B7 IAF Certified',ts:'15:42:01'},
+    ],
+    counterfactuals:[
+      {condition:'If DSCR were 1.10\u00D7 instead of 1.42\u00D7',outcome:'Risk grade C1 \u2014 declined under policy',dir:'negative'},
+      {condition:'If revenue variance < 2% (no discrepancy)',outcome:'Confidence score +8% \u2014 recommendation strengthened',dir:'positive'},
+      {condition:'If trading history < 5 years',outcome:'PD increases to 4.9% \u2014 grade B2',dir:'negative'},
+    ],
+    privacyFields:[
+      {field:'Director PPS Number',purpose:'AML/KYC Identity',basis:'Legal Obligation',retention:'5 yrs',minimized:true},
+      {field:'Bank Transaction Data (24mo)',purpose:'Affordability Assessment',basis:'Consent (PSD2)',retention:'5 yrs',minimized:true},
+      {field:'Company CRN',purpose:'KYB / CRO Check',basis:'Legitimate Interest',retention:'Permanent',minimized:true},
+      {field:'Tax Reference (ROS)',purpose:'Tax Clearance',basis:'Legal Obligation',retention:'5 yrs',minimized:true},
+      {field:'Management Accounts',purpose:'Credit Underwriting',basis:'Consent (Art.22)',retention:'5 yrs',minimized:true},
+    ],
+    groupFairness:[
+      {group:'Construction Sector',rate:72,benchmark:68,status:'pass'},
+      {group:'Dublin Region',rate:75,benchmark:73,status:'pass'},
+      {group:'12+ yr Trading History',rate:81,benchmark:76,status:'pass'},
+    ],
   },
   {
     id:'FP-2025-0042', company:'Clancy Logistics DAC', sector:'Transport & Logistics',
@@ -474,6 +721,7 @@ const APPS = [
       {name:'EU AI Act Compliance (Art.9-15)',detail:'High-risk AI system controls active. SHAP explanations generated. Human oversight required for this decision.',status:'pass',time:'09:14:31'},
       {name:'Fairness & Bias Check',detail:'Disparate impact ratio: 0.89 (>0.80 \u2713). Equal opportunity delta: 0.05 (<0.10 \u2713).',status:'pass',time:'09:14:32'},
       {name:'Over-Indebtedness Warning',detail:'Borrower debt-to-income ratio elevated. Responsible lending guardrails triggered per CGAP guidelines.',status:'warn',time:'09:14:33'},
+      {name:'AI Trustworthiness Assessment (7 Pillars)',detail:'Safety pillar: stress test DSCR 0.88\u00D7 below policy min \u2014 flagged. Vulnerability flag active. Valid & Reliable, Secure, Accountable, Explainable, Privacy, Fair all compliant. Human oversight mandatory.',status:'warn',time:'09:14:34'},
     ],
     transactions:[
       {date:'Jan 25',desc:'LODGE - ZETTLE CARD SALES',category:'Revenue',amount:'+\u20AC28,400'},
@@ -485,6 +733,30 @@ const APPS = [
       {date:'Dec 24',desc:'DWT PAYROLL',category:'Payroll',amount:'-\u20AC22,100'},
     ],
     bars:[45,52,48,55,42,60,38,44,50,47,55,43],
+    confidenceInterval:{pdLow:0.102,pdHigh:0.156},
+    dataQuality:{score:71,completeness:88,consistency:62,accuracy:65},
+    stressTest:{rateshockDscr:0.88,rateshockAff:0.28,recessionPD:0.198},
+    vulnerabilityFlag:true,
+    accountabilityChain:[
+      {role:'AI System Owner',name:'Chief Risk Officer',credential:'PCF-2 \u00B7 CBI Registered',ts:'System'},
+      {role:'Model Validator',name:'Model Risk Management',credential:'PD v3.2 \u00B7 AUC 0.84',ts:'15 Jan 2025'},
+      {role:'Data Steward',name:'Data Governance Team',credential:'GDPR Art.25 \u00B7 DPA signatory',ts:'System'},
+      {role:'Underwriter',name:'Review Required',credential:'Flagged \u2014 Escalation Active',ts:'Pending'},
+    ],
+    counterfactuals:[
+      {condition:'If DSCR improved to 1.20\u00D7 (additional collateral)',outcome:'Policy gate met \u2014 review possible at Grade C1',dir:'positive'},
+      {condition:'If revenue variance reduced to < 10%',outcome:'Revenue consistency improved \u2014 confidence +15%',dir:'positive'},
+      {condition:'If DTI ratio reduced by 20%',outcome:'Over-indebtedness guardrail cleared',dir:'positive'},
+    ],
+    privacyFields:[
+      {field:'Director PPS Number',purpose:'AML/KYC Identity',basis:'Legal Obligation',retention:'5 yrs',minimized:true},
+      {field:'Bank Transaction Data (24mo)',purpose:'Affordability Assessment',basis:'Consent (PSD2)',retention:'5 yrs',minimized:true},
+      {field:'Management Accounts',purpose:'Credit Underwriting',basis:'Consent (Art.22)',retention:'5 yrs',minimized:true},
+    ],
+    groupFairness:[
+      {group:'Hospitality Sector',rate:41,benchmark:43,status:'pass'},
+      {group:'Cork Region',rate:44,benchmark:46,status:'pass'},
+    ],
   },
   {
     id:'FP-2025-0039', company:'GreenwayTech Solutions', sector:'Technology',
@@ -507,6 +779,31 @@ const APPS = [
     ],
     checks:[], transactions:[],
     bars:[60,65,70,72,68,80,75,82,88,84,90,86],
+    confidenceInterval:{pdLow:0.009,pdHigh:0.016},
+    dataQuality:{score:98,completeness:100,consistency:97,accuracy:98},
+    stressTest:{rateshockDscr:1.98,rateshockAff:0.88,recessionPD:0.021},
+    vulnerabilityFlag:false,
+    accountabilityChain:[
+      {role:'AI System Owner',name:'Chief Risk Officer',credential:'PCF-2 \u00B7 CBI Registered',ts:'System'},
+      {role:'Model Validator',name:'Model Risk Management',credential:'PD v3.2 \u00B7 AUC 0.84',ts:'15 Jan 2025'},
+      {role:'Data Steward',name:'Data Governance Team',credential:'GDPR Art.25 \u00B7 DPA signatory',ts:'System'},
+      {role:'Underwriter',name:'M. Walsh',credential:'PCF-11 \u00B7 IAF Certified',ts:'15:42:01'},
+    ],
+    counterfactuals:[
+      {condition:'If company age < 2 years instead of 3',outcome:'PD increases to 2.1% \u2014 Grade A2 maintained',dir:'negative'},
+      {condition:'If sector changed to Hospitality',outcome:'PD increases to 3.2% \u2014 Grade B1',dir:'negative'},
+      {condition:'If revenue growth rate doubled',outcome:'PD reduces to 0.8% \u2014 Grade A1 strengthened',dir:'positive'},
+    ],
+    privacyFields:[
+      {field:'Director Passport / ID',purpose:'AML/KYC Identity',basis:'Legal Obligation',retention:'5 yrs',minimized:true},
+      {field:'Bank Transaction Data (24mo)',purpose:'Affordability Assessment',basis:'Consent (PSD2)',retention:'5 yrs',minimized:true},
+      {field:'Company CRN',purpose:'KYB / CRO Check',basis:'Legitimate Interest',retention:'Permanent',minimized:true},
+    ],
+    groupFairness:[
+      {group:'Technology Sector',rate:88,benchmark:82,status:'pass'},
+      {group:'Dublin Region',rate:86,benchmark:73,status:'pass'},
+      {group:'< 5yr Trading History',rate:64,benchmark:61,status:'pass'},
+    ],
   },
 ];
 
@@ -536,6 +833,7 @@ const processingSteps = [
   '\u{1F4CA} [STEP 5] Evaluating fairness metrics\u2026',
   '\u{1F4CA} [STEP 5] Computing IFRS 9 ECL staging\u2026',
   '\u{1F4CA} [STEP 5] Applying EU AI Act compliance controls\u2026',
+  '\u{1F4CA} [STEP 5] Running 7-pillar AI trustworthiness assessment\u2026',
   '\u{1F4CA} [STEP 5] Generating evidence pack \u2014 awaiting underwriter\u2026',
 ];
 
@@ -569,6 +867,7 @@ function renderSideView(view) {
   else if (view === 'bureau') el.innerHTML = renderBureauReporting();
   else if (view === 'audit') el.innerHTML = renderGlobalAudit();
   else if (view === 'architecture') el.innerHTML = renderArchitecture();
+  else if (view === 'trustworthy') el.innerHTML = renderTrustworthinessView();
 }
 
 // ── Intake Pipeline ──────────────────────────────────────────
@@ -995,15 +1294,258 @@ function renderGlobalAudit() {
 }
 
 
+// ── AI Trustworthiness: System-wide Dashboard ───────────────
+function renderTrustworthinessView() {
+  const pillars = [
+    {num:1,cls:'p1',title:'Valid &amp; Reliable',status:'Compliant',color:'teal',
+      items:['PD model AUC 0.84 (holdout) &middot; LGD 0.76 &middot; Affordability 0.88','Model validation current &middot; PSI 0.08 (&lt;0.25 threshold)','Challenger models active &middot; monthly calibration reports','95% confidence intervals generated per decision'],
+      frameworks:['EU AI Act Art.9 &middot; Art.15','SR 11-7 MRM Framework','EBA LOM data quality']},
+    {num:2,cls:'p2',title:'Safe',status:'Compliant',color:'green',
+      items:['Interest rate stress test (+200bps) passed on all current performing applications','Over-indebtedness screening active at origination for every application','Consumer vulnerability flags trigger mandatory manual review pathway','CGAP-aligned responsible digital credit guardrails enforced'],
+      frameworks:['EU AI Act Art.9','FCA Consumer Duty &middot; CGAP','IFRS 9 impairment']},
+    {num:3,cls:'p3',title:'Secure &amp; Resilient',status:'Compliant',color:'gold',
+      items:['AES-256 encryption at rest &middot; TLS 1.3 mutual auth in transit','Tenant isolation: dedicated DB, compute, and AI model per lender','DORA aligned &middot; RPO 4h &middot; RTO 8h &middot; annual DR test completed','Zero-trust auth &middot; OAuth 2.0 &middot; mTLS &middot; continuous threat monitoring'],
+      frameworks:['DORA 2025','ISO 27001','EU AI Act Art.9','GDPR Art.32']},
+    {num:4,cls:'p4',title:'Accountable &amp; Transparent',status:'Compliant',color:'teal',
+      items:['Cryptographically immutable audit trail per EU AI Act Art.12','Named PCF holder accountable under CBI IAF/SEAR framework','All model overrides require documented justification and senior sign-off','Human decision gate mandatory &mdash; no fully automated credit decisions'],
+      frameworks:['EU AI Act Art.12 &middot; Art.14','CBI IAF &middot; SEAR','GDPR Art.22']},
+    {num:5,cls:'p5',title:'Explainable &amp; Interpretable',status:'Compliant',color:'green',
+      items:['SHAP local explanations per decision (GPU-accelerated, v3.2)','Counterfactual explanations generated for every assessment','Plain language borrower explanation satisfying GDPR Art.22 right to explanation','Global model explanation available in Model Governance panel'],
+      frameworks:['EU AI Act Art.13','GDPR Art.22','EBA LOM transparency']},
+    {num:6,cls:'p6',title:'Privacy Enhanced',status:'Compliant',color:'teal',
+      items:['PII Vault &mdash; separate encrypted store with strict access controls','Data minimisation register: only fields necessary for assessment collected','GDPR Art.25 Privacy by Design embedded in architecture from inception','Right to erasure (Art.17), access (Art.15), consent withdrawal portal active'],
+      frameworks:['GDPR Art.5/6/17/22/25','EU AI Act Art.10','PSD2/AISP consent']},
+    {num:7,cls:'p7',title:'Fair &mdash; Harmful Bias Managed',status:'Compliant',color:'gold',
+      items:['Disparate impact ratio monitored monthly (threshold &gt;0.80) &mdash; all applications pass','Equal opportunity delta tracked across sector, geography, and company age groups','Sector and geographic calibration checks quarterly &mdash; no adverse divergence','Temporal bias drift triggers automatic model revalidation cycle'],
+      frameworks:['EU AI Act Art.10','ECHR Art.14','GDPR Art.22 (SCHUFA)']},
+  ];
+  return `
+    <div class="section-header"><div class="section-title">AI Trustworthiness Dashboard</div>
+      <span class="tag tag-complete">7 Pillars &middot; All Compliant</span></div>
+    <div class="flag-box blue" style="margin-top:0;margin-bottom:20px">
+      <div class="flag-title">&#x1F535; Trustworthy AI Framework &mdash; EU AI Act &middot; NIST AI RMF &middot; IEEE Ethically Aligned Design</div>
+      <div class="flag-body">FinPal v5.0 is assessed against the 7 pillars of trustworthy AI as required by the EU AI Act 2024/1689 for high-risk AI systems. Each pillar is evidenced by specific technical controls, governance procedures, and regulatory compliance mappings. The per-application Trustworthiness tab shows pillar status for individual credit decisions.</div>
+    </div>
+    ${pillars.map(p => `
+    <div class="pillar-row">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+        <div class="pillar-num-badge ${p.cls}">${p.num}</div>
+        <div style="flex:1">
+          <div style="font-family:var(--font-head);font-size:14px;font-weight:600;color:var(--white)">${p.title}</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:2px;font-family:var(--font-mono)">${p.frameworks.join(' &middot; ')}</div>
+        </div>
+        <span class="tag tag-complete">&#x2713; ${p.status}</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;padding-left:38px">
+        ${p.items.map(i=>`<div style="background:var(--navy-mid);border:1px solid var(--border);border-radius:var(--r);padding:4px 10px;font-size:11px;color:var(--muted);display:flex;align-items:center;gap:5px"><span style="color:var(--teal)">&#x2713;</span>${i}</div>`).join('')}
+      </div>
+    </div>`).join('')}
+    <div class="flag-box green" style="margin-top:16px">
+      <div class="flag-title">&#x2713; Independent Certification Roadmap</div>
+      <div class="flag-body">Annual independent external AI trustworthiness assessment in place. SOC 2 Type II in progress (Q3 2025). EU AI Act conformity assessment preparation underway. CBI supervisory engagement active. External AI ethics board review scheduled Q2 2025. Per-application trustworthiness scores available on the application Trustworthiness tab.</div>
+    </div>`;
+}
+
+// ── AI Trustworthiness: Per-Application Tab ─────────────────
+function renderTrustTab(app) {
+  if (!app.confidenceInterval) {
+    return `<div class="panel" id="tab-trust"><div class="empty-state"><div class="empty-icon">&#x23F3;</div><div class="empty-text">Trustworthiness analysis will appear after processing completes</div></div></div>`;
+  }
+  const dqColor = app.dataQuality.score >= 90 ? 'green' : app.dataQuality.score >= 75 ? 'gold' : 'red';
+  const stressPassDscr = app.stressTest.rateshockDscr >= 1.2;
+  const stressPassAff = app.stressTest.rateshockAff >= 0.5;
+  const stressPassPD = app.stressTest.recessionPD < 0.15;
+  const vulnColor = app.vulnerabilityFlag ? 'red' : 'green';
+
+  return `<div class="panel" id="tab-trust">
+
+    <!-- ① Valid & Reliable -->
+    <div class="section-header"><div class="section-title">&#x2460; Valid &amp; Reliable</div><span class="tag tag-complete">Model Validation Current</span></div>
+    <div class="grid-3" style="margin-bottom:14px">
+      <div class="card">
+        <div class="card-title">PD Point Estimate</div>
+        <div class="card-value ${app.pd<0.05?'teal':app.pd<0.10?'gold':'red'}">${(app.pd*100).toFixed(1)}%</div>
+        <div class="card-sub">95% CI: ${(app.confidenceInterval.pdLow*100).toFixed(1)}% &ndash; ${(app.confidenceInterval.pdHigh*100).toFixed(1)}%</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Input Data Quality</div>
+        <div class="card-value ${dqColor}">${app.dataQuality.score}<span style="font-size:14px">/100</span></div>
+        <div class="card-sub">Completeness ${app.dataQuality.completeness}% &middot; Consistency ${app.dataQuality.consistency}%</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Model AUC (Holdout)</div>
+        <div class="card-value teal">0.84</div>
+        <div class="card-sub">PD v3.2 &middot; Out-of-sample &middot; Jan 2025</div>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-title">Data Quality Breakdown</div>
+      ${[['Completeness','All required fields present',app.dataQuality.completeness],
+         ['Consistency','Cross-source validation score',app.dataQuality.consistency],
+         ['Accuracy','Declared vs actual reconciliation',app.dataQuality.accuracy]
+      ].map(([l,d,v])=>`
+      <div class="metric-row">
+        <span class="metric-label">${l}<br><span style="font-size:10px;color:var(--muted)">${d}</span></span>
+        <span style="display:flex;align-items:center;gap:10px">
+          <div style="width:120px;height:6px;background:var(--navy-mid);border-radius:99px;overflow:hidden"><div style="width:${v}%;height:100%;background:${v>=90?'var(--teal)':v>=75?'var(--gold)':'var(--red)'};border-radius:99px"></div></div>
+          <span class="metric-value" style="font-size:12px">${v}%</span>
+        </span>
+      </div>`).join('')}
+    </div>
+
+    <!-- ② Safe -->
+    <div class="section-header"><div class="section-title">&#x2461; Safe</div>
+      <span class="tag ${stressPassDscr?'tag-complete':'tag-flagged'}">${stressPassDscr?'Stress Test Pass':'Stress Test Fail'}</span></div>
+    <div class="card" style="margin-bottom:14px">
+      <div class="card-title">Interest Rate Stress Test (+200 bps shock)</div>
+      ${[
+        ['DSCR',app.dscr+'\u00D7',app.stressTest.rateshockDscr+'\u00D7',stressPassDscr,'Policy min 1.20\u00D7'],
+        ['Affordability',(app.affordability*100).toFixed(0)+'%',(app.stressTest.rateshockAff*100).toFixed(0)+'%',stressPassAff,'Min 50%'],
+        ['PD (recession overlay)',(app.pd*100).toFixed(1)+'%',(app.stressTest.recessionPD*100).toFixed(1)+'%',stressPassPD,'< 15%'],
+      ].map(([l,base,stressed,pass,thresh])=>`
+      <div class="stress-test-row">
+        <span class="st-metric">${l} <span style="font-size:10px;color:var(--muted)">(${thresh})</span></span>
+        <span class="st-base">${base}</span>
+        <span class="st-arrow">&#x2192; stressed</span>
+        <span class="st-stressed" style="color:${pass?'var(--teal)':'var(--red)'}">${stressed} ${pass?'\u2713':'\u26A0'}</span>
+      </div>`).join('')}
+    </div>
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-title">Consumer Vulnerability Assessment</div>
+        <div class="card-value ${vulnColor}" style="font-size:18px">${app.vulnerabilityFlag?'\u26A0 Flagged':'\u2713 Clear'}</div>
+        <div class="card-sub">${app.vulnerabilityFlag?'Elevated DTI \u00B7 Hardship pathway triggered':'No vulnerability indicators detected'}</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Safe Lending Guardrails</div>
+        ${[['Over-indebtedness screen',!app.vulnerabilityFlag],['Responsible lending (CGAP)',true],['Consumer Duty alignment',true],['Hardship pathway available',true]].map(([l,p])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:${p?'var(--green)':'var(--red)'}">${p?'\u2713 Pass':'\u26A0 Review'}</span></div>`).join('')}
+      </div>
+    </div>
+
+    <!-- ③ Secure & Resilient -->
+    <div class="section-header"><div class="section-title">&#x2462; Secure &amp; Resilient</div><span class="tag tag-complete">All Controls Active</span></div>
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-title">Data Handling &mdash; This Record</div>
+        ${[['Encryption at rest','AES-256 \u00B7 tenant key'],['Encryption in transit','TLS 1.3 \u00B7 mTLS'],['Tenant isolation','Dedicated instance \u2713'],['Data residency','Azure West EU \u2713'],['PII vault','Separate encrypted store \u2713']].map(([l,v])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="font-size:11px;color:var(--teal)">${v}</span></div>`).join('')}
+      </div>
+      <div class="card">
+        <div class="card-title">Resilience &amp; Continuity</div>
+        ${[['DORA alignment','\u2713 Operational resilience','green'],['RPO / RTO','4h / 8h \u00B7 tested','green'],['Model fallback','Champion/challenger active','teal'],['Zero-trust auth','OAuth 2.0 \u00B7 mTLS verified','green'],['Incident response','72h GDPR notify \u00B7 IR plan active','green']].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="font-size:11px;color:var(--${c})">${v}</span></div>`).join('')}
+      </div>
+    </div>
+
+    <!-- ④ Accountable & Transparent -->
+    <div class="section-header"><div class="section-title">&#x2463; Accountable &amp; Transparent</div><span class="tag tag-complete">IAF &middot; EU AI Act Art.12</span></div>
+    <div class="card" style="margin-bottom:14px">
+      <div class="card-title">Named Accountability Chain</div>
+      <div class="ac-chain">
+        ${(app.accountabilityChain||[]).map(a=>`
+        <div class="ac-row">
+          <div class="ac-role-label">${a.role}</div>
+          <div style="flex:1"><div class="ac-person">${a.name}</div><div class="ac-cred">${a.credential}</div></div>
+          <div class="ac-ts">${a.ts}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+    <div class="flag-box green" style="margin-bottom:16px">
+      <div class="flag-title">\u2713 Override Governance Policy Active</div>
+      <div class="flag-body">All model overrides require documented justification, senior credit sign-off (PCF-11), and are logged to the immutable audit trail. Override rates are monitored monthly for consistency and potential bias. No overrides recorded on this application.</div>
+    </div>
+
+    <!-- ⑤ Explainable & Interpretable -->
+    <div class="section-header"><div class="section-title">&#x2464; Explainable &amp; Interpretable</div><span class="tag tag-complete">SHAP &middot; EU AI Act Art.13</span></div>
+    <div class="card" style="margin-bottom:8px">
+      <div class="card-title">Counterfactual Explanations &mdash; &ldquo;What Would Change This Decision?&rdquo;</div>
+      <div class="cf-box" style="margin-top:6px">
+        ${(app.counterfactuals||[]).map(cf=>`
+        <div class="cf-row">
+          <div class="cf-if">If: ${cf.condition}</div>
+          <div class="cf-then" style="color:${cf.dir==='positive'?'var(--teal)':'var(--red)'}">\u2192 ${cf.outcome}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-title">Plain Language Explanation &mdash; GDPR Art.22 Right to Explanation</div>
+      <div style="background:rgba(0,168,150,.04);border:1px solid rgba(0,168,150,.15);border-radius:var(--r);padding:12px 14px;margin-top:6px;font-size:12.5px;color:var(--muted);line-height:1.8">
+        ${app.pd<0.05?
+          `Your application was assessed by an automated credit scoring system. The main factors that <strong style="color:var(--teal)">supported</strong> your application were your <strong style="color:var(--white)">debt service coverage ratio (${app.dscr}\u00D7)</strong>, your <strong style="color:var(--white)">revenue trend</strong>, and your <strong style="color:var(--white)">trading history</strong>. ${app.discrepancy?'A revenue variance was noted and flagged for underwriter review. ':''}You have the <strong style="color:var(--white)">right to request a human review</strong> of this decision at any time by contacting your lender.`:
+          `Your application was assessed by an automated credit scoring system. Some areas <strong style="color:var(--gold)">require further review</strong>: ${app.discrepancy?`<strong style="color:var(--white)">a revenue discrepancy of ${app.revenueActual} vs declared ${app.revenue}</strong> was identified. `:''}Your <strong style="color:var(--white)">debt service coverage ratio of ${app.dscr}\u00D7</strong> is ${app.dscr>=1.2?'above':'below'} the policy minimum of 1.20\u00D7. You have the <strong style="color:var(--white)">right to request a human review</strong>, to provide additional information, and to appeal this assessment.`
+        }
+      </div>
+    </div>
+
+    <!-- ⑥ Privacy Enhanced -->
+    <div class="section-header"><div class="section-title">&#x2465; Privacy Enhanced</div><span class="tag tag-complete">GDPR &middot; Art.25 by Design</span></div>
+    <div class="card" style="margin-bottom:8px">
+      <div class="card-title">Personal Data Minimisation Register</div>
+      <div style="display:flex;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:2px">
+        <span style="font-size:10px;color:var(--muted);font-family:var(--font-mono);flex:1">DATA FIELD</span>
+        <span style="font-size:10px;color:var(--muted);font-family:var(--font-mono);width:150px">LEGAL BASIS</span>
+        <span style="font-size:10px;color:var(--muted);font-family:var(--font-mono);width:60px;text-align:center">RETENTION</span>
+        <span style="font-size:10px;color:var(--muted);font-family:var(--font-mono);width:70px;text-align:right">STATUS</span>
+      </div>
+      ${(app.privacyFields||[]).map(f=>`
+      <div class="privacy-field-row">
+        <span class="pf-name">${f.field}</span>
+        <span class="pf-purpose">${f.basis}</span>
+        <span class="pf-retention">${f.retention}</span>
+        <span class="pf-badge pf-min">\u2713 Minimised</span>
+      </div>`).join('')}
+    </div>
+    <div style="margin-top:8px;display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+      <button class="btn btn-outline" style="font-size:11px;padding:5px 12px">&#x2B07; Data Subject Access (Art.15)</button>
+      <button class="btn btn-outline" style="font-size:11px;padding:5px 12px">&#x1F5D1; Right to Erasure (Art.17)</button>
+      <button class="btn btn-outline" style="font-size:11px;padding:5px 12px">&#x270B; Withdraw Consent (Art.7)</button>
+      <button class="btn btn-outline" style="font-size:11px;padding:5px 12px">&#x2709; Lodge DSR to DPC</button>
+    </div>
+
+    <!-- ⑦ Fair — Harmful Bias Managed -->
+    <div class="section-header"><div class="section-title">&#x2466; Fair &mdash; Harmful Bias Managed</div>
+      <span class="tag ${app.fairnessMetrics&&app.fairnessMetrics.disparateImpact>=0.8?'tag-complete':'tag-flagged'}">Bias Check ${app.fairnessMetrics&&app.fairnessMetrics.disparateImpact>=0.8?'Passed':'Review'}</span></div>
+    <div class="grid-2" style="margin-bottom:14px">
+      <div class="card">
+        <div class="card-title">Individual Fairness Metrics</div>
+        ${[
+          ['Disparate Impact Ratio',app.fairnessMetrics?app.fairnessMetrics.disparateImpact.toFixed(2):'\u2014',app.fairnessMetrics&&app.fairnessMetrics.disparateImpact>=0.8,'Threshold: &gt;0.80'],
+          ['Equal Opportunity Delta',app.fairnessMetrics?app.fairnessMetrics.equalOpportunity.toFixed(2):'\u2014',app.fairnessMetrics&&app.fairnessMetrics.equalOpportunity<=0.10,'Threshold: &lt;0.10'],
+          ['Group Calibration','Within \u00B12%',true,'Threshold: &lt;\u00B15%'],
+        ].map(([l,v,p,t])=>`
+        <div class="metric-row">
+          <span class="metric-label">${l}<br><span style="font-size:10px;color:var(--muted)">${t}</span></span>
+          <span class="metric-value" style="color:${p?'var(--green)':'var(--red)'}">${v} ${p?'\u2713':'\u2717'}</span>
+        </div>`).join('')}
+      </div>
+      <div class="card">
+        <div class="card-title">Group Approval Rate Comparison</div>
+        ${(app.groupFairness||[]).map(g=>`
+        <div class="group-fairness-row">
+          <span class="gf-group">${g.group}</span>
+          <div class="gf-bar"><div class="gf-fill" style="width:${g.rate}%"></div></div>
+          <span class="gf-val">${g.rate}%</span>
+          <span class="gf-status" style="color:${g.status==='pass'?'var(--green)':'var(--red)'}">${g.status==='pass'?'\u2713':'\u26A0'} vs ${g.benchmark}% avg</span>
+        </div>`).join('')}
+      </div>
+    </div>
+    <div class="flag-box green">
+      <div class="flag-title">\u2713 Ongoing Bias Monitoring &mdash; EU AI Act Art.10</div>
+      <div class="flag-body">Fairness metrics are recalculated monthly across all monitored groups (sector, geography, trading history, company size). Temporal drift in fairness indicators triggers model revalidation. All fairness assessments are stored in the immutable audit trail. Protected characteristic proxies are excluded from model features per anti-discrimination obligations.</div>
+    </div>
+
+  </div>`;
+}
+
 // ── Render sidebar app list ─────────────────────────────────
 function renderAppList() {
   const el = document.getElementById('app-list');
   el.innerHTML = APPS.map(a => {
-    const dot = {complete:'<span class="status-dot dot-green"></span>',processing:'<span class="status-dot dot-teal"></span>',flagged:'<span class="status-dot dot-yellow"></span>',decided:'<span class="status-dot dot-grey"></span>'}[a.status];
-    const label = {complete:'Ready',processing:'Processing',flagged:'Flagged',decided:a.decision==='approved'?'Approved':'Decided'}[a.status];
-    return `<div class="app-card ${currentAppId===a.id?'active':''}" onclick="switchView('apps');loadApp('${a.id}')">
-      <div class="app-card-name">${a.company}</div>
-      <div class="app-card-meta"><span>${dot}${label}</span><span>${a.amount}</span></div>
+    const dotClass = {complete:'dot-green',processing:'dot-teal',flagged:'dot-yellow',decided:'dot-grey'}[a.status];
+    const badgeColor = {complete:'var(--green)',processing:'var(--teal)',flagged:'var(--gold)',decided:'var(--muted)'}[a.status];
+    const name = a.company.length > 19 ? a.company.substring(0,18)+'\u2026' : a.company;
+    return `<div class="nav-item ${currentAppId===a.id?'active':''}" onclick="switchView('apps');loadApp('${a.id}')">
+      <span class="status-dot ${dotClass}" style="flex-shrink:0"></span>
+      <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${name}</span>
+      <span class="nav-badge" style="background:${badgeColor};color:var(--navy-dark);font-size:9px">${a.amount.replace('\u20AC','')}</span>
     </div>`;
   }).join('');
 }
@@ -1013,9 +1555,6 @@ function loadApp(id) {
   currentAppId = id;
   renderAppList();
   const app = APPS.find(a => a.id === id);
-  document.getElementById('topbar-title').textContent = app.company;
-  document.getElementById('topbar-sub').textContent = `${app.id} \u00B7 ${app.loanType} \u00B7 Requested ${app.requested||'\u2014'}`;
-  document.getElementById('topbar-actions').innerHTML = `<button class="btn btn-outline" onclick="showNewAppModal()">&#xFF0B; New Application</button>`;
   const content = document.getElementById('content');
   // hide side panels
   document.querySelectorAll('.side-panel').forEach(p=>{p.style.display='none';p.classList.remove('active');});
@@ -1080,7 +1619,7 @@ function runProcessingAnimation(app) {
         {type:'Credit Bureau Pull',timestamp:'10:48:21',status:'granted'},
         {type:'Automated Processing (GDPR Art.22)',timestamp:'10:48:22',status:'granted'},
       ];
-      app.narrative = `<strong>Clancy Logistics DAC</strong> is an established transport and logistics operator based in Athlone with 8 years of continuous trading.<br><br>Open banking analysis confirms <strong>consistent and growing revenue</strong> with annualised actual revenue of <strong>\u20AC3.18M</strong> closely aligned with declared \u20AC3.2M \u2014 variance of only <strong>0.6%</strong>.<br><br>PD model (v3.2) calculates <strong>probability of default at 2.2%</strong> with LGD of 38%, resulting in <strong>risk grade A2</strong>. Risk-based pricing: <strong>7.2% APR</strong>. DSCR of <strong>1.65\u00D7</strong> comfortably above 1.20\u00D7 policy threshold. IFRS 9: <strong>Stage 1</strong> with 12-month ECL of \u20AC1,549. All compliance checks passed. SHAP analysis identifies DSCR and revenue stability as primary positive drivers.`;
+      app.narrative = `<strong>${app.company}</strong> is an established transport and logistics operator based in Athlone with 8 years of continuous trading.<br><br>Open banking analysis confirms <strong>consistent and growing revenue</strong> with annualised actual revenue of <strong>\u20AC3.18M</strong> closely aligned with declared \u20AC3.2M \u2014 variance of only <strong>0.6%</strong>.<br><br>PD model (v3.2) calculates <strong>probability of default at 2.2%</strong> with LGD of 38%, resulting in <strong>risk grade A2</strong>. Risk-based pricing: <strong>7.2% APR</strong>. DSCR of <strong>1.65\u00D7</strong> comfortably above 1.20\u00D7 policy threshold. IFRS 9: <strong>Stage 1</strong> with 12-month ECL of \u20AC1,549. All compliance checks passed. SHAP analysis identifies DSCR and revenue stability as primary positive drivers.`;
       app.checks = [
         {name:'GDPR Art.13/14 Notice',detail:'Data processing notice acknowledged. Consent obtained.',status:'pass',time:'10:48:22'},
         {name:'AML / PEP Screening',detail:'Patrick Clancy (Director) \u2014 Clear.',status:'pass',time:'10:48:33'},
@@ -1091,6 +1630,7 @@ function runProcessingAnimation(app) {
         {name:'EBA LOM Credit Policy',detail:'DSCR 1.65\u00D7 exceeds 1.20\u00D7 minimum. All policy gates passed.',status:'pass',time:'10:48:40'},
         {name:'EU AI Act Compliance',detail:'High-risk controls active. SHAP explanations generated.',status:'pass',time:'10:48:41'},
         {name:'Fairness & Bias Check',detail:'DI: 0.94 (>0.80). EO delta: 0.02 (<0.10). No bias detected.',status:'pass',time:'10:48:42'},
+        {name:'AI Trustworthiness Assessment (7 Pillars)',detail:'Valid & Reliable \u2713 (AUC 0.84, CI 1.7%\u20132.8%) \u00B7 Safe \u2713 (stress DSCR 1.48\u00D7) \u00B7 Secure \u2713 \u00B7 Accountable \u2713 \u00B7 Explainable \u2713 \u00B7 Privacy \u2713 \u00B7 Fair \u2713. All pillars compliant.',status:'pass',time:'10:48:43'},
       ];
       app.transactions = [
         {date:'Jan 25',desc:'LODGE - DPD CONTRACT',category:'Revenue',amount:'+\u20AC94,300'},
@@ -1102,6 +1642,29 @@ function runProcessingAnimation(app) {
         {date:'Nov 24',desc:'LODGE - AMAZON FREIGHT',category:'Revenue',amount:'+\u20AC72,100'},
       ];
       app.bars = [62,70,75,80,72,85,78,88,82,90,86,95];
+      app.confidenceInterval = {pdLow:0.017,pdHigh:0.028};
+      app.dataQuality = {score:97,completeness:99,consistency:96,accuracy:97};
+      app.stressTest = {rateshockDscr:1.48,rateshockAff:0.80,recessionPD:0.038};
+      app.vulnerabilityFlag = false;
+      app.accountabilityChain = [
+        {role:'AI System Owner',name:'Chief Risk Officer',credential:'PCF-2 \u00B7 CBI Registered',ts:'System'},
+        {role:'Model Validator',name:'Model Risk Management',credential:'PD v3.2 \u00B7 AUC 0.84',ts:'15 Jan 2025'},
+        {role:'Data Steward',name:'Data Governance Team',credential:'GDPR Art.25 \u00B7 DPA signatory',ts:'System'},
+        {role:'Underwriter',name:'Pending Assignment',credential:'IAF-PCF-11',ts:'\u2014'},
+      ];
+      app.counterfactuals = [
+        {condition:'If sector cyclicality weight removed',outcome:'PD reduces to 1.9% \u2014 Grade A1',dir:'positive'},
+        {condition:'If DSCR were 1.20\u00D7 instead of 1.65\u00D7',outcome:'Risk grade B1 \u2014 higher pricing applied',dir:'negative'},
+      ];
+      app.privacyFields = [
+        {field:'Director Passport / ID',purpose:'AML/KYC Identity',basis:'Legal Obligation',retention:'5 yrs',minimized:true},
+        {field:'Bank Transaction Data (24mo)',purpose:'Affordability Assessment',basis:'Consent (PSD2)',retention:'5 yrs',minimized:true},
+        {field:'Company CRN',purpose:'KYB / CRO Check',basis:'Legitimate Interest',retention:'Permanent',minimized:true},
+      ];
+      app.groupFairness = [
+        {group:'Transport & Logistics',rate:69,benchmark:68,status:'pass'},
+        {group:'Athlone Region',rate:67,benchmark:65,status:'pass'},
+      ];
       renderAppList();
       setTimeout(() => { if (currentAppId===app.id) { renderFullApp(app,document.getElementById('view-apps')); showToast('\u2713 Assessment complete \u2014 evidence pack ready'); } }, 800);
     }
@@ -1146,9 +1709,10 @@ function renderFullApp(app, container) {
         <div class="tab" data-tab="riskxai">Risk &amp; XAI</div>
         <div class="tab" data-tab="banking">Open Banking</div>
         <div class="tab" data-tab="ifrs9">IFRS 9</div>
+        <div class="tab" data-tab="trust">&#x2714; Trustworthiness</div>
+        <div class="tab" data-tab="audit-log">Audit Log</div>
         <div class="tab${tabAlert}" data-tab="checks">Compliance</div>
         <div class="tab" data-tab="evidence">Evidence Pack</div>
-        <div class="tab" data-tab="audit-log">Audit Log</div>
       </div>
     </div>
     <div style="flex:1;overflow:hidden;position:relative">
@@ -1159,6 +1723,7 @@ function renderFullApp(app, container) {
       ${renderChecksTab(app)}
       ${renderEvidenceTab(app)}
       ${renderAuditTab(app)}
+      ${renderTrustTab(app)}
     </div>`;
   setTimeout(() => drawBarChart(app), 50);
   bindTabs(container);
@@ -1436,6 +2001,7 @@ function renderAuditTab(app) {
     {time:'14:22:20',dot:'',event:'IFRS 9 ECL calculated',detail:`Stage ${app.eclStage||'\u2014'} \u00B7 12m ECL: \u20AC${app.ecl12m?app.ecl12m.toLocaleString():'N/A'}`},
     {time:'14:22:21',dot:'',event:'EBA LOM credit policy applied',detail:`DSCR ${app.dscr||'N/A'}\u00D7 vs 1.20\u00D7 minimum`},
     {time:'14:22:22',dot:'',event:'EU AI Act compliance verified',detail:'High-risk controls: Art.9-15 all satisfied'},
+    {time:'14:22:23',dot:'',event:'AI Trustworthiness Assessment \u2014 7 Pillars',detail:'Valid & Reliable \u2713 \u00B7 Safe \u2713 \u00B7 Secure \u2713 \u00B7 Accountable \u2713 \u00B7 Explainable \u2713 \u00B7 Privacy \u2713 \u00B7 Fair \u2713'},
     {time:'14:22:23',dot:'',event:'Risk-based pricing calculated',detail:`APR: ${app.apr||'N/A'}% \u00B7 Grade: ${app.riskGrade||'N/A'} \u00B7 EBA LOM pricing framework`},
     {time:'14:22:25',dot:'',event:'Evidence pack generated',detail:'PDF credit memo prepared \u00B7 All source data referenced'},
     {time:'14:22:26',dot:'',event:'Assessment complete \u2014 awaiting underwriter decision',detail:'Processing time: 41 seconds'},
@@ -1536,6 +2102,12 @@ function showToast(msg) {
   document.body.appendChild(t);
   setTimeout(()=>{t.classList.add('hide');setTimeout(()=>t.remove(),300);},3000);
 }
+
+// ── Login keyboard support ───────────────────────────────────
+['login-user','login-pass'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
+});
 
 // ── Init ────────────────────────────────────────────────────
 renderAppList();
