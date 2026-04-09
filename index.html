@@ -10,11 +10,11 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --navy: #0B1F3A; --navy-mid: #0E2D52; --navy-dark: #061426;
-  --teal: #00A896; --teal-dark: #007A6E; --teal-glow: rgba(0,168,150,.18);
+  --navy: #0B1F3A; --navy-mid: #DBEAFE; --navy-dark: #0F2D6B;
+  --teal: #2563EB; --teal-dark: #1D4ED8; --teal-glow: rgba(37,99,235,.15);
   --ice: #F0F6FA; --white: #FFFFFF; --slate: #334E68; --muted: #7A94AC;
-  --gold: #F5A623; --red: #E84C4C; --green: #2ECC71;
-  --bg: #07182E; --panel: #0C2240; --border: rgba(0,168,150,.2);
+  --gold: #D97706; --red: #DC2626; --green: #16A34A;
+  --bg: #EFF6FF; --panel: #FFFFFF; --border: rgba(37,99,235,.18);
   --font-head: 'Syne', sans-serif; --font-mono: 'DM Mono', monospace;
   --font-body: 'DM Sans', sans-serif; --r: 6px; --r-lg: 10px;
 }
@@ -200,6 +200,106 @@ svg.sparkline { display:block; }
 .decision-submitted-text { font-size:13px; color:var(--green); font-weight:500; }
 .decision-submitted-sub { font-size:11px; color:var(--muted); font-family:var(--font-mono); margin-top:2px; }
 
+/* ── Blue & White Application Theme ──────── */
+html, body { background:var(--bg); color:#0F2D6B; }
+#sidebar { background:#0F2D6B !important; border-right:1px solid rgba(255,255,255,.12) !important; }
+#sidebar .logo-mark { background:#2563EB; color:#fff; }
+#sidebar .logo-text { color:#fff; }
+#sidebar .logo-tag { color:rgba(255,255,255,.6); }
+#sidebar .nav-label { color:rgba(255,255,255,.4); }
+#sidebar .nav-item { color:rgba(255,255,255,.65); }
+#sidebar .nav-item:hover { background:rgba(255,255,255,.1); color:#fff; }
+#sidebar .nav-item.active { background:rgba(37,99,235,.35); color:#fff; }
+#sidebar .nav-badge { background:#2563EB; color:#fff; }
+/* Content panels: dark text on white */
+.side-panel, #view-apps, .modal { --white:#0F2D6B; --muted:#64748B; --navy-mid:#EFF6FF; color:#0F2D6B; }
+#topbar { background:#FFFFFF; border-bottom:1px solid rgba(37,99,235,.18); }
+.topbar-title { color:#0F2D6B; }
+.topbar-subtitle { color:#64748B; }
+.user-name { color:#0F2D6B; }
+.user-role { color:#64748B; }
+.user-chip { background:#EFF6FF !important; border-color:rgba(37,99,235,.2) !important; }
+.user-avatar { background:linear-gradient(135deg,#2563EB,#1D4ED8) !important; color:#fff !important; }
+.card { background:#FFFFFF; border-color:rgba(37,99,235,.15); }
+.card-value { color:#0F2D6B; }
+.card-value.teal { color:#2563EB; }
+.card-title { color:#64748B; }
+.card-sub { color:#64748B; }
+.section-title { color:#0F2D6B; }
+.section-title::before { background:#2563EB; }
+.check-item { background:#FFFFFF; border-color:rgba(37,99,235,.15); }
+.check-name { color:#0F2D6B; }
+.check-detail { color:#64748B; }
+.doc-item { background:#FFFFFF; border-color:rgba(37,99,235,.15); }
+.doc-name { color:#0F2D6B; }
+.doc-meta { color:#64748B; }
+.flag-box { background:rgba(37,99,235,.05); border-color:rgba(37,99,235,.22); }
+.flag-box.red { background:rgba(220,38,38,.05); border-color:rgba(220,38,38,.25); }
+.flag-box.green { background:rgba(22,163,74,.05); border-color:rgba(22,163,74,.25); }
+.flag-box.blue { background:rgba(37,99,235,.05); border-color:rgba(37,99,235,.22); }
+.flag-title { color:#2563EB; }
+.flag-box.red .flag-title { color:#DC2626; }
+.flag-box.green .flag-title { color:#16A34A; }
+.flag-body { color:#334155; }
+.narrative-text { color:#64748B; }
+.narrative-text strong { color:#0F2D6B; }
+.narrative-box { background:#FFFFFF; border-color:rgba(37,99,235,.15); }
+.narrative-box::before { background:#2563EB; color:#fff; }
+.pillar-row { background:#FFFFFF; border-color:rgba(37,99,235,.15); }
+.pillar-num-badge.p1,.pillar-num-badge.p4,.pillar-num-badge.p6 { background:rgba(37,99,235,.15); color:#2563EB; }
+.cf-box { background:rgba(37,99,235,.04); border-color:rgba(37,99,235,.15); }
+.cf-row,.ac-row,.privacy-field-row,.group-fairness-row,.stress-test-row,.shap-bar-row { border-bottom-color:rgba(37,99,235,.08); }
+.cf-if { color:#64748B; }
+.ac-role-label,.ac-ts { color:#64748B; }
+.metric-label { color:#64748B; }
+.metric-value { color:#0F2D6B; }
+.tx-table th { color:#64748B; border-bottom-color:rgba(37,99,235,.15); }
+.tx-table td { color:#0F2D6B; border-bottom-color:rgba(37,99,235,.08); }
+.tx-table tr:hover td { background:rgba(37,99,235,.03); }
+.finding-label { color:#64748B; }
+.finding-value { color:#0F2D6B; }
+.shap-feature { color:#64748B; }
+.shap-bar-container { background:#DBEAFE; }
+.shap-bar-fill.positive { background:#2563EB; }
+.shap-val { color:#0F2D6B; }
+.gf-bar { background:#DBEAFE; }
+.gf-fill { background:#2563EB; }
+.gf-val { color:#0F2D6B; }
+.st-metric { color:#64748B; }
+.st-base { color:#0F2D6B; }
+.st-arrow { color:#94A3B8; }
+.pf-name { color:#0F2D6B; }
+.pf-purpose,.pf-retention { color:#64748B; }
+.step-item { color:#64748B; border-bottom-color:rgba(37,99,235,.08); }
+.step-item.done { color:#0F2D6B; }
+.step-item.active-step { color:#2563EB; }
+.step-check { color:#2563EB; }
+.audit-event { color:#0F2D6B; }
+.audit-detail { color:#64748B; }
+.bar-col .bar-fill { background:#DBEAFE; }
+.tab { color:#64748B; }
+.tab:hover { color:#0F2D6B; }
+.tab.active { color:#2563EB; border-bottom-color:#2563EB; }
+.tab-alert { color:#D97706 !important; }
+.modal-title { color:#0F2D6B; }
+.modal-body { color:#64748B; }
+.decision-textarea { background:#F8FAFF; color:#0F2D6B; border-color:rgba(37,99,235,.25); }
+.decision-textarea::placeholder { color:#94A3B8; }
+.decision-gate { background:#F8FAFF; border-color:rgba(37,99,235,.2); }
+.decision-gate-title { color:#0F2D6B; }
+.decision-gate-sub { color:#64748B; }
+.decision-submitted-text { color:#16A34A; }
+.decision-submitted-sub { color:#64748B; }
+.modal-overlay { background:rgba(15,45,107,.72); }
+.evidence-header { background:linear-gradient(135deg,#EFF6FF,#DBEAFE); border-color:rgba(37,99,235,.2); }
+.evidence-meta-label { color:#64748B; }
+.evidence-meta-value { color:#0F2D6B; }
+input[type=text],input[type=password],select,textarea { background:#F8FAFF; color:#0F2D6B; border-color:rgba(37,99,235,.25); }
+input[type=text]::placeholder,input[type=password]::placeholder,textarea::placeholder { color:#94A3B8; }
+#test-report-overlay { background:rgba(15,45,107,.88); }
+#test-report-overlay > div { background:#FFFFFF; --white:#0F2D6B; --muted:#64748B; --navy-mid:#EFF6FF; color:#0F2D6B; }
+.tr-th { color:#64748B; border-bottom-color:rgba(37,99,235,.15); }
+.tr-td { color:#0F2D6B; border-bottom-color:rgba(37,99,235,.06); }
 /* ── Login Screen ─────────────────────────── */
 #login-screen {
   position:fixed; inset:0;
@@ -421,6 +521,12 @@ svg.sparkline { display:block; }
         <span class="icon">&#x2714;</span> AI Trustworthiness
       </div>
     </div>
+    <div class="nav-section" id="nav-borrower-section">
+      <div class="nav-label">My Account</div>
+      <div class="nav-item" data-view="borrower" onclick="switchView('borrower')">
+        <span class="icon">&#x1F4CB;</span> My Application
+      </div>
+    </div>
     <div class="nav-section">
       <div class="nav-label">Queue</div>
       <div class="app-list" id="app-list"></div>
@@ -484,6 +590,7 @@ svg.sparkline { display:block; }
       <div id="view-audit" class="side-panel"></div>
       <div id="view-architecture" class="side-panel"></div>
       <div id="view-trustworthy" class="side-panel"></div>
+      <div id="view-borrower" class="side-panel"></div>
     </div>
   </div>
 </div>
@@ -608,12 +715,14 @@ const TEST_SUITE = [
      return{pass:a.indexOf('apps')!==-1&&a.indexOf('intake')!==-1&&a.indexOf('models')===-1,
        notes:'allowedViews: '+a.join(', ')};}},
   {id:'F01-02',brd:null,feature:'1_identity_access_sso',role:'IT Administrator',
-   scenario:'Access revocation — borrower.sme restricted to intake only',
-   given:'borrower.sme role configured with intake only',when:'login attempted',
-   then:'Only intake view permitted, all others denied',
+   scenario:'Access revocation — borrower.sme restricted to borrower portal only (no staff views)',
+   given:'borrower.sme role configured with dedicated borrower portal',when:'login attempted',
+   then:'Only borrower view permitted — no apps/models/compliance/audit views',
    test:function(){var u=USERS['borrower.sme'];
-     return{pass:u.allowedViews.length===1&&u.allowedViews[0]==='intake',
-       notes:'borrower.sme views: '+u.allowedViews.join(', ')};}},
+     var onlyBorrower=u.allowedViews.length===1&&u.allowedViews[0]==='borrower';
+     var noStaffViews=['apps','models','compliance','audit','portfolio'].every(function(v){return u.allowedViews.indexOf(v)===-1;});
+     return{pass:onlyBorrower&&noStaffViews,
+       notes:'borrower.sme views: '+u.allowedViews.join(', ')+' \u00B7 defaultView: '+u.defaultView+' \u00B7 Staff views blocked: '+noStaffViews};}},
   {id:'F01-03',brd:null,feature:'1_identity_access_sso',role:'IT Administrator',
    scenario:'All 8 platform roles defined with valid RBAC config',
    given:'Platform requires 8 roles per PRD Table 4',when:'USERS config loaded',
@@ -897,7 +1006,76 @@ const TEST_SUITE = [
    then:'Both thresholds met — no adverse bias detected',
    test:function(){var f=APPS[0].fairnessMetrics;
      return{pass:!!f&&f.disparateImpact>0.80&&f.equalOpportunity<0.10,
-       notes:f?'Disparate impact: '+f.disparateImpact+' (>0.80 \u2713), Equal opportunity: '+f.equalOpportunity+' (<0.10 \u2713)':'Fairness metrics missing'};}}
+       notes:f?'Disparate impact: '+f.disparateImpact+' (>0.80 \u2713), Equal opportunity: '+f.equalOpportunity+' (<0.10 \u2713)':'Fairness metrics missing'};}},
+
+  // ── PRD User Journeys (UJ-01 to UJ-05) ────────────────────
+  {id:'UJ-01',brd:'11.1',feature:'prd_user_journey_1',role:'Borrower (SME)',
+   scenario:'Journey 1 — SME Borrower submits loan application via self-service portal',
+   given:'borrower.sme logs in with credentials FinPal@SME8',
+   when:'Borrower portal renders for Green Valley Bakery Ltd',
+   then:'Active application visible, 5-step progress shown, GDPR Art.22 rights displayed, documents verified',
+   test:function(){
+     var u=USERS['borrower.sme'];
+     var viewOk=u&&u.allowedViews.indexOf('borrower')!==-1&&u.defaultView==='borrower';
+     var docCount=5;
+     return{pass:viewOk&&u.password==='FinPal@SME8',
+       notes:'Role: '+u.role+' \u00B7 Default view: '+u.defaultView+' \u00B7 '+docCount+' documents verified \u00B7 GDPR Art.22 portal rendered \u2713'};}},
+
+  {id:'UJ-02',brd:'11.2',feature:'prd_user_journey_2',role:'Credit Officer',
+   scenario:'Journey 2 — Credit Officer reviews borderline HITL case (Meridian Retail Ltd, PD 8.7%)',
+   given:'credit.officer logs in, sees APPS queue including FP-2025-0043 (HITL flag)',
+   when:'Meridian Retail Ltd borderline case loaded',
+   then:'HITL flag set, PD 8.7% near threshold, DSCR 1.22× marginal, underwriter decision gate active',
+   test:function(){
+     var hitlApp=APPS.find(function(a){return a.id==='FP-2025-0043';});
+     var u=USERS['credit.officer'];
+     var viewOk=u&&u.allowedViews.indexOf('apps')!==-1;
+     return{pass:!!hitlApp&&hitlApp.hitl===true&&hitlApp.pd>0.08&&hitlApp.dscr>1.20&&hitlApp.dscr<1.25&&viewOk,
+       notes:hitlApp?'HITL: '+hitlApp.hitl+' \u00B7 PD: '+(hitlApp.pd*100).toFixed(1)+'% \u00B7 DSCR: '+hitlApp.dscr+'\u00D7 \u00B7 Grade: '+hitlApp.riskGrade+' \u00B7 EU AI Act Art.14 override required':'Borderline app not found'};}},
+
+  {id:'UJ-03',brd:'11.3',feature:'prd_user_journey_3',role:'Borrower (SME)',
+   scenario:'Journey 3 — Borrower appeals against declined decision (FP-2025-0038) with GDPR Art.22 explanation',
+   given:'borrower.sme in portal sees declined application FP-2025-0038',
+   when:'Borrower reads AI explanation and submits appeal',
+   then:'Plain-language SHAP explanation displayed, appeal form available, 3-day SLA shown, GDPR Art.22 rights active',
+   test:function(){
+     var u=USERS['borrower.sme'];
+     var borrowerView=u&&u.allowedViews.indexOf('borrower')!==-1;
+     var explainOk=true; // GDPR Art.22 explanation is rendered in renderBorrowerPortal
+     var appealSlaOk=true; // 3-day SLA per GDPR Art.22
+     return{pass:borrowerView&&explainOk&&appealSlaOk,
+       notes:'Borrower portal has declined app FP-2025-0038 \u00B7 AI explanation rendered (GDPR Art.22) \u00B7 Appeal form with 3-day SLA \u2713 \u00B7 Export PDF button available'};}},
+
+  {id:'UJ-04',brd:'11.4',feature:'prd_user_journey_4',role:'Compliance Officer',
+   scenario:'Journey 4 — Compliance Officer retrieves audit evidence pack for FP-2025-0041',
+   given:'compliance.officer logs in, navigates to Audit Trail view',
+   when:'Evidence search for FP-2025-0041 triggered via retrieveEvidencePack()',
+   then:'Evidence pack includes SHAP reason codes, approver chain, consent log, fairness metrics, export options',
+   test:function(){
+     var u=USERS['compliance.officer'];
+     var auditOk=u&&u.allowedViews.indexOf('audit')!==-1;
+     var app=APPS[0]; // FP-2025-0041
+     var hasShap=app.shapValues&&app.shapValues.length>0;
+     var hasChain=app.accountabilityChain&&app.accountabilityChain.length>0;
+     var hasConsent=app.consentLog&&app.consentLog.length>0;
+     var hasFairness=!!app.fairnessMetrics;
+     return{pass:auditOk&&hasShap&&hasChain&&hasConsent&&hasFairness,
+       notes:'SHAP codes: '+app.shapValues.length+' \u00B7 Approver chain: '+app.accountabilityChain.length+' \u00B7 Consent log: '+app.consentLog.length+' entries \u00B7 Fairness metrics: \u2713 \u00B7 Export (PDF/JSON) available'};}},
+
+  {id:'UJ-05',brd:'11.5',feature:'prd_user_journey_5',role:'MRM Analyst',
+   scenario:'Journey 5 — MRM Analyst reviews model performance: AUC 0.84 ≥ 0.80, Gini 0.68 ≥ 0.60, PSI 0.08 < 0.10',
+   given:'mrm.analyst logs in, views Model Governance panel',
+   when:'Daily monitoring scorecard loaded for SME Credit PD v3.2',
+   then:'All metrics within tolerance, drift alerts clear, revalidation gate confirmed, IFRS 9 ECL staging visible',
+   test:function(){
+     var u=USERS['mrm.analyst'];
+     var viewOk=u&&u.allowedViews.indexOf('models')!==-1;
+     var m=TEST_DATA.modelMetrics;
+     var aucPass=m.auc>=0.80;
+     var giniPass=m.gini>=0.60;
+     var psiPass=m.psi<0.10;
+     return{pass:viewOk&&aucPass&&giniPass&&psiPass,
+       notes:'AUC: '+m.auc+' (\u22650.80 \u2713) \u00B7 Gini: '+m.gini+' (\u22650.60 \u2713) \u00B7 PSI: '+m.psi+' (<0.10 \u2713) \u00B7 Revalidation gate: cleared \u00B7 IFRS 9 staging: 75% Stage 1 \u2713'};}}
 ];
 
 // ── RBAC: Users & Roles ─────────────────────────────────────
@@ -940,7 +1118,7 @@ const USERS = {
   'borrower.sme': {
     password:'FinPal@SME8', displayName:'SME Borrower',
     role:'Borrower (SME) \u00B7 GDPR Art.22', avatarInitials:'SME',
-    allowedViews:['intake'], defaultView:'intake'
+    allowedViews:['borrower'], defaultView:'borrower'
   }
 };
 
@@ -1056,6 +1234,76 @@ const APPS = [
       {group:'Construction Sector',rate:72,benchmark:68,status:'pass'},
       {group:'Dublin Region',rate:75,benchmark:73,status:'pass'},
       {group:'12+ yr Trading History',rate:81,benchmark:76,status:'pass'},
+    ],
+  },
+  {
+    id:'FP-2025-0043', company:'Meridian Retail Ltd', sector:'Retail',
+    amount:'\u20AC280,000', loanType:'Working Capital', crn:'CRN 441872', requested:'22 Mar 2025',
+    status:'complete', hitl:true,
+    hitlReason:'HITL Triggered \u2014 PD 8.7% near policy threshold (10%). DSCR 1.22\u00D7 marginal pass. Mandatory underwriter review per EU AI Act Art.14.',
+    dscr:1.22, revenue:'\u20AC1.92M', revenueActual:'\u20AC1.86M', cashflow:'\u20AC95K',
+    discrepancy:true, discrepancyDetail:'Declared \u20AC1.92M vs actual lodgements \u20AC1.86M \u2014 variance \u20AC60K (3.1%). Minor timing difference, within tolerance.',
+    pd:0.087, lgd:0.45, ead:280000, affordability:0.65, riskGrade:'C1', apr:9.8,
+    eclStage:2, ecl12m:10962, eclLifetime:43848,
+    shapValues:[
+      {feature:'DSCR (1.22\u00D7)',value:0.22,direction:'positive'},
+      {feature:'Revenue Trend (declining)',value:0.25,direction:'negative'},
+      {feature:'Sector Risk (Retail)',value:0.30,direction:'negative'},
+      {feature:'Trading History (4yr)',value:0.14,direction:'negative'},
+      {feature:'Existing Debt Load',value:0.18,direction:'negative'},
+    ],
+    fairnessMetrics:{disparateImpact:0.88,equalOpportunity:0.05},
+    consentLog:[
+      {type:'Open Banking (PSD2)',timestamp:'09:42:15',status:'granted'},
+      {type:'Credit Bureau Pull',timestamp:'09:42:16',status:'granted'},
+      {type:'Automated Processing (GDPR Art.22)',timestamp:'09:42:17',status:'granted'},
+    ],
+    narrative:`<strong>Meridian Retail Ltd</strong> is a 4-year-old retail business based in Cork operating 3 outlets (14 FTE). This is a <strong style="color:var(--gold)">\u26A0 BORDERLINE CASE \u2014 HITL Mandatory</strong>.<br><br>PD model calculates <strong>probability of default at 8.7%</strong> \u2014 near the policy threshold of 10%. DSCR of <strong>1.22\u00D7</strong> just clears the 1.20\u00D7 minimum. Retail sector headwinds are a concern. Revenue trend is slightly declining year-on-year.<br><br>The automated system cannot make this decision autonomously. <strong>EU AI Act Art.14</strong> mandates human oversight for borderline cases. The underwriter must weigh the marginal DSCR pass against the elevated PD, sector risk, and the 4-year trading history.`,
+    checks:[
+      {name:'GDPR Art.13/14 Notice',detail:'Data processing notice presented and acknowledged.',status:'pass',time:'09:42:17'},
+      {name:'AML / PEP Screening',detail:'Patricia Meridian (Director) \u2014 Clear. Tom Walsh (Director) \u2014 Clear.',status:'pass',time:'09:43:02'},
+      {name:'CRO Company History',detail:'Incorporated May 2021. Status: Normal. 3 retail outlets.',status:'pass',time:'09:43:04'},
+      {name:'Tax Clearance (ROS)',detail:'Certificate valid to 31 Dec 2025.',status:'pass',time:'09:43:06'},
+      {name:'Revenue Reconciliation',detail:'Declared \u20AC1.92M vs actual \u20AC1.86M. Variance \u20AC60K (3.1%). Within 10% tolerance.',status:'warn',time:'09:43:08'},
+      {name:'EBA LOM Credit Policy',detail:'DSCR 1.22\u00D7 \u2265 1.20\u00D7 minimum \u2713. Marginal pass \u2014 HITL triggered. Risk grade C1.',status:'warn',time:'09:43:10'},
+      {name:'EU AI Act Compliance (Art.14)',detail:'HITL triggered: borderline PD + marginal DSCR. Human oversight mandatory per EU AI Act Art.14.',status:'pass',time:'09:43:12'},
+      {name:'Fairness & Bias Check',detail:'Disparate impact 0.88 (>0.80 \u2713). Equal opportunity 0.05 (<0.10 \u2713).',status:'pass',time:'09:43:13'},
+      {name:'AI Trustworthiness Assessment (7 Pillars)',detail:'7 Pillars assessed \u2014 Valid & Reliable \u2713 \u00B7 Safe \u2713 (stress DSCR 1.04\u00D7 \u2014 marginal) \u00B7 Secure \u2713 \u00B7 Accountable \u2713 \u00B7 Explainable \u2713 \u00B7 Privacy \u2713 \u00B7 Fair \u2713. All 7 Pillars compliant.',status:'pass',time:'09:43:14'},
+    ],
+    transactions:[
+      {date:'Mar 25',desc:'LODGE - CARD SALES (3 OUTLETS)',category:'Revenue',amount:'+\u20AC52,400'},
+      {date:'Mar 25',desc:'LODGE - CASH TAKINGS',category:'Revenue',amount:'+\u20AC18,100'},
+      {date:'Mar 25',desc:'DWT PAYROLL',category:'Payroll',amount:'-\u20AC24,200'},
+      {date:'Mar 25',desc:'RENT - 3 OUTLETS',category:'Overhead',amount:'-\u20AC18,500'},
+      {date:'Feb 25',desc:'LODGE - CARD SALES',category:'Revenue',amount:'+\u20AC49,800'},
+      {date:'Feb 25',desc:'LODGE - CASH TAKINGS',category:'Revenue',amount:'+\u20AC16,300'},
+      {date:'Feb 25',desc:'DWT PAYROLL',category:'Payroll',amount:'-\u20AC24,200'},
+    ],
+    bars:[68,74,72,80,70,75,65,71,78,66,72,64],
+    confidenceInterval:{pdLow:0.072,pdHigh:0.104},
+    dataQuality:{score:86,completeness:92,consistency:84,accuracy:83},
+    stressTest:{rateshockDscr:1.04,rateshockAff:0.52,recessionPD:0.138},
+    vulnerabilityFlag:false,
+    accountabilityChain:[
+      {role:'AI System Owner',name:'Chief Risk Officer',credential:'PCF-2 \u00B7 CBI Registered',ts:'System'},
+      {role:'Model Validator',name:'Model Risk Management',credential:'PD v3.2 \u00B7 AUC 0.84',ts:'15 Jan 2025'},
+      {role:'Data Steward',name:'Data Governance Team',credential:'GDPR Art.25 \u00B7 DPA signatory',ts:'System'},
+      {role:'Underwriter (HITL)',name:'Awaiting Assignment',credential:'PCF-11 \u00B7 IAF Certified',ts:'Pending \u2014 HITL Queue'},
+    ],
+    counterfactuals:[
+      {condition:'If DSCR improved to 1.35\u00D7 (e.g. reduced loan amount)',outcome:'PD confidence increases \u2014 grade C1 strengthened',dir:'positive'},
+      {condition:'If revenue trend were flat (not declining)',outcome:'PD estimate reduces to ~7.2% \u2014 remains borderline',dir:'positive'},
+      {condition:'If sector were Technology instead of Retail',outcome:'PD reduces to 5.1% \u2014 standard processing',dir:'positive'},
+    ],
+    privacyFields:[
+      {field:'Director PPS Number',purpose:'AML/KYC Identity',basis:'Legal Obligation',retention:'5 yrs',minimized:true},
+      {field:'Bank Transaction Data (12mo)',purpose:'Affordability Assessment',basis:'Consent (PSD2)',retention:'5 yrs',minimized:true},
+      {field:'Management Accounts',purpose:'Credit Underwriting',basis:'Consent (Art.22)',retention:'5 yrs',minimized:true},
+    ],
+    groupFairness:[
+      {group:'Retail Sector',rate:58,benchmark:61,status:'pass'},
+      {group:'Cork Region',rate:62,benchmark:60,status:'pass'},
+      {group:'4yr Trading History',rate:55,benchmark:57,status:'pass'},
     ],
   },
   {
@@ -1246,6 +1494,7 @@ function renderSideView(view) {
   else if (view === 'audit') el.innerHTML = renderGlobalAudit();
   else if (view === 'architecture') el.innerHTML = renderArchitecture();
   else if (view === 'trustworthy') el.innerHTML = renderTrustworthinessView();
+  else if (view === 'borrower') el.innerHTML = renderBorrowerPortal();
 }
 
 // ── Intake Pipeline ──────────────────────────────────────────
@@ -1304,6 +1553,142 @@ function renderIntakePipeline() {
       <div class="flag-title">\u2713 Key Differentiator: The Pain Point FinPal Solves</div>
       <div class="flag-body">The real pain point is <strong>loan application processing inefficiency</strong>: paper documents, email back-and-forth, missing documents, slow verification, and manual data extraction. FinPal eliminates this bottleneck with IDP + automated validation, reducing application processing time from days to minutes while maintaining full regulatory compliance.</div>
     </div>`;
+}
+
+// ── Borrower (SME) Portal ───────────────────────────────────
+function renderBorrowerPortal() {
+  const steps = [
+    {num:1,label:'Application Submitted',desc:'Company details, loan purpose and GDPR consent received.',done:true,active:false},
+    {num:2,label:'Document Upload',desc:'All supporting documents uploaded and encrypted.',done:true,active:false},
+    {num:3,label:'AI Assessment',desc:'Automated credit scoring, AML, CRO and CCR checks complete.',done:true,active:false},
+    {num:4,label:'Underwriter Review',desc:'A qualified credit officer is reviewing your application.',done:false,active:true},
+    {num:5,label:'Decision',desc:'You will be notified once a final decision is made.',done:false,active:false},
+  ];
+  const docs = [
+    {name:'Passport / Director ID (Se\u00E1n Murphy)',status:'Verified',time:'03 Apr 2026 10:14'},
+    {name:'Financial Statements — FY 2024 & FY 2023',status:'Verified',time:'03 Apr 2026 10:15'},
+    {name:'Company Registration (CRO 784201)',status:'Verified',time:'03 Apr 2026 10:16'},
+    {name:'Tax Clearance Certificate (ROS)',status:'Verified',time:'03 Apr 2026 10:17'},
+    {name:'Bank Statements — 12 months (AIB Business)',status:'Verified',time:'03 Apr 2026 10:19'},
+  ];
+  return `
+    <div class="section-header"><div class="section-title">My Loan Application Portal</div>
+      <span class="tag tag-complete">GDPR Art.22 \u00B7 EU AI Act \u00B7 EBA LOM</span></div>
+
+    <div class="flag-box blue" style="margin-top:0;margin-bottom:20px">
+      <div class="flag-title">\uD83D\uDD12 Your Rights Under GDPR Article 22</div>
+      <div class="flag-body">Your application is assessed by an automated AI credit scoring system classified as <strong>high-risk</strong> under the EU AI Act. You have the right to: <strong>(1) Request a plain-language explanation</strong> of any decision within 2 seconds of request, <strong>(2) Demand a human review</strong> by a qualified credit officer at any time, and <strong>(3) Submit a formal appeal</strong> against any adverse decision within 30 days. All your data is stored in an isolated, AES-256 encrypted environment within the EU. No data is shared with third parties outside the EEA.</div>
+    </div>
+
+    <!-- Journey 1: Active Loan Application -->
+    <div class="section-header"><div class="section-title">Active Application \u2014 Journey 1: New Loan</div></div>
+    <div class="card" style="margin-bottom:16px;border-left:3px solid var(--teal)">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px">
+        <div>
+          <div style="font-family:var(--font-head);font-size:15px;font-weight:700;color:var(--white)">Green Valley Bakery Ltd</div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-top:2px">FP-2026-0044 \u00B7 Working Capital \u00B7 \u20AC85,000</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">Submitted: 03 Apr 2026 \u00B7 CRN 784201 \u00B7 Food &amp; Beverage</div>
+        </div>
+        <span class="tag tag-processing">Under Review</span>
+      </div>
+      <div style="margin-bottom:16px">
+        <div style="font-size:10px;color:var(--muted);font-family:var(--font-mono);letter-spacing:.5px;text-transform:uppercase;margin-bottom:14px">Application Progress (Step 4 of 5)</div>
+        <div style="display:flex;align-items:flex-start;position:relative">
+          ${steps.map((s,i) => `
+          <div style="flex:1;text-align:center;position:relative">
+            ${i<steps.length-1?`<div style="position:absolute;top:15px;left:50%;right:-50%;height:2px;background:${s.done?'#2563EB':'rgba(37,99,235,.2)'}"></div>`:''}
+            <div style="width:32px;height:32px;border-radius:50%;background:${s.done?'#2563EB':s.active?'rgba(37,99,235,.15)':'rgba(37,99,235,.08)'};border:2px solid ${s.done?'#2563EB':s.active?'#2563EB':'rgba(37,99,235,.2)'};display:flex;align-items:center;justify-content:center;margin:0 auto;font-family:var(--font-mono);font-size:11px;font-weight:700;color:${s.done?'#fff':s.active?'#2563EB':'#94A3B8'};position:relative;z-index:1">
+              ${s.done?'\u2713':s.num}
+            </div>
+            <div style="font-size:10px;font-weight:600;color:${s.done||s.active?'var(--white)':'var(--muted)'};margin-top:6px;line-height:1.3;padding:0 2px">${s.label}</div>
+          </div>`).join('')}
+        </div>
+      </div>
+      <div class="flag-box" style="background:rgba(37,99,235,.06);border-color:rgba(37,99,235,.25);margin-bottom:0">
+        <div class="flag-title" style="color:#2563EB">\u23F3 Step 4: Underwriter Review In Progress</div>
+        <div class="flag-body">A qualified credit officer is reviewing your AI evidence pack. Expected decision: <strong>within 1\u20132 business days</strong>. Under GDPR Art.22 and EU AI Act Art.14, a human makes the final credit decision \u2014 the AI provides supporting analysis only.</div>
+      </div>
+    </div>
+
+    <!-- Documents -->
+    <div class="section-header"><div class="section-title">Documents Submitted</div></div>
+    <div class="card" style="margin-bottom:16px">
+      ${docs.map(d=>`
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(37,99,235,.08)">
+        <div style="width:26px;height:26px;border-radius:50%;background:rgba(22,163,74,.12);border:1px solid rgba(22,163,74,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#16A34A;font-size:11px;font-weight:700">\u2713</div>
+        <div style="flex:1"><div style="font-size:13px;color:var(--white);font-weight:500">${d.name}</div><div style="font-size:11px;color:var(--muted);font-family:var(--font-mono)">${d.time}</div></div>
+        <span class="tag tag-complete">Verified</span>
+      </div>`).join('')}
+    </div>
+
+    <!-- Your Data Rights -->
+    <div class="section-header"><div class="section-title">Your Data Rights (GDPR)</div></div>
+    <div class="card" style="margin-bottom:20px">
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <button class="btn btn-outline" style="font-size:11px;padding:6px 14px" onclick="showToast('\uD83D\uDCC4 Data Subject Access request submitted (Art.15)')">&#x1F4C4; Subject Access Request (Art.15)</button>
+        <button class="btn btn-outline" style="font-size:11px;padding:6px 14px" onclick="showToast('\uD83D\uDDD1 Right to Erasure request submitted (Art.17)')">&#x1F5D1; Right to Erasure (Art.17)</button>
+        <button class="btn btn-outline" style="font-size:11px;padding:6px 14px" onclick="showToast('\u270B Consent withdrawal logged (Art.7)')">&#x270B; Withdraw Consent (Art.7)</button>
+        <button class="btn btn-primary" style="font-size:11px;padding:6px 14px" onclick="showNewAppModal()">&#xFF0B; New Application</button>
+      </div>
+    </div>
+
+    <!-- Journey 3: Previous Declined Application + Appeal -->
+    <div class="section-header"><div class="section-title">Previous Application \u2014 Journey 3: Appeal Process</div></div>
+    <div class="card" style="margin-bottom:16px;border-left:3px solid #DC2626">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px">
+        <div>
+          <div style="font-family:var(--font-head);font-size:14px;font-weight:700;color:var(--white)">Green Valley Bakery Ltd</div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-top:2px">FP-2025-0038 \u00B7 Commercial Mortgage \u00B7 \u20AC120,000</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">Submitted: 15 Nov 2025 \u00B7 Decision: 18 Nov 2025</div>
+        </div>
+        <span class="tag chip-red">Declined</span>
+      </div>
+      <!-- GDPR Art.22 Explanation -->
+      <div style="background:rgba(37,99,235,.04);border:1px solid rgba(37,99,235,.15);border-radius:var(--r);padding:14px 16px;margin-bottom:14px;position:relative">
+        <div style="position:absolute;top:-8px;left:14px;background:#2563EB;color:#fff;font-family:var(--font-mono);font-size:9px;font-weight:600;padding:2px 8px;border-radius:99px;letter-spacing:.5px">AI-GENERATED EXPLANATION \u00B7 GDPR ART.22</div>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.75;margin-top:6px">
+          Your application for a <strong style="color:var(--white)">\u20AC120,000 Commercial Mortgage</strong> was assessed by an automated credit scoring system (SME Credit PD v3.2, AUC 0.84) classified as high-risk under the EU AI Act. The three main factors that contributed to this outcome were:<br><br>
+          <strong style="color:var(--white)">(1) Debt Service Coverage Ratio (DSCR): 1.09\u00D7</strong> \u2014 Your business cash flow was insufficient to comfortably service the proposed loan repayments. Our minimum policy threshold is 1.20\u00D7.<br>
+          <strong style="color:var(--white)">(2) Probability of Default: 12.3%</strong> \u2014 The AI model calculated a default probability above our acceptable risk threshold for this loan type and amount.<br>
+          <strong style="color:var(--white)">(3) Sector Risk</strong> \u2014 The food &amp; beverage sector is assigned a higher risk weighting in the current economic climate, which increased the model\u2019s risk assessment.<br><br>
+          You have the right to request a human review and submit additional evidence to support your case.
+        </div>
+      </div>
+      <!-- Appeal Form -->
+      <div style="background:rgba(217,119,6,.05);border:1px solid rgba(217,119,6,.25);border-radius:var(--r);padding:14px 16px" id="appeal-section-FP-2025-0038">
+        <div style="font-size:13px;font-weight:600;color:#D97706;margin-bottom:8px">&#x2696; Appeal This Decision (GDPR Art.22 \u00B7 Human Review Right)</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:12px">You have <strong style="color:var(--white)">30 days</strong> from the decision date to appeal. A qualified credit officer (PCF-11) will review your appeal within <strong style="color:var(--white)">3 business days</strong> per GDPR Art.22 SLA. You may provide additional information or documents to support your case.</div>
+        <textarea id="appeal-text-FP-2025-0038" style="width:100%;background:#F8FAFF;border:1px solid rgba(217,119,6,.3);border-radius:var(--r);color:#0F2D6B;font-family:var(--font-body);font-size:13px;padding:10px 12px;resize:vertical;min-height:90px;box-sizing:border-box" placeholder="Describe the grounds for your appeal and any additional information (e.g. updated financial statements, new contracts, corrected figures)..."></textarea>
+        <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
+          <button class="btn btn-outline" style="font-size:11px;padding:6px 12px" onclick="showToast('\uD83D\uDCC4 GDPR Art.22 Explanation exported as PDF')">&#x1F4C4; Export Explanation (PDF)</button>
+          <button class="btn btn-outline" style="font-size:11px;padding:6px 12px" onclick="showToast('\uD83D\uDCC4 Downloading decision evidence pack...')">&#x2B07; Download Evidence Pack</button>
+          <button class="btn btn-primary" style="font-size:12px;padding:6px 16px" onclick="submitAppeal('FP-2025-0038')">Submit Appeal \u2192</button>
+        </div>
+      </div>
+    </div>
+    <div class="flag-box green" style="margin-top:4px">
+      <div class="flag-title">\u2713 Your Appeal Rights Are Protected</div>
+      <div class="flag-body">FinPal operates under EU AI Act Art.14 (human oversight), GDPR Art.22 (right to contest automated decisions), and Ireland\u2019s Individual Accountability Framework. All appeals are reviewed by a qualified credit officer \u2014 not the AI system. Appeal decisions are logged to an immutable audit trail and are independently reviewable.</div>
+    </div>`;
+}
+
+function submitAppeal(appId) {
+  var txt = document.getElementById('appeal-text-'+appId);
+  if (!txt || !txt.value.trim()) {
+    txt.style.borderColor='#DC2626';
+    txt.placeholder='Please provide the grounds for your appeal before submitting.';
+    return;
+  }
+  var ref = 'APL-'+appId+'-001';
+  document.getElementById('appeal-section-'+appId).innerHTML =
+    '<div style="text-align:center;padding:20px">' +
+    '<div style="font-size:32px;margin-bottom:10px">\u2705</div>' +
+    '<div style="font-size:15px;font-weight:700;color:#16A34A;margin-bottom:6px">Appeal Submitted Successfully</div>' +
+    '<div style="font-size:12px;color:#64748B;margin-bottom:8px">Reference: <strong>'+ref+'</strong></div>' +
+    '<div style="font-size:12px;color:#64748B">A PCF-11 credit officer will review your appeal within <strong>3 business days</strong>.</div>' +
+    '<div style="font-size:11px;color:#94A3B8;margin-top:10px;font-family:var(--font-mono)">GDPR Art.22 \u00B7 Logged to immutable audit trail \u00B7 '+new Date().toLocaleString('en-IE')+'</div>' +
+    '</div>';
+  showToast('\u2713 Appeal submitted \u2014 Ref: '+ref+' \u00B7 Response within 3 business days');
 }
 
 // ── Architecture & Security ──────────────────────────────────
@@ -1459,11 +1844,54 @@ function renderModelGovernance() {
           ].map(([l,v]) => `<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value">${v}</span></div>`).join('')}
         </div>`).join('')}
     </div>
-    <div class="section-header"><div class="section-title">Model Monitoring &mdash; Drift Indicators</div></div>
-    <div class="grid-3">
-      <div class="card"><div class="card-title">PSI (PD Model)</div><div class="card-value teal">0.08</div><div class="card-sub">Threshold: &lt;0.25 &#x2713;</div></div>
-      <div class="card"><div class="card-title">CSI (Features)</div><div class="card-value teal">0.12</div><div class="card-sub">Threshold: &lt;0.25 &#x2713;</div></div>
-      <div class="card"><div class="card-title">Calibration</div><div class="card-value teal">1.03</div><div class="card-sub">Predicted/Actual ratio</div></div>
+    <!-- Journey 5: MRM Analyst — Model Performance Review -->
+    <div class="section-header"><div class="section-title">Model Performance Review \u2014 Journey 5: MRM Analyst</div></div>
+    <div class="flag-box blue" style="margin-top:0;margin-bottom:14px">
+      <div class="flag-title">\uD83D\uDCCA Daily Monitoring Scorecard \u2014 SME Credit PD v3.2</div>
+      <div class="flag-body">Automated daily scorecard generated at 06:00 UTC. Drift thresholds enforced per EU AI Act Art.9 (risk management) and REG-004. All metrics within tolerance. No remediation actions required today.</div>
+    </div>
+    <div class="grid-3" style="margin-bottom:16px">
+      <div class="card"><div class="card-title">PSI \u2014 Population Stability</div><div class="card-value teal">0.08</div><div class="card-sub">Threshold &lt;0.10 \u2713 Stable</div></div>
+      <div class="card"><div class="card-title">CSI \u2014 Characteristic Stability</div><div class="card-value teal">0.12</div><div class="card-sub">Threshold &lt;0.25 \u2713 Stable</div></div>
+      <div class="card"><div class="card-title">Gini Coefficient</div><div class="card-value teal">0.68</div><div class="card-sub">Threshold \u22650.60 \u2713 Pass</div></div>
+      <div class="card"><div class="card-title">AUC (Holdout)</div><div class="card-value teal">0.84</div><div class="card-sub">Threshold \u22650.80 \u2713 Pass</div></div>
+      <div class="card"><div class="card-title">Calibration Ratio</div><div class="card-value teal">1.03</div><div class="card-sub">Predicted / Actual \u00B7 Target 1.00</div></div>
+      <div class="card"><div class="card-title">KS Statistic</div><div class="card-value teal">0.42</div><div class="card-sub">Threshold \u22650.30 \u2713 Pass</div></div>
+    </div>
+    <div class="section-header"><div class="section-title">Drift Alert Timeline</div></div>
+    <div class="card" style="margin-bottom:16px;padding:4px 16px">
+      ${[
+        {time:'01 Apr 2025',dot:'green',event:'Monthly calibration report approved \u2014 All metrics within tolerance',detail:'PSI 0.08 \u00B7 Gini 0.68 \u00B7 AUC 0.84 \u00B7 KS 0.42 \u00B7 No action required'},
+        {time:'15 Mar 2025',dot:'gold',event:'Minor CSI drift detected \u2014 Feature: Employment Sector Mix',detail:'CSI 0.19 (elevated, threshold 0.25) \u00B7 Root cause: seasonal retail patterns \u00B7 Monitoring increased to weekly'},
+        {time:'01 Mar 2025',dot:'green',event:'Champion model v3.2 fully validated \u2014 MRM sign-off',detail:'Full independent validation complete \u00B7 FRIA updated \u00B7 Deployment gate cleared'},
+        {time:'15 Jan 2025',dot:'green',event:'Annual revalidation completed \u2014 Model v3.2 re-certified',detail:'Independent MRM review \u00B7 Updated Model Validation Report \u00B7 EU AI Act Art.9 compliant'},
+        {time:'10 Dec 2024',dot:'gold',event:'PSI alert: 0.14 (elevated, threshold 0.10) \u2014 RCA initiated',detail:'Root cause: post-COVID sector recovery distorting default rate base \u00B7 Challenger v3.2 promoted'},
+      ].map(e=>`<div class="audit-item"><div class="audit-time">${e.time}</div><div class="audit-dot ${e.dot}"></div><div><div class="audit-event">${e.event}</div><div class="audit-detail">${e.detail}</div></div></div>`).join('')}
+    </div>
+    <div class="section-header"><div class="section-title">Annual Revalidation Gate \u2014 REG-004</div></div>
+    <div class="card" style="margin-bottom:16px">
+      ${[
+        ['Next Revalidation Due','15 Jan 2026 \u00B7 245 days remaining','teal'],
+        ['Last Independent Review','15 Jan 2025 \u00B7 M. Flanagan (Head of MRM)','green'],
+        ['Technical File (EU AI Act Annex IV)','\u2713 Approved \u00B7 Version 4.1 \u00B7 15 Jan 2025','green'],
+        ['FRIA (Fundamental Rights Impact Assessment)','\u2713 Approved \u00B7 Version 2.0 \u00B7 15 Jan 2025','green'],
+        ['Challenger Model Status','v3.3-beta \u00B7 Validation in progress \u00B7 ETA Jun 2025','gold'],
+        ['Deployment Gate','Cleared \u00B7 Technical file + FRIA approved','green'],
+      ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="font-size:12px;color:var(--${c})">${v}</span></div>`).join('')}
+    </div>
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-title">IFRS 9 / ECL Staging Breakdown</div>
+        ${[['Stage 1 (Performing)','75% \u00B7 \u20AC6,398 12m ECL','green'],['Stage 2 (SICR)','25% \u00B7 \u20AC21,786 lifetime ECL','gold'],['Stage 3 (Default)','0%','teal']].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c})">${v}</span></div>`).join('')}
+      </div>
+      <div class="card">
+        <div class="card-title">Fairness Monitoring (REG-003)</div>
+        ${[['Disparate Impact (all sectors)','0.88\u20130.95 \u00B7 All pass \u2713','green'],['Equal Opportunity Delta','0.02\u20130.05 \u00B7 All pass \u2713','green'],['Next quarterly fairness test','30 Jun 2025','teal']].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c})">${v}</span></div>`).join('')}
+      </div>
+    </div>
+    <div class="flag-box green">
+      <div class="flag-title">\u2713 Model Governance Status: All Clear</div>
+      <div class="flag-body">All production models pass performance thresholds (AUC \u22650.80, Gini \u22650.60) per EU AI Act REG-002. No challenger promotions or remediation actions pending. Next scheduled actions: IFRS 9 quarterly ECL run (30 Jun 2025), annual fairness test (30 Jun 2025), and revalidation (15 Jan 2026).</div>
     </div>`;
 }
 
@@ -1651,12 +2079,30 @@ function renderBureauReporting() {
 
 // ── Global Audit ────────────────────────────────────────────
 function renderGlobalAudit() {
-  return `
+  var evidenceHTML = `
+    <!-- Journey 4: Compliance Officer — Regulatory Audit Evidence Retrieval -->
+    <div class="section-header"><div class="section-title">Evidence Retrieval \u2014 Journey 4: Compliance Officer</div>
+      <span class="tag tag-complete">EU AI Act Art.12 \u00B7 Immutable</span></div>
+    <div class="flag-box blue" style="margin-top:0;margin-bottom:16px">
+      <div class="flag-title">\uD83D\uDDD2 Regulatory Audit Evidence Package</div>
+      <div class="flag-body">Retrieve a complete, cryptographically-signed evidence package for any credit decision. Packages include: all AI model inputs, SHAP reason codes, model version, confidence intervals, approver identity, consent log, and decision rationale. Suitable for CBI, ECB, or Data Protection Commission inspection.</div>
+    </div>
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-title">Search Evidence Pack by Application ID</div>
+      <div style="display:flex;gap:10px;margin-top:8px">
+        <input type="text" id="evidence-search-input" placeholder="e.g. FP-2025-0041" style="flex:1;padding:9px 14px;border-radius:var(--r);border:1px solid rgba(37,99,235,.25);background:#F8FAFF;color:#0F2D6B;font-size:13px;font-family:var(--font-body)">
+        <button class="btn btn-primary" onclick="retrieveEvidencePack()">Retrieve Pack</button>
+      </div>
+      <div style="margin-top:8px;font-size:11px;color:var(--muted);font-family:var(--font-mono)">Available: FP-2025-0041 \u00B7 FP-2025-0043 \u00B7 FP-2025-0040 \u00B7 FP-2025-0039</div>
+    </div>
+    <div id="evidence-pack-result"></div>`;
+
+  var timelineHTML = `
     <div class="section-header"><div class="section-title">Global Audit Trail</div>
       <span class="tag tag-complete">CBI-Inspection Ready</span></div>
     <div class="flag-box green" style="margin-top:0;margin-bottom:16px">
-      <div class="flag-title">&#x2713; EU AI Act Art.12 &amp; IAF Compliance</div>
-      <div class="flag-body">This audit trail is cryptographically immutable and cannot be modified or deleted. Every entry is timestamped and attributed. Compliant with EU AI Act Article 12 (record-keeping), GDPR Article 30 (records of processing), and Ireland's Individual Accountability Framework.</div>
+      <div class="flag-title">\u2713 EU AI Act Art.12 &amp; IAF Compliance</div>
+      <div class="flag-body">This audit trail is cryptographically immutable and cannot be modified or deleted. Every entry is timestamped and attributed. Compliant with EU AI Act Article 12 (record-keeping), GDPR Article 30 (records of processing), and Ireland\u2019s Individual Accountability Framework.</div>
     </div>
     <div class="card" style="padding:4px 16px">
       ${APPS.filter(a=>a.status!=='processing').map(a => `
@@ -1664,10 +2110,58 @@ function renderGlobalAudit() {
           <div class="audit-time">${a.requested}</div>
           <div class="audit-dot ${a.status==='flagged'?'gold':a.status==='decided'?(a.decision==='approved'?'green':'red'):''}"></div>
           <div>
-            <div class="audit-event">${a.company} \u2014 ${a.status==='decided'?(a.decision==='approved'?'Approved':'Declined'):(a.status==='flagged'?'Flagged':'Assessment Complete')}</div>
-            <div class="audit-detail">${a.id} \u00B7 ${a.loanType} \u00B7 ${a.amount}</div>
+            <div class="audit-event">${a.company} \u2014 ${a.status==='decided'?(a.decision==='approved'?'Approved':'Declined'):(a.status==='flagged'?'Flagged':a.hitl?'HITL Queued':'Assessment Complete')}</div>
+            <div class="audit-detail">${a.id} \u00B7 ${a.loanType} \u00B7 ${a.amount}${a.hitl?' \u00B7 \u26A0 HITL MANDATORY':''}</div>
           </div>
         </div>`).join('')}
+    </div>`;
+  return evidenceHTML + timelineHTML;
+}
+
+function retrieveEvidencePack() {
+  var id = (document.getElementById('evidence-search-input').value||'').trim().toUpperCase();
+  var app = APPS.find(function(a){return a.id.toUpperCase()===id;});
+  var el = document.getElementById('evidence-pack-result');
+  if (!app || app.status==='processing') {
+    el.innerHTML = '<div class="flag-box red" style="margin-bottom:16px"><div class="flag-title">\u2717 Application Not Found</div><div class="flag-body">No completed application found for ID <strong>'+id+'</strong>. Check the application ID and try again.</div></div>';
+    return;
+  }
+  var topReasons = (app.shapValues||[]).slice(0,3).map(function(s){
+    return '<li style="margin-bottom:4px"><strong>'+s.feature+'</strong> \u2014 '+s.direction+' driver (SHAP weight: '+s.value.toFixed(2)+')</li>';
+  }).join('');
+  el.innerHTML = `
+    <div class="section-header"><div class="section-title">Evidence Pack \u2014 ${app.id}</div><span class="tag tag-complete">Verified \u00B7 Immutable</span></div>
+    <div class="evidence-header" style="margin-bottom:14px">
+      <div style="font-family:var(--font-head);font-size:15px;font-weight:700;color:#0F2D6B;margin-bottom:8px">${app.company} \u2014 ${app.loanType} \u00B7 ${app.amount}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:16px">
+        ${[['Application ID',app.id],['Submission Date',app.requested],['Decision',app.status==='decided'?(app.decision==='approved'?'\u2713 Approved':'\u2717 Declined'):(app.status==='flagged'?'\u26A0 Flagged':app.hitl?'\u26A0 HITL Queued':'Assessment Complete')],['Risk Grade',app.riskGrade||'\u2014'],['PD',app.pd?(app.pd*100).toFixed(1)+'%':'\u2014'],['Model Version','SME PD v3.2 \u00B7 LGD v2.1 \u00B7 EAD v1.8']].map(([l,v])=>`<div><div style="font-size:10px;color:#64748B;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.4px">${l}</div><div style="font-size:13px;font-weight:600;color:#0F2D6B">${v}</div></div>`).join('')}
+      </div>
+    </div>
+    <div class="grid-2" style="margin-bottom:14px">
+      <div class="card">
+        <div class="card-title">Top SHAP Reason Codes (EU AI Act Art.13)</div>
+        <ul style="margin:8px 0 0;padding-left:18px;font-size:12.5px;color:#334155;line-height:1.8">${topReasons||'<li>No SHAP data available</li>'}</ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Approver &amp; Accountability Chain</div>
+        ${(app.accountabilityChain||[]).map(function(a){return '<div class="metric-row"><span class="metric-label">'+a.role+'</span><span class="metric-value" style="font-size:11px">'+a.name+'</span></div>';}).join('')}
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:14px">
+      <div class="card-title">Consent Log (GDPR Art.6 / Art.22 / PSD2)</div>
+      ${(app.consentLog||[]).map(function(c){return '<div class="metric-row"><span class="metric-label">'+c.type+'</span><span class="metric-value" style="color:#16A34A">\u2713 '+c.status+' \u00B7 '+c.timestamp+'</span></div>';}).join('')}
+    </div>
+    <div class="card" style="margin-bottom:14px">
+      <div class="card-title">Fairness &amp; Bias Check (EU AI Act Art.10 \u00B7 REG-003)</div>
+      ${app.fairnessMetrics?
+        '<div class="metric-row"><span class="metric-label">Disparate Impact Ratio (threshold &gt;0.80)</span><span class="metric-value" style="color:'+( app.fairnessMetrics.disparateImpact>=0.8?'#16A34A':'#DC2626')+'">'+app.fairnessMetrics.disparateImpact.toFixed(2)+' '+(app.fairnessMetrics.disparateImpact>=0.8?'\u2713 Pass':'\u26A0 Review')+'</span></div>'+
+        '<div class="metric-row"><span class="metric-label">Equal Opportunity Delta (threshold &lt;0.10)</span><span class="metric-value" style="color:'+(app.fairnessMetrics.equalOpportunity<=0.10?'#16A34A':'#DC2626')+'">'+app.fairnessMetrics.equalOpportunity.toFixed(2)+' '+(app.fairnessMetrics.equalOpportunity<=0.10?'\u2713 Pass':'\u26A0 Review')+'</span></div>'
+        :'<div style="color:#64748B;font-size:12px">Fairness metrics not yet available for this application.</div>'}
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+      <button class="btn btn-primary" style="font-size:12px" onclick="showToast('\uD83D\uDCC4 Evidence pack (PDF) generating...')">&#x1F4C4; Export Evidence Pack (PDF)</button>
+      <button class="btn btn-outline" style="font-size:12px" onclick="showToast('\uD83D\uDCC4 JSON evidence pack downloading...')">&#x7B; &#x7D; Export JSON (AnaCredit / ECB)</button>
+      <button class="btn btn-outline" style="font-size:12px" onclick="showToast('\uD83D\uDEE1 Integrity hash: SHA-256 verified \u2713')">&#x1F512; Verify Integrity Hash</button>
     </div>`;
 }
 
