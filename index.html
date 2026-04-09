@@ -13,7 +13,7 @@
   --navy: #0B1F3A; --navy-mid: #DBEAFE; --navy-dark: #0F2D6B;
   --teal: #2563EB; --teal-dark: #1D4ED8; --teal-glow: rgba(37,99,235,.15);
   --ice: #F0F6FA; --white: #FFFFFF; --slate: #334E68; --muted: #7A94AC;
-  --gold: #D97706; --red: #DC2626; --green: #16A34A;
+  --gold: #3B82F6; --red: #1E3A8A; --green: #2563EB;
   --bg: #EFF6FF; --panel: #FFFFFF; --border: rgba(37,99,235,.18);
   --font-head: 'Syne', sans-serif; --font-mono: 'DM Mono', monospace;
   --font-body: 'DM Sans', sans-serif; --r: 6px; --r-lg: 10px;
@@ -65,8 +65,8 @@ html, body { height:100%; background:var(--bg); color:var(--white); font-family:
 .btn-outline:hover { border-color:var(--teal); color:var(--teal); }
 .btn-primary { background:var(--teal); color:var(--navy-dark); font-weight:700; }
 .btn-primary:hover { background:#00bfad; }
-.btn-danger { background:transparent; border:1px solid rgba(232,76,76,.4); color:var(--red); }
-.btn-danger:hover { background:rgba(232,76,76,.1); }
+.btn-danger { background:transparent; border:1px solid rgba(30,58,138,.4); color:var(--red); }
+.btn-danger:hover { background:rgba(30,58,138,.1); }
 .btn:disabled { opacity:.4; pointer-events:none; }
 #content { flex:1; overflow:hidden; display:flex; flex-direction:column; }
 #app-header { padding:18px 24px 0; border-bottom:1px solid var(--border); }
@@ -76,9 +76,9 @@ html, body { height:100%; background:var(--bg); color:var(--white); font-family:
 .meta-chips { display:flex; gap:8px; flex-wrap:wrap; margin-top:6px; }
 .chip { padding:3px 10px; border-radius:99px; font-size:11px; font-family:var(--font-mono); border:1px solid var(--border); color:var(--muted); }
 .chip-teal { background:var(--teal-glow); color:var(--teal); border-color:rgba(0,168,150,.3); }
-.chip-gold { background:rgba(245,166,35,.1); color:var(--gold); border-color:rgba(245,166,35,.3); }
-.chip-red { background:rgba(232,76,76,.1); color:var(--red); border-color:rgba(232,76,76,.3); }
-.chip-green { background:rgba(46,204,113,.1); color:var(--green); border-color:rgba(46,204,113,.3); }
+.chip-gold { background:rgba(59,130,246,.1); color:var(--gold); border-color:rgba(59,130,246,.3); }
+.chip-red { background:rgba(30,58,138,.1); color:var(--red); border-color:rgba(30,58,138,.3); }
+.chip-green { background:rgba(37,99,235,.1); color:var(--green); border-color:rgba(37,99,235,.3); }
 .tabs { display:flex; gap:0; margin-top:4px; overflow-x:auto; }
 .tab { padding:10px 14px; font-size:12.5px; color:var(--muted); border-bottom:2px solid transparent; cursor:pointer; transition:all .15s; user-select:none; white-space:nowrap; }
 .tab:hover { color:var(--white); }
@@ -126,9 +126,9 @@ html, body { height:100%; background:var(--bg); color:var(--white); font-family:
 .metric-row:last-child { border-bottom:none; }
 .metric-label { font-size:13px; color:var(--muted); }
 .metric-value { font-family:var(--font-mono); font-size:14px; font-weight:500; color:var(--white); }
-.flag-box { background:rgba(245,166,35,.08); border:1px solid rgba(245,166,35,.35); border-radius:var(--r); padding:14px 16px; margin-top:12px; }
-.flag-box.red { background:rgba(232,76,76,.08); border-color:rgba(232,76,76,.35); }
-.flag-box.green { background:rgba(46,204,113,.08); border-color:rgba(46,204,113,.35); }
+.flag-box { background:rgba(59,130,246,.08); border:1px solid rgba(59,130,246,.35); border-radius:var(--r); padding:14px 16px; margin-top:12px; }
+.flag-box.red { background:rgba(30,58,138,.08); border-color:rgba(30,58,138,.35); }
+.flag-box.green { background:rgba(37,99,235,.08); border-color:rgba(37,99,235,.35); }
 .flag-box.blue { background:rgba(0,168,150,.06); border-color:rgba(0,168,150,.3); }
 .flag-title { font-size:13px; font-weight:600; color:var(--gold); margin-bottom:5px; display:flex; gap:8px; align-items:center; }
 .flag-box.red .flag-title { color:var(--red); } .flag-box.green .flag-title { color:var(--green); } .flag-box.blue .flag-title { color:var(--teal); }
@@ -153,9 +153,9 @@ html, body { height:100%; background:var(--bg); color:var(--white); font-family:
 .finding-label { font-size:12px; color:var(--muted); flex:1; }
 .finding-value { font-family:var(--font-mono); font-size:13px; color:var(--white); text-align:right; min-width:80px; }
 .finding-flag { font-size:11px; padding:1px 8px; border-radius:99px; margin-left:8px; }
-.flag-amber { background:rgba(245,166,35,.15); color:var(--gold); }
-.flag-green { background:rgba(46,204,113,.12); color:var(--green); }
-.flag-red { background:rgba(232,76,76,.12); color:var(--red); }
+.flag-amber { background:rgba(59,130,246,.15); color:var(--gold); }
+.flag-green { background:rgba(37,99,235,.12); color:var(--green); }
+.flag-red { background:rgba(30,58,138,.12); color:var(--red); }
 .decision-gate { background:var(--navy-dark); border:2px solid var(--border); border-radius:var(--r-lg); padding:20px 24px; margin-top:20px; }
 .decision-gate-title { font-family:var(--font-head); font-size:16px; font-weight:700; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
 .decision-gate-sub { font-size:12px; color:var(--muted); margin-bottom:16px; }
@@ -191,11 +191,11 @@ svg.sparkline { display:block; }
 .teal-glow-text { color:var(--teal); text-shadow:0 0 12px rgba(0,168,150,.5); }
 .tag { display:inline-flex; align-items:center; gap:4px; padding:3px 9px; border-radius:99px; font-size:11px; font-family:var(--font-mono); font-weight:500; }
 .tag-processing { background:var(--teal-glow); color:var(--teal); border:1px solid rgba(0,168,150,.3); }
-.tag-complete { background:rgba(46,204,113,.1); color:var(--green); border:1px solid rgba(46,204,113,.3); }
+.tag-complete { background:rgba(37,99,235,.1); color:var(--green); border:1px solid rgba(37,99,235,.3); }
 .tag-pending { background:rgba(122,148,172,.1); color:var(--muted); border:1px solid rgba(122,148,172,.2); }
-.tag-flagged { background:rgba(245,166,35,.1); color:var(--gold); border:1px solid rgba(245,166,35,.3); }
-.tag-danger { background:rgba(232,76,76,.1); color:var(--red); border:1px solid rgba(232,76,76,.3); }
-.decision-submitted { display:flex; align-items:center; gap:12px; padding:16px; background:rgba(46,204,113,.08); border:1px solid rgba(46,204,113,.3); border-radius:var(--r); }
+.tag-flagged { background:rgba(59,130,246,.1); color:var(--gold); border:1px solid rgba(59,130,246,.3); }
+.tag-danger { background:rgba(30,58,138,.1); color:var(--red); border:1px solid rgba(30,58,138,.3); }
+.decision-submitted { display:flex; align-items:center; gap:12px; padding:16px; background:rgba(37,99,235,.08); border:1px solid rgba(37,99,235,.3); border-radius:var(--r); }
 .decision-submitted-icon { font-size:24px; }
 .decision-submitted-text { font-size:13px; color:var(--green); font-weight:500; }
 .decision-submitted-sub { font-size:11px; color:var(--muted); font-family:var(--font-mono); margin-top:2px; }
@@ -234,12 +234,12 @@ html, body { background:var(--bg); color:#0F2D6B; }
 .doc-name { color:#0F2D6B; }
 .doc-meta { color:#64748B; }
 .flag-box { background:rgba(37,99,235,.05); border-color:rgba(37,99,235,.22); }
-.flag-box.red { background:rgba(220,38,38,.05); border-color:rgba(220,38,38,.25); }
-.flag-box.green { background:rgba(22,163,74,.05); border-color:rgba(22,163,74,.25); }
+.flag-box.red { background:rgba(30,58,138,.05); border-color:rgba(30,58,138,.25); }
+.flag-box.green { background:rgba(37,99,235,.05); border-color:rgba(37,99,235,.25); }
 .flag-box.blue { background:rgba(37,99,235,.05); border-color:rgba(37,99,235,.22); }
 .flag-title { color:#2563EB; }
-.flag-box.red .flag-title { color:#DC2626; }
-.flag-box.green .flag-title { color:#16A34A; }
+.flag-box.red .flag-title { color:#1E3A8A; }
+.flag-box.green .flag-title { color:#2563EB; }
 .flag-body { color:#334155; }
 .narrative-text { color:#64748B; }
 .narrative-text strong { color:#0F2D6B; }
@@ -280,7 +280,7 @@ html, body { background:var(--bg); color:#0F2D6B; }
 .tab { color:#64748B; }
 .tab:hover { color:#0F2D6B; }
 .tab.active { color:#2563EB; border-bottom-color:#2563EB; }
-.tab-alert { color:#D97706 !important; }
+.tab-alert { color:#3B82F6 !important; }
 .modal-title { color:#0F2D6B; }
 .modal-body { color:#64748B; }
 .decision-textarea { background:#F8FAFF; color:#0F2D6B; border-color:rgba(37,99,235,.25); }
@@ -288,7 +288,7 @@ html, body { background:var(--bg); color:#0F2D6B; }
 .decision-gate { background:#F8FAFF; border-color:rgba(37,99,235,.2); }
 .decision-gate-title { color:#0F2D6B; }
 .decision-gate-sub { color:#64748B; }
-.decision-submitted-text { color:#16A34A; }
+.decision-submitted-text { color:#2563EB; }
 .decision-submitted-sub { color:#64748B; }
 .modal-overlay { background:rgba(15,45,107,.72); }
 .evidence-header { background:linear-gradient(135deg,#EFF6FF,#DBEAFE); border-color:rgba(37,99,235,.2); }
@@ -340,8 +340,8 @@ input[type=text]::placeholder,input[type=password]::placeholder,textarea::placeh
 .login-btn:hover { background:#1d4ed8; }
 .login-error {
   display:none; margin-top:12px; padding:10px 14px;
-  background:#fef2f2; border:1px solid #fca5a5; border-radius:8px;
-  font-size:12px; color:#dc2626; font-family:var(--font-mono);
+  background:#EFF6FF; border:1px solid rgba(30,58,138,.3); border-radius:8px;
+  font-size:12px; color:#1E3A8A; font-family:var(--font-mono);
 }
 .login-footer {
   margin-top:24px; padding-top:16px; border-top:1px solid #e2e8f0;
@@ -350,8 +350,8 @@ input[type=text]::placeholder,input[type=password]::placeholder,textarea::placeh
 }
 /* ── Test Report ─────────────────────────── */
 .tr-badge{display:inline-flex;align-items:center;padding:2px 9px;border-radius:99px;font-size:10px;font-family:var(--font-mono);font-weight:600;white-space:nowrap;}
-.tr-pass{background:rgba(46,204,113,.12);color:var(--green);border:1px solid rgba(46,204,113,.3);}
-.tr-fail{background:rgba(232,76,76,.1);color:var(--red);border:1px solid rgba(232,76,76,.3);}
+.tr-pass{background:rgba(37,99,235,.12);color:var(--green);border:1px solid rgba(37,99,235,.3);}
+.tr-fail{background:rgba(30,58,138,.1);color:var(--red);border:1px solid rgba(30,58,138,.3);}
 .tr-th{text-align:left;padding:8px 10px;color:var(--muted);font-family:var(--font-mono);font-size:10px;letter-spacing:.5px;text-transform:uppercase;border-bottom:1px solid var(--border);font-weight:500;}
 .tr-td{padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top;}
 /* V2: SHAP bars */
@@ -365,9 +365,9 @@ input[type=text]::placeholder,input[type=password]::placeholder,textarea::placeh
 .shap-val { font-family:var(--font-mono); font-size:11px; width:50px; text-align:right; flex-shrink:0; }
 /* V2: ECL gauge */
 .ecl-stage-badge { display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:50%; font-family:var(--font-mono); font-size:16px; font-weight:700; }
-.ecl-stage-1 { background:rgba(46,204,113,.15); color:var(--green); border:2px solid var(--green); }
-.ecl-stage-2 { background:rgba(245,166,35,.15); color:var(--gold); border:2px solid var(--gold); }
-.ecl-stage-3 { background:rgba(232,76,76,.15); color:var(--red); border:2px solid var(--red); }
+.ecl-stage-1 { background:rgba(37,99,235,.15); color:var(--green); border:2px solid var(--green); }
+.ecl-stage-2 { background:rgba(59,130,246,.15); color:var(--gold); border:2px solid var(--gold); }
+.ecl-stage-3 { background:rgba(30,58,138,.15); color:var(--red); border:2px solid var(--red); }
 /* V2: Consent row */
 .consent-row { display:flex; align-items:center; gap:12px; padding:10px 14px; background:var(--panel); border:1px solid var(--border); border-radius:var(--r); margin-bottom:6px; }
 .consent-type { font-size:13px; color:var(--white); flex:1; }
@@ -381,12 +381,12 @@ input[type=text]::placeholder,input[type=password]::placeholder,textarea::placeh
 .pillar-row { background:var(--panel); border:1px solid var(--border); border-radius:var(--r); padding:14px 16px; margin-bottom:8px; }
 .pillar-num-badge { width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:11px; font-weight:700; flex-shrink:0; }
 .pillar-num-badge.p1 { background:rgba(0,168,150,.2); color:var(--teal); }
-.pillar-num-badge.p2 { background:rgba(46,204,113,.2); color:var(--green); }
-.pillar-num-badge.p3 { background:rgba(245,166,35,.2); color:var(--gold); }
-.pillar-num-badge.p4 { background:rgba(0,168,150,.18); color:var(--teal); }
-.pillar-num-badge.p5 { background:rgba(46,204,113,.15); color:var(--green); }
-.pillar-num-badge.p6 { background:rgba(0,168,150,.12); color:var(--teal); }
-.pillar-num-badge.p7 { background:rgba(245,166,35,.15); color:var(--gold); }
+.pillar-num-badge.p2 { background:rgba(37,99,235,.2); color:var(--green); }
+.pillar-num-badge.p3 { background:rgba(59,130,246,.2); color:var(--gold); }
+.pillar-num-badge.p4 { background:rgba(37,99,235,.18); color:var(--teal); }
+.pillar-num-badge.p5 { background:rgba(37,99,235,.15); color:var(--green); }
+.pillar-num-badge.p6 { background:rgba(37,99,235,.12); color:var(--teal); }
+.pillar-num-badge.p7 { background:rgba(59,130,246,.15); color:var(--gold); }
 .cf-box { background:rgba(0,168,150,0.05); border:1px solid rgba(0,168,150,0.2); border-radius:var(--r); padding:12px 14px; margin-bottom:8px; }
 .cf-row { display:flex; align-items:flex-start; gap:10px; padding:7px 0; border-bottom:1px solid rgba(255,255,255,.04); font-size:12px; }
 .cf-row:last-child { border-bottom:none; }
@@ -405,7 +405,7 @@ input[type=text]::placeholder,input[type=password]::placeholder,textarea::placeh
 .pf-purpose { font-size:11px; color:var(--muted); font-family:var(--font-mono); width:150px; }
 .pf-retention { font-size:11px; color:var(--muted); font-family:var(--font-mono); width:60px; text-align:center; }
 .pf-badge { font-size:10px; font-family:var(--font-mono); padding:2px 7px; border-radius:99px; }
-.pf-min { background:rgba(46,204,113,.1); color:var(--green); border:1px solid rgba(46,204,113,.25); }
+.pf-min { background:rgba(37,99,235,.1); color:var(--green); border:1px solid rgba(37,99,235,.25); }
 .group-fairness-row { display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid rgba(255,255,255,.04); }
 .group-fairness-row:last-child { border-bottom:none; }
 .gf-group { font-size:12px; color:var(--muted); width:170px; flex-shrink:0; }
@@ -1615,7 +1615,7 @@ function renderBorrowerPortal() {
     <div class="card" style="margin-bottom:16px">
       ${docs.map(d=>`
       <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(37,99,235,.08)">
-        <div style="width:26px;height:26px;border-radius:50%;background:rgba(22,163,74,.12);border:1px solid rgba(22,163,74,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#16A34A;font-size:11px;font-weight:700">\u2713</div>
+        <div style="width:26px;height:26px;border-radius:50%;background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#2563EB;font-size:11px;font-weight:700">\u2713</div>
         <div style="flex:1"><div style="font-size:13px;color:var(--white);font-weight:500">${d.name}</div><div style="font-size:11px;color:var(--muted);font-family:var(--font-mono)">${d.time}</div></div>
         <span class="tag tag-complete">Verified</span>
       </div>`).join('')}
@@ -1634,7 +1634,7 @@ function renderBorrowerPortal() {
 
     <!-- Journey 3: Previous Declined Application + Appeal -->
     <div class="section-header"><div class="section-title">Previous Application \u2014 Journey 3: Appeal Process</div></div>
-    <div class="card" style="margin-bottom:16px;border-left:3px solid #DC2626">
+    <div class="card" style="margin-bottom:16px;border-left:3px solid #1E3A8A">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px">
         <div>
           <div style="font-family:var(--font-head);font-size:14px;font-weight:700;color:var(--white)">Green Valley Bakery Ltd</div>
@@ -1655,10 +1655,10 @@ function renderBorrowerPortal() {
         </div>
       </div>
       <!-- Appeal Form -->
-      <div style="background:rgba(217,119,6,.05);border:1px solid rgba(217,119,6,.25);border-radius:var(--r);padding:14px 16px" id="appeal-section-FP-2025-0038">
-        <div style="font-size:13px;font-weight:600;color:#D97706;margin-bottom:8px">&#x2696; Appeal This Decision (GDPR Art.22 \u00B7 Human Review Right)</div>
+      <div style="background:rgba(37,99,235,.05);border:1px solid rgba(37,99,235,.25);border-radius:var(--r);padding:14px 16px" id="appeal-section-FP-2025-0038">
+        <div style="font-size:13px;font-weight:600;color:#3B82F6;margin-bottom:8px">&#x2696; Appeal This Decision (GDPR Art.22 \u00B7 Human Review Right)</div>
         <div style="font-size:12px;color:var(--muted);margin-bottom:12px">You have <strong style="color:var(--white)">30 days</strong> from the decision date to appeal. A qualified credit officer (PCF-11) will review your appeal within <strong style="color:var(--white)">3 business days</strong> per GDPR Art.22 SLA. You may provide additional information or documents to support your case.</div>
-        <textarea id="appeal-text-FP-2025-0038" style="width:100%;background:#F8FAFF;border:1px solid rgba(217,119,6,.3);border-radius:var(--r);color:#0F2D6B;font-family:var(--font-body);font-size:13px;padding:10px 12px;resize:vertical;min-height:90px;box-sizing:border-box" placeholder="Describe the grounds for your appeal and any additional information (e.g. updated financial statements, new contracts, corrected figures)..."></textarea>
+        <textarea id="appeal-text-FP-2025-0038" style="width:100%;background:#F8FAFF;border:1px solid rgba(37,99,235,.3);border-radius:var(--r);color:#0F2D6B;font-family:var(--font-body);font-size:13px;padding:10px 12px;resize:vertical;min-height:90px;box-sizing:border-box" placeholder="Describe the grounds for your appeal and any additional information (e.g. updated financial statements, new contracts, corrected figures)..."></textarea>
         <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
           <button class="btn btn-outline" style="font-size:11px;padding:6px 12px" onclick="showToast('\uD83D\uDCC4 GDPR Art.22 Explanation exported as PDF')">&#x1F4C4; Export Explanation (PDF)</button>
           <button class="btn btn-outline" style="font-size:11px;padding:6px 12px" onclick="showToast('\uD83D\uDCC4 Downloading decision evidence pack...')">&#x2B07; Download Evidence Pack</button>
@@ -1675,7 +1675,7 @@ function renderBorrowerPortal() {
 function submitAppeal(appId) {
   var txt = document.getElementById('appeal-text-'+appId);
   if (!txt || !txt.value.trim()) {
-    txt.style.borderColor='#DC2626';
+    txt.style.borderColor='#1E3A8A';
     txt.placeholder='Please provide the grounds for your appeal before submitting.';
     return;
   }
@@ -1683,7 +1683,7 @@ function submitAppeal(appId) {
   document.getElementById('appeal-section-'+appId).innerHTML =
     '<div style="text-align:center;padding:20px">' +
     '<div style="font-size:32px;margin-bottom:10px">\u2705</div>' +
-    '<div style="font-size:15px;font-weight:700;color:#16A34A;margin-bottom:6px">Appeal Submitted Successfully</div>' +
+    '<div style="font-size:15px;font-weight:700;color:#2563EB;margin-bottom:6px">Appeal Submitted Successfully</div>' +
     '<div style="font-size:12px;color:#64748B;margin-bottom:8px">Reference: <strong>'+ref+'</strong></div>' +
     '<div style="font-size:12px;color:#64748B">A PCF-11 credit officer will review your appeal within <strong>3 business days</strong>.</div>' +
     '<div style="font-size:11px;color:#94A3B8;margin-top:10px;font-family:var(--font-mono)">GDPR Art.22 \u00B7 Logged to immutable audit trail \u00B7 '+new Date().toLocaleString('en-IE')+'</div>' +
@@ -2149,13 +2149,13 @@ function retrieveEvidencePack() {
     </div>
     <div class="card" style="margin-bottom:14px">
       <div class="card-title">Consent Log (GDPR Art.6 / Art.22 / PSD2)</div>
-      ${(app.consentLog||[]).map(function(c){return '<div class="metric-row"><span class="metric-label">'+c.type+'</span><span class="metric-value" style="color:#16A34A">\u2713 '+c.status+' \u00B7 '+c.timestamp+'</span></div>';}).join('')}
+      ${(app.consentLog||[]).map(function(c){return '<div class="metric-row"><span class="metric-label">'+c.type+'</span><span class="metric-value" style="color:#2563EB">\u2713 '+c.status+' \u00B7 '+c.timestamp+'</span></div>';}).join('')}
     </div>
     <div class="card" style="margin-bottom:14px">
       <div class="card-title">Fairness &amp; Bias Check (EU AI Act Art.10 \u00B7 REG-003)</div>
       ${app.fairnessMetrics?
-        '<div class="metric-row"><span class="metric-label">Disparate Impact Ratio (threshold &gt;0.80)</span><span class="metric-value" style="color:'+( app.fairnessMetrics.disparateImpact>=0.8?'#16A34A':'#DC2626')+'">'+app.fairnessMetrics.disparateImpact.toFixed(2)+' '+(app.fairnessMetrics.disparateImpact>=0.8?'\u2713 Pass':'\u26A0 Review')+'</span></div>'+
-        '<div class="metric-row"><span class="metric-label">Equal Opportunity Delta (threshold &lt;0.10)</span><span class="metric-value" style="color:'+(app.fairnessMetrics.equalOpportunity<=0.10?'#16A34A':'#DC2626')+'">'+app.fairnessMetrics.equalOpportunity.toFixed(2)+' '+(app.fairnessMetrics.equalOpportunity<=0.10?'\u2713 Pass':'\u26A0 Review')+'</span></div>'
+        '<div class="metric-row"><span class="metric-label">Disparate Impact Ratio (threshold &gt;0.80)</span><span class="metric-value" style="color:'+( app.fairnessMetrics.disparateImpact>=0.8?'#2563EB':'#1E3A8A')+'">'+app.fairnessMetrics.disparateImpact.toFixed(2)+' '+(app.fairnessMetrics.disparateImpact>=0.8?'\u2713 Pass':'\u26A0 Review')+'</span></div>'+
+        '<div class="metric-row"><span class="metric-label">Equal Opportunity Delta (threshold &lt;0.10)</span><span class="metric-value" style="color:'+(app.fairnessMetrics.equalOpportunity<=0.10?'#2563EB':'#1E3A8A')+'">'+app.fairnessMetrics.equalOpportunity.toFixed(2)+' '+(app.fairnessMetrics.equalOpportunity<=0.10?'\u2713 Pass':'\u26A0 Review')+'</span></div>'
         :'<div style="color:#64748B;font-size:12px">Fairness metrics not yet available for this application.</div>'}
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
@@ -2770,7 +2770,7 @@ function renderChecksTab(app) {
     <div style="margin-bottom:16px">
       ${(app.checks||[]).map(c => {
         const icon = {pass:'\u2705',warn:'\u26A0\uFE0F',fail:'\u274C'}[c.status];
-        const bc = {pass:'rgba(46,204,113,.2)',warn:'rgba(245,166,35,.2)',fail:'rgba(232,76,76,.25)'}[c.status];
+        const bc = {pass:'rgba(37,99,235,.2)',warn:'rgba(59,130,246,.2)',fail:'rgba(30,58,138,.25)'}[c.status];
         return `<div class="check-item" style="border-color:${bc}"><div class="check-status-icon">${icon}</div><div style="flex:1"><div class="check-name">${c.name}</div><div class="check-detail">${c.detail}</div></div><div class="check-timestamp">${c.time}</div></div>`;
       }).join('')}
     </div>
@@ -3000,8 +3000,8 @@ function runAllTests() {
   var failed=results.length-passed;
   var pct=Math.round(passed/results.length*100);
   document.getElementById('tr-summary').innerHTML=
-    '<div style="background:rgba(46,204,113,.1);color:var(--green);border:1px solid rgba(46,204,113,.3);padding:8px 16px;border-radius:8px;font-family:var(--font-mono);font-size:13px;font-weight:700;">\u2713 PASS: '+passed+'</div>'+
-    (failed?'<div style="background:rgba(232,76,76,.08);color:var(--red);border:1px solid rgba(232,76,76,.3);padding:8px 16px;border-radius:8px;font-family:var(--font-mono);font-size:13px;font-weight:700;">\u2717 FAIL: '+failed+'</div>':'')+
+    '<div style="background:rgba(37,99,235,.1);color:var(--green);border:1px solid rgba(37,99,235,.3);padding:8px 16px;border-radius:8px;font-family:var(--font-mono);font-size:13px;font-weight:700;">\u2713 PASS: '+passed+'</div>'+
+    (failed?'<div style="background:rgba(30,58,138,.08);color:var(--red);border:1px solid rgba(30,58,138,.3);padding:8px 16px;border-radius:8px;font-family:var(--font-mono);font-size:13px;font-weight:700;">\u2717 FAIL: '+failed+'</div>':'')+
     '<div style="background:rgba(0,168,150,.08);color:var(--teal);border:1px solid rgba(0,168,150,.25);padding:8px 16px;border-radius:8px;font-family:var(--font-mono);font-size:13px;font-weight:700;">TOTAL: '+results.length+'</div>'+
     '<div style="background:rgba(255,255,255,.05);color:var(--white);border:1px solid var(--border);padding:8px 16px;border-radius:8px;font-family:var(--font-mono);font-size:13px;font-weight:700;">PASS RATE: '+pct+'%</div>';
   var th='<tr><th class="tr-th">Status</th><th class="tr-th">ID</th><th class="tr-th">Feature File</th><th class="tr-th">Role</th><th class="tr-th">Scenario</th><th class="tr-th">Test Notes</th></tr>';
