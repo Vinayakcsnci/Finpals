@@ -488,7 +488,7 @@ input[type=text]::placeholder,input[type=password]::placeholder,textarea::placeh
         <span class="icon">&#x2B06;</span> Intake Pipeline
       </div>
       <div class="nav-item active" data-view="apps" onclick="switchView('apps')">
-        <span class="icon">&#x2B1B;</span> Applications <span class="nav-badge">4</span>
+        <span class="icon">&#x1F4CB;</span> Queue <span class="nav-badge" id="apps-queue-badge">4</span>
       </div>
       <div class="nav-item" data-view="audit" onclick="switchView('audit')">
         <span class="icon">&#x25E7;</span> Audit Trail
@@ -527,32 +527,6 @@ input[type=text]::placeholder,input[type=password]::placeholder,textarea::placeh
         <span class="icon">&#x1F4CB;</span> My Application
       </div>
     </div>
-    <div class="nav-section">
-      <div class="nav-label">Queue</div>
-      <div class="app-list" id="app-list"></div>
-    </div>
-    <div style="padding:12px;border-top:1px solid var(--border)">
-      <div style="font-size:11px;color:var(--muted);font-family:var(--font-mono)">
-        <div style="display:flex;justify-content:space-between;margin-bottom:4px">
-          <span>Jurisdiction</span><span style="color:var(--teal)" id="jurisdiction-label">EU / Ireland</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;margin-bottom:4px">
-          <span>Regulation</span><span style="color:var(--gold)">EU AI Act &middot; EBA LOM &middot; GDPR</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;margin-bottom:4px">
-          <span>Data residency</span><span style="color:var(--green)">&#x2713; Azure West EU</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;margin-bottom:4px">
-          <span>GDPR</span><span style="color:var(--green)">&#x2713; Art.22 Compliant</span>
-        </div>
-        <div style="display:flex;justify-content:space-between">
-          <span>Tenant Isolation</span><span style="color:var(--teal)">&#x2713; Dedicated</span>
-        </div>
-        <div style="display:flex;justify-content:space-between">
-          <span>Trustworthy AI</span><span style="color:var(--green)">&#x2713; 7 Pillars</span>
-        </div>
-      </div>
-    </div>
   </nav>
 
   <div id="main">
@@ -574,12 +548,7 @@ input[type=text]::placeholder,input[type=password]::placeholder,textarea::placeh
       </div>
     </div>
     <div id="content">
-      <div id="view-apps" class="panel active">
-        <div class="empty-state">
-          <div class="empty-icon">&#x1F4C2;</div>
-          <div class="empty-text">Select an application from the queue to begin</div>
-        </div>
-      </div>
+      <div id="view-apps" class="panel active"></div>
       <!-- Side panel views -->
       <div id="view-intake" class="side-panel"></div>
       <div id="view-models" class="side-panel"></div>
@@ -1150,6 +1119,10 @@ function applyRBAC() {
     var view = item.getAttribute('data-view');
     item.style.display = currentUser.allowedViews.indexOf(view) !== -1 ? '' : 'none';
   });
+  // Update apps queue badge: count apps needing action
+  var pending = APPS.filter(function(a){return a.status==='flagged'||a.hitl||(a.status==='complete'&&!a.hitl);}).length;
+  var badge = document.getElementById('apps-queue-badge');
+  if (badge) badge.textContent = pending;
   document.getElementById('logout-btn').style.display = '';
   document.getElementById('test-report-btn').style.display = '';
 }
@@ -1475,6 +1448,7 @@ function switchView(view) {
     const el = document.getElementById('view-apps');
     el.style.display=''; el.classList.add('active');
     if (currentAppId) loadApp(currentAppId);
+    else renderQueueView();
     return;
   }
   const panel = document.getElementById('view-' + view);
@@ -2512,26 +2486,109 @@ function renderTrustTab(app) {
 }
 
 // ── Render sidebar app list ─────────────────────────────────
-function renderAppList() {
-  const el = document.getElementById('app-list');
-  el.innerHTML = APPS.map(a => {
-    const dotClass = {complete:'dot-green',processing:'dot-teal',flagged:'dot-yellow',decided:'dot-grey'}[a.status];
-    const badgeColor = {complete:'var(--green)',processing:'var(--teal)',flagged:'var(--gold)',decided:'var(--muted)'}[a.status];
-    const name = a.company.length > 19 ? a.company.substring(0,18)+'\u2026' : a.company;
-    return `<div class="nav-item ${currentAppId===a.id?'active':''}" onclick="switchView('apps');loadApp('${a.id}')">
-      <span class="status-dot ${dotClass}" style="flex-shrink:0"></span>
-      <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${name}</span>
-      <span class="nav-badge" style="background:${badgeColor};color:var(--navy-dark);font-size:9px">${a.amount.replace('\u20AC','')}</span>
+function renderAppList() { /* sidebar list removed — queue is now the main apps view */ }
+
+// ── Queue view ──────────────────────────────────────────────
+function renderQueueView() {
+  currentAppId = null;
+  const el = document.getElementById('view-apps');
+  function priority(a) {
+    if (a.status === 'flagged') return {label:'HIGH',cls:'tag-danger',sort:0};
+    if (a.hitl) return {label:'HIGH · HITL',cls:'tag-danger',sort:1};
+    if (a.status === 'complete') return {label:'MEDIUM',cls:'tag-flagged',sort:2};
+    if (a.status === 'processing') return {label:'IN PROGRESS',cls:'tag-processing',sort:3};
+    return {label:'DONE',cls:'tag-pending',sort:4};
+  }
+  const sorted = [...APPS].sort((a,b) => priority(a).sort - priority(b).sort);
+  const statusLabel = {complete:'Awaiting Decision',flagged:'Flagged — Review',processing:'AI Assessment',decided:'Decided'};
+  const statusCls   = {complete:'tag-complete',flagged:'tag-danger',processing:'tag-processing',decided:'tag-pending'};
+  el.innerHTML = `
+    <div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <div>
+          <div style="font-family:var(--font-head);font-size:20px;font-weight:700;color:#0F2D6B">Credit Assessment Queue</div>
+          <div style="font-size:11px;color:#64748B;font-family:var(--font-mono);margin-top:3px">
+            ${sorted.filter(a=>a.status!=='decided').length} active &middot; ${sorted.filter(a=>a.status==='flagged'||a.hitl).length} require immediate attention
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <span class="tag tag-danger" style="font-size:11px">&#x26A0; HIGH: ${sorted.filter(a=>a.status==='flagged'||a.hitl).length}</span>
+          <span class="tag tag-flagged" style="font-size:11px">MEDIUM: ${sorted.filter(a=>a.status==='complete'&&!a.hitl).length}</span>
+          <span class="tag tag-pending" style="font-size:11px">DONE: ${sorted.filter(a=>a.status==='decided').length}</span>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid rgba(37,99,235,.15);border-radius:var(--r-lg);overflow:hidden">
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <thead>
+            <tr style="background:#EFF6FF;border-bottom:2px solid rgba(37,99,235,.18)">
+              <th style="padding:10px 14px;text-align:left;font-family:var(--font-mono);font-size:10px;font-weight:600;color:#64748B;letter-spacing:.5px;text-transform:uppercase;white-space:nowrap">Priority</th>
+              <th style="padding:10px 14px;text-align:left;font-family:var(--font-mono);font-size:10px;font-weight:600;color:#64748B;letter-spacing:.5px;text-transform:uppercase">Ref</th>
+              <th style="padding:10px 14px;text-align:left;font-family:var(--font-mono);font-size:10px;font-weight:600;color:#64748B;letter-spacing:.5px;text-transform:uppercase">Company / Sector</th>
+              <th style="padding:10px 14px;text-align:left;font-family:var(--font-mono);font-size:10px;font-weight:600;color:#64748B;letter-spacing:.5px;text-transform:uppercase">Loan Type</th>
+              <th style="padding:10px 14px;text-align:right;font-family:var(--font-mono);font-size:10px;font-weight:600;color:#64748B;letter-spacing:.5px;text-transform:uppercase">Amount</th>
+              <th style="padding:10px 14px;text-align:center;font-family:var(--font-mono);font-size:10px;font-weight:600;color:#64748B;letter-spacing:.5px;text-transform:uppercase">Grade</th>
+              <th style="padding:10px 14px;text-align:center;font-family:var(--font-mono);font-size:10px;font-weight:600;color:#64748B;letter-spacing:.5px;text-transform:uppercase">PD</th>
+              <th style="padding:10px 14px;text-align:center;font-family:var(--font-mono);font-size:10px;font-weight:600;color:#64748B;letter-spacing:.5px;text-transform:uppercase">DSCR</th>
+              <th style="padding:10px 14px;text-align:left;font-family:var(--font-mono);font-size:10px;font-weight:600;color:#64748B;letter-spacing:.5px;text-transform:uppercase">Status</th>
+              <th style="padding:10px 14px;text-align:left;font-family:var(--font-mono);font-size:10px;font-weight:600;color:#64748B;letter-spacing:.5px;text-transform:uppercase">Requested</th>
+              <th style="padding:10px 14px;text-align:center;font-family:var(--font-mono);font-size:10px;font-weight:600;color:#64748B;letter-spacing:.5px;text-transform:uppercase"></th>
+            </tr>
+          </thead>
+          <tbody>
+            ${sorted.map((a,i) => {
+              const p = priority(a);
+              const rowBg = i%2===0 ? '#fff' : '#FAFCFF';
+              const flagBorder = (a.status==='flagged'||a.hitl) ? 'border-left:3px solid #1E3A8A;' : 'border-left:3px solid transparent;';
+              return `<tr style="${flagBorder}background:${rowBg};cursor:pointer;transition:background .12s" onclick="loadApp('${a.id}')"
+                onmouseover="this.style.background='#EFF6FF'" onmouseout="this.style.background='${rowBg}'">
+                <td style="padding:12px 14px"><span class="tag ${p.cls}" style="font-size:10px;white-space:nowrap">${p.label}</span></td>
+                <td style="padding:12px 14px;font-family:var(--font-mono);font-size:11px;color:#64748B;white-space:nowrap">${a.id}</td>
+                <td style="padding:12px 14px">
+                  <div style="font-weight:600;color:#0F2D6B;white-space:nowrap">${a.company}</div>
+                  <div style="font-size:11px;color:#64748B;margin-top:2px">${a.sector}</div>
+                </td>
+                <td style="padding:12px 14px;color:#0F2D6B;white-space:nowrap">${a.loanType}</td>
+                <td style="padding:12px 14px;text-align:right;font-family:var(--font-mono);font-weight:600;color:#0F2D6B;white-space:nowrap">${a.amount}</td>
+                <td style="padding:12px 14px;text-align:center">
+                  ${a.riskGrade ? `<span style="font-family:var(--font-mono);font-size:12px;font-weight:700;color:${a.riskGrade<='B9'?'#2563EB':'#1E3A8A'}">${a.riskGrade}</span>` : '<span style="color:#94A3B8;font-size:11px">—</span>'}
+                </td>
+                <td style="padding:12px 14px;text-align:center;font-family:var(--font-mono);font-size:12px;color:${a.pd?(a.pd<0.05?'#2563EB':a.pd<0.10?'#3B82F6':'#1E3A8A'):'#94A3B8'}">
+                  ${a.pd ? (a.pd*100).toFixed(1)+'%' : '—'}
+                </td>
+                <td style="padding:12px 14px;text-align:center;font-family:var(--font-mono);font-size:12px;color:${a.dscr?(a.dscr>=1.2?'#2563EB':'#1E3A8A'):'#94A3B8'}">
+                  ${a.dscr ? a.dscr.toFixed(2)+'\u00D7' : '—'}
+                </td>
+                <td style="padding:12px 14px;white-space:nowrap">
+                  <span class="tag ${statusCls[a.status]||'tag-pending'}" style="font-size:10px">${statusLabel[a.status]||a.status}</span>
+                  ${a.hitl?'<span class="tag tag-flagged" style="font-size:9px;margin-left:4px">HITL</span>':''}
+                </td>
+                <td style="padding:12px 14px;font-family:var(--font-mono);font-size:11px;color:#64748B;white-space:nowrap">${a.requested}</td>
+                <td style="padding:12px 14px;text-align:center">
+                  <button class="btn btn-primary" style="font-size:11px;padding:5px 12px" onclick="event.stopPropagation();loadApp('${a.id}')">Open &#x2192;</button>
+                </td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
     </div>`;
-  }).join('');
+}
+
+// ── Back to queue ───────────────────────────────────────────
+function backToQueue() {
+  currentAppId = null;
+  clearInterval(processingTimer);
+  renderQueueView();
+  // keep nav item active
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const navApps = document.querySelector('.nav-item[data-view="apps"]');
+  if (navApps) navApps.classList.add('active');
 }
 
 // ── Load application ────────────────────────────────────────
 function loadApp(id) {
   currentAppId = id;
-  renderAppList();
   const app = APPS.find(a => a.id === id);
-  const content = document.getElementById('content');
   // hide side panels
   document.querySelectorAll('.side-panel').forEach(p=>{p.style.display='none';p.classList.remove('active');});
   const viewApps = document.getElementById('view-apps');
@@ -2545,6 +2602,9 @@ function renderProcessing(app, container) {
   processingStep = 0;
   container.innerHTML = `
     <div style="flex:1;overflow-y:auto;padding:24px">
+      <div style="margin-bottom:14px">
+        <button class="btn btn-outline" style="font-size:12px;padding:5px 12px" onclick="backToQueue()">&#x2190; Back to Queue</button>
+      </div>
       <div style="display:flex;gap:14px;margin-bottom:20px">
         <div class="card" style="flex:1"><div class="card-title">Company</div><div style="font-family:var(--font-head);font-size:18px;font-weight:700">${app.company}</div><div class="chip chip-teal" style="display:inline-block;margin-top:6px">${app.sector}</div></div>
         <div class="card" style="flex:1"><div class="card-title">Loan Requested</div><div class="card-value teal">${app.amount}</div><div class="card-sub">${app.loanType}</div></div>
@@ -2661,6 +2721,9 @@ function renderFullApp(app, container) {
   const gradeColor = app.riskGrade && app.riskGrade.startsWith('A') ? 'teal' : app.riskGrade && app.riskGrade.startsWith('B') ? 'green' : app.riskGrade && app.riskGrade.startsWith('C') ? 'gold' : 'red';
 
   container.innerHTML = `
+    <div style="margin-bottom:12px">
+      <button class="btn btn-outline" style="font-size:12px;padding:5px 12px" onclick="backToQueue()">&#x2190; Back to Queue</button>
+    </div>
     <div id="app-header">
       <div class="app-meta-row">
         <div style="flex:1">
