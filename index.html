@@ -1924,81 +1924,182 @@ function renderPortfolioRisk() {
 
 // ── Compliance Dashboard ────────────────────────────────────
 function renderComplianceDashboard() {
+  var frameworks = [
+    {code:'EU AI Act',label:'EU AI Act (Annex III)',status:'compliant'},
+    {code:'GDPR',label:'GDPR Art.22 / SCHUFA',status:'compliant'},
+    {code:'EBA LOM',label:'EBA/GL/2020/06',status:'compliant'},
+    {code:'IFRS 9',label:'IFRS 9 / Financial Reporting',status:'compliant'},
+    {code:'DORA',label:'DORA (Reg. EU 2022/2554)',status:'compliant'},
+    {code:'PSD2',label:'PSD2 / Open Banking',status:'compliant'},
+    {code:'SEPA',label:'SEPA SCT Inst &amp; SDD',status:'compliant'},
+    {code:'CCR',label:'CCR &amp; AnaCredit (ECB)',status:'compliant'},
+  ];
+  var fwBadges = frameworks.map(function(f){
+    return '<div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 10px;background:#F0F6FF;border:1px solid rgba(37,99,235,.15);border-radius:var(--r);min-width:0;flex:1">'
+      +'<div style="width:28px;height:28px;border-radius:50%;background:rgba(37,99,235,.15);border:2px solid #2563EB;display:flex;align-items:center;justify-content:center;color:#2563EB;font-size:14px;font-weight:700">&#x2713;</div>'
+      +'<div style="font-family:var(--font-mono);font-size:10px;font-weight:700;color:#0F2D6B;text-align:center;letter-spacing:.3px">'+f.code+'</div>'
+      +'<div style="font-size:9px;color:#64748B;text-align:center;line-height:1.4">'+f.label+'</div>'
+      +'</div>';
+  }).join('');
   return `
     <div class="section-header"><div class="section-title">Regulatory Compliance Dashboard</div>
-      <span class="tag tag-complete">All Systems Compliant</span></div>
+      <span class="tag tag-complete">&#x2713; All 8 BRD Frameworks Compliant</span></div>
+    <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:nowrap;overflow-x:auto">${fwBadges}</div>
+
     <div class="card" style="margin-bottom:16px;border-left:3px solid var(--teal)">
       <div class="card-title">Data Sovereignty &amp; Tenant Isolation <span class="tag tag-complete">SaaS Architecture</span></div>
       ${[
-        ['Tenant Database Isolation','\u2713 Separate DB per lender &middot; no cross-tenant access','green'],
-        ['AI Model Isolation','\u2713 Dedicated model instance per lender &middot; no shared state','green'],
-        ['Infrastructure Isolation','\u2713 Separate compute &amp; networking per tenant &middot; Azure West EU','green'],
+        ['Tenant Database Isolation','\u2713 Separate DB per lender \u00B7 no cross-tenant access','green'],
+        ['AI Model Isolation','\u2713 Dedicated model instance per lender \u00B7 no shared state','green'],
+        ['Infrastructure Isolation','\u2713 Separate compute &amp; networking per tenant \u00B7 Azure West EU','green'],
         ['Vendor Data Access','\u2713 FinPal vendor has zero access to lender application data','green'],
         ['No External AI Training','\u2713 Lender data never used to train shared or external models','green'],
-        ['PII Anonymisation','\u2713 PII stripped before model processing &middot; PII Vault isolated','green'],
+        ['PII Anonymisation','\u2713 PII stripped before model processing \u00B7 PII Vault isolated','green'],
         ['CBI Regulatory Position','\u2713 Tenant isolation reduces high-risk AI classification burden','teal'],
       ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c})">${v}</span></div>`).join('')}
     </div>
+
     <div class="grid-2" style="margin-bottom:16px">
       <div class="card">
-        <div class="card-title">EU AI Act (High-Risk) <span class="tag tag-danger">HIGH-RISK</span></div>
+        <div class="card-title">EU AI Act (High-Risk \u00B7 Annex III) <span class="tag tag-danger">HIGH-RISK</span></div>
         ${[
-          ['Art.9 Risk Management','&#x2713; Active','green'],
-          ['Art.10 Data Governance','&#x2713; Feature store w/ lineage','green'],
-          ['Art.11 Technical Docs','&#x2713; Complete','green'],
-          ['Art.12 Record-Keeping','&#x2713; Immutable audit logs','green'],
-          ['Art.13 Transparency','&#x2713; SHAP explanations','green'],
-          ['Art.14 Human Oversight','&#x2713; HITL queues active','green'],
-          ['Art.15 Accuracy/Robustness','&#x2713; Model validation current','green'],
-        ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c})">${v}</span></div>`).join('')}
+          ['Art.9 Risk Management System','\u2713 Documented process \u00B7 design, testing, monitoring','green'],
+          ['Art.10 Data Governance','\u2713 Feature store w/ lineage \u00B7 bias assessments','green'],
+          ['Art.11 Technical Documentation','\u2713 Annex IV model cards \u00B7 version-controlled','green'],
+          ['Art.12 Record-Keeping','\u2713 Immutable audit logs \u00B7 cryptographically signed','green'],
+          ['Art.13 Transparency','\u2713 SHAP explanations \u00B7 plain-language output','green'],
+          ['Art.14 Human Oversight','\u2713 HITL queues \u00B7 configurable thresholds \u00B7 override log','green'],
+          ['Art.15 Accuracy &amp; Robustness','\u2713 Model validation current \u00B7 adversarial testing','green'],
+          ['Conformity &amp; EU Registration','\u2713 Self-assessment complete \u00B7 EU DB registration ready','green'],
+          ['Post-Market Monitoring','\u2713 PSI/CSI drift alerts \u00B7 adverse outcome pipeline','green'],
+        ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c});font-size:11px;text-align:right;max-width:50%">${v}</span></div>`).join('')}
       </div>
       <div class="card">
-        <div class="card-title">GDPR &amp; Data Protection</div>
+        <div class="card-title">GDPR Art.22 &amp; Data Protection <span class="tag tag-complete">SCHUFA-Aligned</span></div>
         ${[
-          ['Art.6 Lawful Basis','&#x2713; Consent + Legitimate Interest','green'],
-          ['Art.13/14 Transparency','&#x2713; Notices at consent point','green'],
-          ['Art.22 Automated Decisions','&#x2713; HITL + explanation + appeal','green'],
-          ['Art.25 Privacy by Design','&#x2713; PII Vault + minimization','green'],
-          ['Art.35 DPIA','&#x2713; Completed','green'],
-          ['Data Subject Rights','&#x2713; Portal active','green'],
-          ['SCHUFA Ruling Compliance','&#x2713; Meaningful human oversight','green'],
-        ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c})">${v}</span></div>`).join('')}
+          ['Art.6 + Art.22 Lawful Basis','\u2713 Documented for all automated decisions','green'],
+          ['Art.13/14 Transparency','\u2713 Notices at consent point \u00B7 plain language','green'],
+          ['Art.22 Automated Decisions','\u2713 HITL + SHAP explanation + appeal path','green'],
+          ['Meaningful Human Review','\u2713 Credit officer gate on any auto-decline','green'],
+          ['Art.25 Privacy by Design','\u2713 PII Vault + data minimisation active','green'],
+          ['Art.35 DPIA','\u2713 Completed \u00B7 annual review scheduled','green'],
+          ['Data Subject Rights','\u2713 Access, rectification, erasure, portability','green'],
+          ['Contestation / Appeal','\u2713 Formal workflow \u00B7 30-day SLA \u00B7 outcome logged','green'],
+          ['Records of Logic','\u2713 Immutable log: factors, model version, score band','green'],
+          ['SCHUFA Ruling Compliance','\u2713 Meaningful human oversight enforced','green'],
+        ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c});font-size:11px;text-align:right;max-width:50%">${v}</span></div>`).join('')}
       </div>
     </div>
-    <div class="grid-2">
+
+    <div class="grid-2" style="margin-bottom:16px">
       <div class="card">
-        <div class="card-title">EBA LOM (EBA/GL/2020/06)</div>
+        <div class="card-title">EBA Loan Origination &amp; Monitoring <span style="font-size:10px;color:#64748B;font-family:var(--font-mono)">EBA/GL/2020/06</span></div>
         ${[
-          ['Credit Risk Policy','&#x2713; Documented','green'],
-          ['Pricing Framework','&#x2713; Risk-based APR active','green'],
-          ['Collateral Valuation','&#x2713; Independent valuation','green'],
-          ['Monitoring/EWI','&#x2713; Behavioral triggers active','green'],
-          ['Data Infrastructure','&#x2713; Quality controls active','green'],
-        ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c})">${v}</span></div>`).join('')}
+          ['Credit Risk Policy &amp; Appetite','\u2713 Configured per tenant/jurisdiction','green'],
+          ['Creditworthiness Assessment','\u2713 Financial ratios, cash-flow projections, sector risk','green'],
+          ['Pricing Governance','\u2713 Risk-based APR engine \u00B7 pricing audit trail','green'],
+          ['Collateral Valuation','\u2713 AVM / desktop / independent \u00B7 LTV + haircut','green'],
+          ['Monitoring &amp; EWI Triggers','\u2713 Covenant breach, arrears, financial deterioration','green'],
+          ['Data Infrastructure','\u2713 Structured capture \u00B7 retention per jurisdiction','green'],
+        ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c});font-size:11px;text-align:right;max-width:50%">${v}</span></div>`).join('')}
       </div>
       <div class="card">
-        <div class="card-title">Additional Frameworks</div>
+        <div class="card-title">IFRS 9 / Financial Reporting <span style="font-size:10px;color:#64748B;font-family:var(--font-mono)">IAS 39 Successor</span></div>
         ${[
-          ['DORA (Operational Resilience)','&#x2713; Aligned','green'],
-          ['MRM / SR 11-7','&#x2713; Framework active','green'],
-          ['IFRS 9 Provisioning','&#x2713; ECL engine live','green'],
-          ['Basel Credit Risk Principles','&#x2713; Policy/limits/controls','green'],
-          ['CBI IAF / SEAR (Ireland)','&#x2713; Named PCF holder logged &middot; decision audit trails active','green'],
-          ['FCA (UK) — CGAP / Consumer Duty','&#x2713; Responsible lending guardrails &middot; Consumer Duty aligned','green'],
-        ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c})">${v}</span></div>`).join('')}
+          ['ECL Stage 1 (12-Month)','\u2713 PD \u00D7 LGD \u00D7 EAD \u00B7 performing loans','green'],
+          ['ECL Stage 2 (Lifetime \u2014 SICR)','\u2713 Significant increase in credit risk triggered','green'],
+          ['ECL Stage 3 (Lifetime \u2014 Impaired)','\u2713 Credit-impaired classification \u00B7 individual assessment','green'],
+          ['Staging Logic &amp; SICR Criteria','\u2713 Configurable thresholds \u00B7 30-days past due backstop','green'],
+          ['Macro Scenario Overlays','\u2713 Base / Upside / Downside weighting \u00B7 sensitivity','green'],
+          ['Management Overlays','\u2713 Post-model overlay with governance approval workflow','green'],
+          ['IFRS 7/9 Disclosures','\u2713 Automated disclosure tables for finance reporting','green'],
+        ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c});font-size:11px;text-align:right;max-width:50%">${v}</span></div>`).join('')}
       </div>
     </div>
-    <div class="section-header"><div class="section-title">EU AI Act Technical Documentation (Art.11)</div></div>
+
+    <div class="section-header"><div class="section-title">DORA \u2014 Digital Operational Resilience Act</div>
+      <span style="font-size:10px;color:#64748B;font-family:var(--font-mono)">Regulation (EU) 2022/2554 \u00B7 In force Jan 2025</span></div>
+    <div class="card" style="margin-bottom:16px;border-left:3px solid #2563EB">
+      <div class="grid-2" style="gap:0">
+        <div style="padding-right:16px;border-right:1px solid rgba(37,99,235,.1)">
+          ${[
+            ['ICT Risk Management Framework','\u2713 ICT risk register, risk appetite &amp; control library documented','green'],
+            ['Incident Classification &amp; Reporting','\u2713 Major/non-major classification \u00B7 regulatory notification workflow','green'],
+            ['Digital Operational Resilience Testing','\u2713 Annual TLPT \u00B7 vulnerability assessments \u00B7 BCP/DR tests','green'],
+          ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c});font-size:11px;text-align:right;max-width:48%">${v}</span></div>`).join('')}
+        </div>
+        <div style="padding-left:16px">
+          ${[
+            ['Third-Party Risk Management (TPRM)','\u2713 ICT provider register \u00B7 contractual clauses \u00B7 concentration risk','green'],
+            ['Information &amp; Intelligence Sharing','\u2713 Sector threat-intelligence sharing arrangements active','green'],
+            ['ICT Business Continuity (RTO/RPO)','\u2713 RTO \u2264 4h \u00B7 RPO \u2264 1h \u00B7 failover architecture documented','green'],
+          ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c});font-size:11px;text-align:right;max-width:48%">${v}</span></div>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-title">PSD2 / Open Banking <span style="font-size:10px;color:#64748B;font-family:var(--font-mono)">EU 2015/2366</span></div>
+        ${[
+          ['AIS \u2014 Account Information Services','\u2713 Consent-based bank data via certified AIS connector','green'],
+          ['PIS \u2014 Payment Initiation Services','\u2713 Loan disbursement via PIS where applicable','green'],
+          ['Strong Customer Authentication (SCA)','\u2713 PSD2-compliant SCA flows for borrower auth','green'],
+          ['Consent Management','\u2713 Granular capture, storage &amp; revocation \u00B7 GDPR-aligned','green'],
+          ['TPP Connectivity','\u2713 Open Banking aggregators \u00B7 EU/EEA markets covered','green'],
+          ['Open Banking Data in Underwriting','\u2713 Bank statements auto-ingested \u00B7 12-month history','green'],
+        ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c});font-size:11px;text-align:right;max-width:50%">${v}</span></div>`).join('')}
+      </div>
+      <div class="card">
+        <div class="card-title">SEPA Payments <span style="font-size:10px;color:#64748B;font-family:var(--font-mono)">SCT Inst &amp; SDD Core/B2B</span></div>
+        ${[
+          ['SCT Inst \u2014 Instant Disbursement','\u2713 \u226410s end-to-end \u00B7 24/7/365 \u00B7 IBAN-to-IBAN','green'],
+          ['SDD Core \u2014 Recurring Collection','\u2713 Pre-notification + mandate management active','green'],
+          ['SDD B2B \u2014 Corporate Collections','\u2713 Enhanced mandate controls for corporate borrowers','green'],
+          ['Mandate Registry','\u2713 Digital SDD lifecycle: create, amend, cancel \u00B7 audit trail','green'],
+          ['R-Transaction Handling (R01\u2013R35)','\u2713 Automated retry &amp; escalation per SEPA rulebook','green'],
+          ['SEPA Availability SLA','\u2713 SCT Inst \u226599.5% \u00B7 SDD R-tx rate &lt;5%','green'],
+        ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c});font-size:11px;text-align:right;max-width:50%">${v}</span></div>`).join('')}
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-title">CCR &amp; AnaCredit Reporting <span style="font-size:10px;color:#64748B;font-family:var(--font-mono)">ECB Reg. 2016/867</span></div>
+        ${[
+          ['Ireland CCR Connector','\u2713 Auto-submission: new loans &amp; repayment history \u00B7 CBI','green'],
+          ['CCR Enquiry (Real-Time)','\u2713 Live CCR report retrieval in underwriting workflow','green'],
+          ['AnaCredit Reporting','\u2713 Granular loan-level data to ECB \u00B7 Reg. 2016/867','green'],
+          ['Data Quality Controls','\u2713 Schema validation before every CCR/AnaCredit TX','green'],
+          ['Monthly Reconciliation','\u2713 Submitted vs. platform records \u00B7 exception workflow','green'],
+          ['Error Rate SLA','\u2713 &lt;1% error rate on bureau submissions maintained','green'],
+        ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c});font-size:11px;text-align:right;max-width:50%">${v}</span></div>`).join('')}
+      </div>
+      <div class="card">
+        <div class="card-title">Additional Frameworks &amp; Standards</div>
+        ${[
+          ['MRM / SR 11-7','&#x2713; Model risk framework active','green'],
+          ['Basel Credit Risk Principles','&#x2713; Policy, limits &amp; controls documented','green'],
+          ['CBI IAF / SEAR (Ireland)','&#x2713; Named PCF-11 holder logged \u00B7 audit trails active','green'],
+          ['FCA / Consumer Duty (UK)','&#x2713; Responsible lending guardrails active','green'],
+          ['ISO 27001 / SOC 2','&#x2713; ISO 27001-aligned \u00B7 SOC 2 Type II in progress','teal'],
+          ['US ECOA / Metro2\u00AE (Optional)','&#x2713; Adapter modules available on request','teal'],
+        ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c});font-size:11px;text-align:right;max-width:50%">${v}</span></div>`).join('')}
+      </div>
+    </div>
+
+    <div class="section-header"><div class="section-title">EU AI Act Technical Documentation (Art.11 / Annex IV)</div></div>
     <div class="card" style="margin-bottom:16px">
       ${[
-        ['System Description &amp; Purpose','High-risk AI system — credit scoring &amp; automated underwriting &middot; Annex IV compliant','green'],
-        ['Training Data &amp; Validation','Feature store lineage &middot; PII anonymisation &middot; data quality controls documented','green'],
-        ['Model Architecture &amp; Logic','SHAP-explained PD/LGD/EAD models &middot; challenger framework documented','green'],
-        ['Performance Monitoring Plan','PSI/CSI drift metrics &middot; monthly calibration reports &middot; scheduled revalidation','green'],
-        ['Human Oversight Procedures','Mandatory underwriter gate &middot; escalation paths &middot; override logging documented','green'],
-        ['Post-Market Monitoring','Automated alerts on model drift &middot; adverse outcome reporting pipeline','green'],
+        ['System Description &amp; Purpose','High-risk AI system \u2014 credit scoring &amp; automated underwriting \u00B7 Annex IV compliant','green'],
+        ['Training Data &amp; Validation','Feature store lineage \u00B7 PII anonymisation \u00B7 data quality controls documented','green'],
+        ['Model Architecture &amp; Logic','SHAP-explained PD/LGD/EAD models \u00B7 challenger framework documented','green'],
+        ['Performance Monitoring Plan','PSI/CSI drift metrics \u00B7 monthly calibration reports \u00B7 scheduled revalidation','green'],
+        ['Human Oversight Procedures','Mandatory underwriter gate \u00B7 escalation paths \u00B7 override logging documented','green'],
+        ['Post-Market Monitoring','Automated alerts on model drift \u00B7 adverse outcome reporting pipeline','green'],
       ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c});font-size:11px;max-width:55%;text-align:right">${v}</span></div>`).join('')}
     </div>
+
     <div class="section-header"><div class="section-title">Pre-Assembled Vendor Due Diligence Pack</div></div>
     <div class="flag-box blue" style="margin-top:0;margin-bottom:16px">
       <div class="flag-title">&#x1F4CB; Ready for Lender &amp; Regulator Review</div>
@@ -2006,13 +2107,16 @@ function renderComplianceDashboard() {
     </div>
     <div class="card">
       ${[
-        ['Information Security Policy','ISO 27001-aligned &middot; last updated Mar 2025','green'],
-        ['GDPR Data Processing Agreement (DPA)','Standard contractual clauses &middot; Art.28 processor terms &middot; DPIA summary','green'],
-        ['EU AI Act Technical File (Annex IV)','High-risk AI system documentation &middot; CE marking readiness','green'],
-        ['Business Continuity &amp; DR Plan','RPO: 4h &middot; RTO: 8h &middot; annual test completed','green'],
-        ['Penetration Test Report (latest)','External pen test Q4 2024 &middot; all critical findings remediated','green'],
-        ['Sub-processor Register','Azure West EU (primary) &middot; no data transferred outside EEA','green'],
-        ['SOC 2 Type II (in progress)','Target certification Q3 2025 &middot; bridging controls in place','teal'],
+        ['Information Security Policy','ISO 27001-aligned \u00B7 last updated Mar 2025','green'],
+        ['GDPR Data Processing Agreement (DPA)','Standard contractual clauses \u00B7 Art.28 processor terms \u00B7 DPIA summary','green'],
+        ['EU AI Act Technical File (Annex IV)','High-risk AI system documentation \u00B7 CE marking readiness','green'],
+        ['Business Continuity &amp; DR Plan','RTO: \u22644h \u00B7 RPO: \u22641h \u00B7 annual test completed','green'],
+        ['Penetration Test Report (latest)','External pen test Q4 2024 \u00B7 all critical findings remediated','green'],
+        ['DORA Third-Party Register','All ICT providers listed \u00B7 contractual DORA clauses included','green'],
+        ['SEPA Participation Certificate','SCT Inst &amp; SDD Core/B2B participation confirmed by EPC','green'],
+        ['CCR / AnaCredit Authorisation','CBI CCR reporter code active \u00B7 ECB AnaCredit template v3.5','green'],
+        ['Sub-processor Register','Azure West EU (primary) \u00B7 no data transferred outside EEA','green'],
+        ['SOC 2 Type II (in progress)','Target certification Q3 2025 \u00B7 bridging controls in place','teal'],
       ].map(([l,v,c])=>`<div class="metric-row"><span class="metric-label">${l}</span><span class="metric-value" style="color:var(--${c});font-size:11px;max-width:55%;text-align:right">${v}</span></div>`).join('')}
     </div>`;
 }
